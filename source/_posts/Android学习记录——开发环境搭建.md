@@ -8,7 +8,7 @@ tags:
 - Genymotion
 
 ---
-![](http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowse-finish.png)
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif)
 
 使用Android Studio开发Android应用的基本流程，记录了从环境搭建到一个浏览器应用（见上图）开发完成的整个过程。
 <!-- more -->
@@ -17,24 +17,40 @@ tags:
 - [Android Studio](http://developer.android.com/sdk/index.html) 一款官方推荐的Android开发集成环境，基于IntelliJ IDEA
 - [Genymotion](https://www.genymotion.com/#!/download) Android模拟器，用于调试应用，也可以直接使用Android手机进行调试
 
+
 ## 安装Android Studio
 ### 1. 下载Android Studio
-可以直接从[Android官网](http://developer.android.com/sdk/index.html)上下载，完成之后进行安装即可。
+可以直接从[Android官网](http://developer.android.com/sdk/index.html)上下载，完成之后进行安装即可。如果访问有困难的话可以尝试从[这里](http://www.android-studio.org/index.php/download)下载。
 
 ### 2. 启动Android Studio
-启动时如提示未安装JVM，按照提示给出的链接下载安装后再次打开Android Studio。
+启动时如提示未安装JVM，请从[这里](http://www.oracle.com/technetwork/java/javase/downloads/index.html)下载安装JDK并[配置环境变量（Windows版本需要）](http://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html)后再次打开Android Studio。
 
 ### 3. 配置Android Studio
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_install_studio.PNG)
+
 第一次使用Android Studio会自动弹出导入配置提示框，保持默认选择ok继续；然后弹出欢迎界面，点击Next出现选择配置提示，保持默认即可，而后出现安卓SDK的License说明，Accept即可；最后选择Finish后会自动下载安装Android SDK，过程可能比较漫长请耐心等待，完成后再次点击Finish完成整个配置过程。
+
 
 ## 创建第一个应用——MyBrowse
 完成初始化配置后，Android Studio便会显示开始界面，现在便可以开始创建自己的应用了。
 ### 1. 选择Start a new Android Studio project
-### 2. 配置此应用的一些基本信息，如图所示
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_start.PNG)
+
+### 2. 配置此应用的一些基本信息，如下图所示
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_create.PNG)
+
 ### 3. 选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_version.PNG)
+
 ### 4. 选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认
-### 5. 为这个activity设置一些基本的参数，如图所示
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_activity.PNG)
+
+### 5. 为这个activity设置一些基本的参数，如下图所示
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_options.PNG)
+
 完成对应用的配置后，Android Studio会使用Gradle（一种自动构建工具）根据刚才的配置创建应用，结束后注意查看窗口下方有无Error Message，如果没有则说明应用创建成功。
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_main.PNG)
+
 
 ## 安装Genymotion
 创建完成后应用已经可以运行，下面安装Genymotion来测试下这个应用（如果使用真实Android手机测试参考[《Android Studio真机调试》](http://blog.csdn.net/zkxhhf/article/details/9270243)）。
@@ -42,13 +58,19 @@ tags:
 在[Genymotion官网](https://www.genymotion.com/#!/download)创建账号并邮件激活，之后便可下载安装Genymotion。
 
 ### 2. 创建虚拟Android手机
-首先启动genymotion，登录之前注册的账号；然后点击Add，选择一款与应用运行的Android平台版本相符的手机；最后下载完之后即可启动此手机。
+首先启动Genymotion，登录之前注册的账号；然后点击Add，选择一款与应用运行的Android平台版本相符的手机；最后下载完之后即可启动此手机。
 
 ### 3. 安装Android Studio的Genymotion插件
 此插件可以在Android Studio中方便地打开Genymotion里的虚拟Android手机。首先打开Android Studio，定位到菜单项File > Settings；然后选择Plugins，点击Browse Repositories；最后右击Genymotion选择Download and install即可。
 
+
 ## 运行应用
-点击Android Studio上方类似播放按钮的绿色按键，然后在弹出的Choose Device对话框中选择一款的（虚拟）Android手机即可，等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）。
+### 1. 点击Android Studio上方类似播放按钮的绿色按键，然后在弹出的Choose Device对话框中选择一款的（虚拟）Android手机
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_device.PNG)
+
+### 2. 等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_genymotion_device.PNG)
+
 
 ## 实现MyBrowse的功能
 刚才运行的应用除了在屏幕上显示一行文字外没有任何其他用处，下面将为这个应用添加浏览器的功能，这样就可以使用它上网了。
@@ -195,10 +217,13 @@ public class BrowseActivity extends ActionBarActivity {
 </manifest>
 ```
 
+**如果是Android Studio 1.0版本请将`android:icon="@mipmap/ic_launcher"`改为`android:icon="@drawable/ic_launcher"`。**
+
 
 ## 测试应用
 按之前运行应用中的方法打开修改后的应用，在顶部输入框中输入[http://baidu.com](http://baidu.com)，然后点击右侧的箭头，片刻之后便可在下方看到百度的首页了。
-![](http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowse-finish.png)
+![](http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif)
+
 
 ## 要点总结
 下面依照修改文件的顺序从界面、逻辑、权限三个方面对应用涉及的知识进行总结。
