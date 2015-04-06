@@ -25,11 +25,11 @@ Android Studio和Genymotion的基本使用方法可参考[《Android学习记录
 ## 创建应用——ExoPlayerTest
 ### 1. 使用Android Studio创建一个名为ExoPlayerTest的Android项目
 配置除了以下参数之外与MyBrowse项目基本一致：
-Minimum SDK: API 16: Android 4.1 (Jelly Bean)
-Activity Name: MainActivity
-Layout Name: activity_main
-Title: ExoPlayerTest
-Menu Resource Name: menu_main
+> Minimum SDK: API 16: Android 4.1 (Jelly Bean)
+> Activity Name: MainActivity
+> Layout Name: activity_main
+> Title: ExoPlayerTest
+> Menu Resource Name: menu_main
 
 ### 2. 获取ExoPlayer
 在Terminal中定位到ExoPlayerTest项目的上层目录，然后执行如下命令：
@@ -54,6 +54,9 @@ dependencies {
     compile project(':..:ExoPlayer:library')
 }
 ```
+
+
+### 4. 点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建
 
 
 ## 实现播放在线视频的功能
