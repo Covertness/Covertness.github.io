@@ -15,7 +15,7 @@ tags:
 <!-- more -->
 
 ## 需要用到的工具
-- [Android Studio](http://developer.android.com/sdk/index.html) Android集成开发环境
+- [Android Studio](http://developer.android.com/sdk/index.html) Android 集成开发环境
 - [Genymotion](https://www.genymotion.com/) Android 模拟器
 - [百度语音识别服务](http://developer.baidu.com/wiki/index.php?title=docs/cplat/media/voice) 提供云端语音识别
 
@@ -38,7 +38,7 @@ Android Studio 和 Genymotion 的基本使用方法可参考[《Android学习记
 目前最新版本为[1.6.2](http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-SDK-Android-1.6.2.zip)
 
 ### 3. 配置 SDK 库文件
-将 SDK 包中 libs 目录下的所有文件和文件夹复制到当前 app 项目下的 libs 目录中；然后再 Android Studio 中右击 galaxy.jar，选择 Add as library ，将其导入当前 app 项目；最后在项目 build.gradle 中指定 SDK 相应的 jni 库的目录，最终 build.gradle 文件如下所示。
+将 SDK 包中 libs 目录下的所有文件和文件夹复制到当前 app 项目下的 libs 目录中；然后再 Android Studio 中右击 galaxy.jar，选择 Add as library ，将其导入当前 app 项目；最后由于 SDK 中还包含 .so 库，还需在项目 build.gradle 中指定 jni 库的目录为 libs 目录。最终 build.gradle 文件如下所示。
 ```
 apply plugin: 'com.android.application'
 
@@ -308,19 +308,19 @@ class MyVoiceRecognitionListener implements VoiceRecognitionClient.VoiceClientSt
 ```
 
 ## 测试应用
-使用 Android 4.1 或以上版本的手机打开Listen，点击`听我说`按钮，看到`请说话`提示后对麦克风说一句话，稍后便可看到屏幕上显示自己刚说过的话了，如下图所示。
+使用 Android 4.1 或以上版本的手机打开 Listen ，点击`听我说`按钮，看到`请说话`提示后对麦克风说一句话，稍后便可看到屏幕上显示自己刚说过的话了，如下图所示。
 ![](http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif)
 
 ## 要点总结
 ### 1. 界面
-Listen主界面只有一个居中布局（`android:layout_centerInParent="true"`）的按钮，当启动语音识别后会出现一个[ProgressDialog](http://developer.android.com/reference/android/app/ProgressDialog.html)类型的对话框，ProgressDialog多用于告诉用户后台正在工作。
+Listen主界面只有一个居中布局（`android:layout_centerInParent="true"`）的按钮，当启动语音识别后会出现一个[ProgressDialog](http://developer.android.com/reference/android/app/ProgressDialog.html)类型的对话框，ProgressDialog多用于后台正在工作时告知用户等待。
 
 ### 2. 逻辑
-Listen首先对用户的讲话进行录音，然后通过网络将其发送至百度语音识别的云端进行处理，处理完成后的识别结果通过网络返回，最终显示在界面上。由于 SDK 已经对整个过程进行了封装，因而我们只需对其进行一些个性化的配置，并处理其返回的结果即可。
+Listen首先对用户的讲话进行录音，然后通过网络将其发送至百度语音识别的云端进行处理，完成后的识别结果通过网络返回，最终显示在界面上。由于 SDK 已经对整个过程进行了封装，因而我们只需对其进行一些个性化的配置，并处理其返回的结果即可。
 
 对其进行配置可通过VoiceRecognitionConfig来完成，目前 SDK 支持对语种、识别语言的领域等参数进行设置，具体可参考 SDK 中的 API 文档。
 
-对返回结果的处理是通过接口VoiceClientStatusChangeListener的实现来完成的。
+对返回结果的处理是通过实现接口VoiceRecognitionClient.VoiceClientStatusChangeListener来完成的。
 ```java
 class MyVoiceRecognitionListener implements VoiceRecognitionClient.VoiceClientStatusChangeListener {
     private final Context mainContext;
@@ -399,7 +399,7 @@ class MyVoiceRecognitionListener implements VoiceRecognitionClient.VoiceClientSt
 }
 ```
 
-可以看出其主要是通过状态变化（`onClientStatusChange`）来告知结果的。识别结果的捕获主要通过`CLIENT_STATUS_UPDATE_RESULTS`状态告知，需要注意的是在一次识别中此状态可能会被多次触发，识别结果每次都被全量返回，因而这个Demo仅保存了最终的识别结果。另外两个接口方法用来处理出错的情况，具体参考 SDK 中的[开发手册](http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-Android-SDK-Manual.pdf) 4.2 节。
+可以看出其主要是通过状态变化（`onClientStatusChange`）来告知结果的。识别结果的捕获主要通过`CLIENT_STATUS_UPDATE_RESULTS`状态告知，需要注意的是在一次识别过程中此状态可能会被多次触发，识别结果每次都被全量返回，因而这个Demo仅保存了最终的识别结果。另外两个接口方法用来处理出错的情况，具体可参考 SDK 中的[开发手册](http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-Android-SDK-Manual.pdf) 4.2 节。
 
 ### 3. AndroidManifest.xml
 SDK 需要如下权限才能正常运行，否则在初始化（`VoiceRecognitionClient.getInstance`）时应用便会崩溃。
