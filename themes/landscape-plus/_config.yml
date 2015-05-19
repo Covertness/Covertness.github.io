@@ -6,6 +6,7 @@ menu:
 # Content
 excerpt_link: Read More
 fancybox: false
+mathjax: false
 
 # Sidebar
 sidebar: right
@@ -24,7 +25,7 @@ links:
 
 # Miscellaneous
 google_analytics:
-favicon: /favicon.ico
+favicon: /favicon.png
 twitter:
 google_plus:
 fb_admins: 
