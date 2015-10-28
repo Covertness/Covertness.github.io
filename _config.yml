@@ -36,7 +36,7 @@ post_asset_folder: false
 relative_link: false
 highlight:
   enable: true
-  line_number: false
+  line_number: true
   tab_replace:
 
 # Category & Tag
@@ -81,45 +81,6 @@ disqus_shortname:
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
 theme: next
 exclude_generator:
-
-# =============================================================================
-# NexT Theme configuration
-# =============================================================================
-
-# 多说帐号
-duoshuo_shortname: covertness
-
-# DISQUS 帐号 （如果已经设置 多说 帐号，此选项将被跳过）
-disqus_shortname: your-disqus-shortname
-
-# JiaThis 分享服务
-jiathis: true
-
-# 多说 分享服务（必须启用多说）
-duoshuo_share: false
-
-# 社交链接，将在侧栏中显示
-social:
-  GitHub: https://github.com/wuyingfengsui
-  Weibo: http://weibo.com/wuyingfengsui
-  # 等等
-
-
-# Creative Commons 4.0 International License.
-# http://creativecommons.org/
-# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
-creative_commons: zero
-
-
-# 百度统计 ID，此 ID 是百度统计提供脚本中 hm.js? 后面那串字符，非百度统计帐号
-baidu_analytics: cbda4f399e81cfa6bc198a6b04182116
-
-# 站点起始时间
-since: 2014
-
-# =============================================================================
-# End NexT Theme configuration
-# =============================================================================
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html

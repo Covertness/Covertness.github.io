@@ -6,6 +6,21 @@ menu:
   archives: /archives
   tags: /tags
   #commonweal: /404.html
+  
+# Enable/Disable menu icons.
+# Icon Mapping:
+#   Map a menu item to a specific FontAwesome icon name.
+#   Key is the name of menu item and value is the name of FontAwsome icon.
+#   When an question mask icon presenting up means that the item has no mapping icon.
+menu_icons:
+  enable: true
+  # Icon Mapping.
+  home: home
+  about: user
+  categories: th
+  tags: tags
+  archives: archive
+  commonweal: heartbeat
 
 # Avatar (put the image into next/source/images/)
 # can be any image format supported by web browsers (JPEG,PNG,GIF,SVG,..)
@@ -21,6 +36,9 @@ keywords: "Covertness"
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
 rss: false
+
+# 站点起始时间
+since: 2014
 
 # Icon fonts
 # Place your font into next/source/fonts, specify directory-name and font-name here
@@ -52,13 +70,42 @@ sidebar: post
 #sidebar: always
 #sidebar: hide
 
+# Social Icons
+social_icons:
+  enable: true
+  # Icon Mappings
+  GitHub: github
+  Weibo: weibo
+  
+# Social links
+social:
+  GitHub: https://github.com/wuyingfengsui
+  Weibo: http://weibo.com/wuyingfengsui
 
 # Automatically scroll page to section which is under <!-- more --> mark.
 scroll_to_more: false
 
 
-# Automatically add list number to toc.
-toc_list_number: true
+# TOC in the Sidebar
+toc:
+  enable: true
+
+  # Automatically add list number to toc.
+  number: true
+  
+# Creative Commons 4.0 International License.
+# http://creativecommons.org/
+# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+creative_commons: zero
+
+# Custom Logo.
+# !!Only available for Default Scheme currently.
+# Options:
+#   enabled: [true/false] - Replace with specific image
+#   image: url-of-image   - Images's url
+custom_logo:
+  enabled: false
+  image:
 
 # Automatically Excerpt
 auto_excerpt:
@@ -69,6 +116,26 @@ auto_excerpt:
 # Note: this option is avialable only when the language is not `zh-Hans`
 use_font_lato: true
 
+
+# ---------------------------------------------------------------
+# Third Party Services Settings
+# ---------------------------------------------------------------
+
+# 多说帐号
+duoshuo_shortname: covertness
+
+# DISQUS 帐号
+# disqus_shortname: your-disqus-shortname
+
+# JiaThis 分享服务
+jiathis: true
+
+# 多说 分享服务（必须启用多说）
+duoshuo_share: false
+
+# 百度统计 ID，此 ID 是百度统计提供脚本中 hm.js? 后面那串字符，非百度统计帐号
+baidu_analytics: cbda4f399e81cfa6bc198a6b04182116
+
 # Make duoshuo show UA
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
@@ -77,10 +144,13 @@ duoshuo_info:
   admin_enable: true
   user_id: 9683346
 
-## DO NOT EDIT THE FOLLOWING SETTINGS
-## UNLESS YOU KNOW WHAT YOU ARE DOING
 
-# Use velocity to animate everything.
+#! ---------------------------------------------------------------
+#! DO NOT EDIT THE FOLLOWING SETTINGS
+#! UNLESS YOU KNOW WHAT YOU ARE DOING
+#! ---------------------------------------------------------------
+
+# Motion
 use_motion: true
 
 # Fancybox
@@ -93,4 +163,4 @@ js: js
 images: images
 
 # Theme version
-version: 0.4.4
+version: 0.4.5.2

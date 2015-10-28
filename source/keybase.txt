@@ -1,0 +1,74 @@
+==================================================================
+https://keybase.io/covertness
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://covertness.me
+  * I am covertness (https://keybase.io/covertness) on keybase.
+  * I have a public key with fingerprint DDD6 1DB9 7698 243C 4ED6  49CF D2F5 6ECB D474 4558
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010144328cf24881fc6925cfaaeb7d98c5a46c3292a2f2551fd5394d49079cc9f19c0a",
+            "fingerprint": "ddd61db97698243c4ed649cfd2f56ecbd4744558",
+            "host": "keybase.io",
+            "key_id": "d2f56ecbd4744558",
+            "kid": "010144328cf24881fc6925cfaaeb7d98c5a46c3292a2f2551fd5394d49079cc9f19c0a",
+            "uid": "b10d094b1c0826dd99378484d3950c19",
+            "username": "covertness"
+        },
+        "service": {
+            "hostname": "covertness.me",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1443190046,
+    "expire_in": 157680000,
+    "prev": "c69087ebce9d90ba83bdd436b7189aafd6d5e101b44d60e59bae7893d4ad1628",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.46
+Comment: https://keybase.io/crypto
+
+yMM7AnicrVJrTBxVGF0qUB4li6VVy1qQgaQiC8x7526l1QIpAUyLugYIZjsz984y
+pd1ddocFSpBaRIQ0vCxpKSXxETSijQ+oGuKjoAZwmxYLamnDw2XFYnwUChWlFWeI
+/tKf3j8397vnnO98J9/nEXfpwgIuL9u940pmfoB3oKNM91SQJaYKExywEjNXYSVo
+/UKHIHIr1hIZYmYMJ3CCpimSEyWS5jhCEllAMqLE80gwQcCJDE+zIkUCkiclkmEI
+CTIUoCENcBMQRSARQMR5zIhJst2GXE6XbFdUWQghS0ABmFjAkTQl0giyNBAlSEoM
+i0QB0iaaZhhOJRY73BpDNSfwbpQiO9Sa+rCu2/sP/P/su2xdTiBwiANaIEScI1kI
+AaBMHM3RkAIMLhJAA7qRy84fRipadHiQS7EjtxurNmJq3SOLSItWm+VfmBT1bcSc
+LofiEB2H1K9iRXGaNaZS6dSg5Uiw/i1iFWQ7VJNUCSrdLTvsmJlQkaIia6rayATA
+cZo1YqjCKbuQVdYQjInlcPVobZBH684CnDMhQUQAAlzgOUqAkKZYwURwgOclyEIG
+qREKNA1ZHDFA4JGJAxSkeUiwpJazG5XaHZgZqDZ5myrplm12XilzIax6cKAoUBcQ
+pgsO2qBtmC4sNPKfvfOHROp6Ol87+EFCf1nBjsf2Tr/6yVT+OLlSmtNXkl3xds1q
+xoI39r1tad7Zrc8qsTxqee6LPezPUTnB+olG35242ykfEaP7UtsTVyq3PVhQZNnw
+cHahL+VysLFx7kJoV1PmnfmdSW9ZhuNbDX0UmC/UHe2w2B4gs/qjanPGqKGfbsYl
+efoGT7XVPH/rvvGl4tSiE39EFu2PjphYdJzfpPA9Q31K+NHp4smRqffBE9e37P/G
+fnIk8caH/h03Ht+48ZbOEq03Hsibu/tFPSvUC2fNdc2PTpEl7uSZ1oaE3Da+e+HS
+9qqRjMpVGDR3Zknf8EZsTHdc/bcjLwTLQunNMNAX7/kt/ELczrGI8tra5YiBl3a3
+d5b7E8m1i2ttR06mbwotfOX7xOm9PzyJrkVuzTgvKZtrPLNvJqWdGy/+9c/b1QuN
+eVnDTR/XD343H3JVGvps7V0YtLaL6mxPu3Ks63DTcups5NcxvtzrV1/vYjazzlQh
+5mzWyzb/ZLlQ6I2Kv7J4brqiqWIw/MuvHlltGLaOGZINszOjPy51T/Qa9rzTPzMH
+Lp1eKgF59x6A1amjLUWBGQZ9XfpKyz27c8+MWQ3NIYvHOrKPRNc9Mz4710v/Xrvd
++wtb5zvly88tuGhzTOmPmy09yfKJXcNb6j61+tPux/l9Dz19tDU9+GC7MbPKNNl7
+OsFXGXjN32z4C84bvx0=
+=SsbX
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/covertness
+
+==================================================================
