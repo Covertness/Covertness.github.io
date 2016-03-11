@@ -2,7 +2,7 @@
 menu:
   home: /
   #categories: /categories
-  about: https://keybase.io/covertness
+  about: https://about.me/wuyingfengsui55
   archives: /archives
   tags: /tags
   #commonweal: /404.html
@@ -35,7 +35,7 @@ keywords: "Covertness"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss: false
+rss:
 
 # 站点起始时间
 since: 2014
@@ -48,11 +48,6 @@ icon_font: default
 #icon_font: feather
 #icon_font: linecons
 
-# Code Highlight theme
-# Available value: normal | night | night eighties | night blue | night bright
-# https://github.com/chriskempson/tomorrow-theme
-highlight_theme: night eighties
-
 
 # MathJax Support
 mathjax:
@@ -61,14 +56,6 @@ mathjax:
 # Schemes
 scheme: Mist
 
-
-# Sidebar, available value:
-#  - post    expand on posts automatically. Default.
-#  - always  expand for all pages automatically
-#  - hide    expand only when click on the sidebar toggle icon.
-sidebar: post
-#sidebar: always
-#sidebar: hide
 
 # Social Icons
 social_icons:
@@ -98,6 +85,25 @@ toc:
 # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
 creative_commons: zero
 
+sidebar:
+  # Sidebar Position, available value: left | right
+  position: left
+  #position: right
+
+  # Sidebar Display, available value:
+  #  - post    expand on posts automatically. Default.
+  #  - always  expand for all pages automatically
+  #  - hide    expand only when click on the sidebar toggle icon.
+  #  - remove  Totally remove sidebar including sidebar toggle icon.
+  display: post
+  #display: always
+  #display: hide
+  #display: remove
+
+# ---------------------------------------------------------------
+# Misc Theme Settings
+# ---------------------------------------------------------------
+
 # Custom Logo.
 # !!Only available for Default Scheme currently.
 # Options:
@@ -106,6 +112,14 @@ creative_commons: zero
 custom_logo:
   enabled: false
   image:
+  
+# Code Highlight theme
+# Available value: normal | night | night eighties | night blue | night bright
+# https://github.com/chriskempson/tomorrow-theme
+highlight_theme: night eighties
+
+# Automatically scroll page to section which is under <!-- more --> mark.
+scroll_to_more: true
 
 # Automatically Excerpt
 auto_excerpt:
@@ -113,7 +127,6 @@ auto_excerpt:
   length: 150
 
 # Use Lato font
-# Note: this option is avialable only when the language is not `zh-Hans`
 use_font_lato: true
 
 
@@ -144,6 +157,13 @@ duoshuo_info:
   admin_enable: true
   user_id: 9683346
 
+# Show number of visitors to each article.
+# You can visit https://leancloud.cn get AppID and AppKey.
+leancloud_visitors:
+  enable: true
+  app_id: D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz
+  app_key: uPOqE5gAVtNSKWAiivVEg0CW
+  
 
 #! ---------------------------------------------------------------
 #! DO NOT EDIT THE FOLLOWING SETTINGS
@@ -163,4 +183,4 @@ js: js
 images: images
 
 # Theme version
-version: 0.4.5.2
+version: 0.5.0

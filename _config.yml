@@ -86,5 +86,11 @@ exclude_generator:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: git@gitcafe.com:wuyingfengsui/wuyingfengsui.git
+  repository: git@git.coding.net:covertness/covertness.git
   branch: gitcafe-pages
+  
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:

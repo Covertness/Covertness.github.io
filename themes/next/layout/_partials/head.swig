@@ -29,23 +29,13 @@
 
 
 {% if theme.use_font_lato %}
-  {% if config.language === 'zh-Hans' %}
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  {% else %}
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  {% endif %}
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 {% endif %}
 
 
 <link href="{{ url_for(theme.vendors) }}/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
 <link href="{{ url_for(theme.css) }}/main.css?v={{ theme.version }}" rel="stylesheet" type="text/css" />
-
-
-{% if config.description %}
-  <meta name="description" content="{{ config.description }}" />
-{% endif %}
-
 
 {% if page.keywords %}
   <meta name="keywords" content="{{ page.keywords }}" />
@@ -57,7 +47,7 @@
 
 
 {% if theme.rss === '' and config.feed and config.feed.path %}
-  {% set theme.rss = config.root + config.feed.path %}
+  {% set theme.rss = config.feed.path %}
 {% endif %}
 {% if theme.rss %}
   <link rel="alternate" href="{{ url_for(theme.rss) }}" title="{{ config.title }}" type="application/atom+xml" />
@@ -87,9 +77,15 @@
 
 {# Export some HEXO Configurations to Front-End #}
 <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
   var CONFIG = {
     scheme: '{{ theme.scheme }}',
-    sidebar: '{{ theme.sidebar }}',
-    motion: {{ theme.use_motion }}
+    sidebar: {{ theme.sidebar | json_encode }},
+    fancybox: {{ theme.fancybox }},
+    motion: {{ theme.use_motion }},
+    duoshuo: {
+      userId: {{ theme.duoshuo_info.user_id | default() }},
+      author: '{{ theme.duoshuo_info.admin_nickname | default(__('author'))}}'
+    }
   };
 </script>

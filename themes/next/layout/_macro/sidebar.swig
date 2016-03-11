@@ -25,10 +25,12 @@
 
       <section class="site-overview sidebar-panel {% if not display_toc %} sidebar-panel-active {% endif %}">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="{{ theme.avatar or url_for(theme.images) + '/default_avatar.jpg' }}" alt="{{ theme.author }}" itemprop="image"/>
+          <img class="site-author-image" itemprop="image"
+               src="{{ theme.avatar or url_for(theme.images) + '/default_avatar.jpg' }}"
+               alt="{{ theme.author }}" />
           <p class="site-author-name" itemprop="name">{{ theme.author }}</p>
+          <p class="site-description motion-element" itemprop="description">{{ theme.description }}</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">{{ theme.description }}</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="{{ url_for(theme.menu.archives) }}">
@@ -36,20 +38,24 @@
               <span class="site-state-item-name">{{ __('state.posts') }}</span>
             </a>
           </div>
-
-          <div class="site-state-item site-state-categories">
-            {% if theme.menu.categories %}<a href="{{ url_for(theme.menu.categories) }}">{% endif %}
-              <span class="site-state-item-count">{{ site.categories.length }}</span>
-              <span class="site-state-item-name">{{ __('state.categories') }}</span>
+          
+          {% if site.categories.length > 0 %}
+            <div class="site-state-item site-state-categories">
+              {% if theme.menu.categories %}<a href="{{ url_for(theme.menu.categories) }}">{% endif %}
+                <span class="site-state-item-count">{{ site.categories.length }}</span>
+                <span class="site-state-item-name">{{ __('state.categories') }}</span>
               {% if theme.menu.categories %}</a>{% endif %}
-          </div>
+            </div>
+          {% endif %}
 
-          <div class="site-state-item site-state-tags">
-            {% if theme.menu.tags %}<a href="{{ url_for(theme.menu.tags) }}">{% endif %}
-              <span class="site-state-item-count">{{ site.tags.length }}</span>
-              <span class="site-state-item-name">{{ __('state.tags') }}</span>
+          {% if site.tags.length > 0 %}
+            <div class="site-state-item site-state-tags">
+              {% if theme.menu.tags %}<a href="{{ url_for(theme.menu.tags) }}">{% endif %}
+                <span class="site-state-item-count">{{ site.tags.length }}</span>
+                <span class="site-state-item-name">{{ __('state.tags') }}</span>
               {% if theme.menu.tags %}</a>{% endif %}
-          </div>
+            </div>
+          {% endif %}
 
         </nav>
 
@@ -100,7 +106,9 @@
 
       {% if display_toc %}
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
           <div class="post-toc">
             {% if page.toc_number === undefine %}
               {% set toc = toc(page.content, { "class": "nav", list_number: theme.toc.number }) %}
@@ -113,7 +121,9 @@
               <div class="post-toc-content">{{ toc }}</div>
             {% endif %}
           </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
         </section>
       {% endif %}
 
