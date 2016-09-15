@@ -69,10 +69,6 @@ social:
   GitHub: https://github.com/wuyingfengsui
   Weibo: http://weibo.com/wuyingfengsui
 
-# Automatically scroll page to section which is under <!-- more --> mark.
-scroll_to_more: false
-
-
 # TOC in the Sidebar
 toc:
   enable: true
