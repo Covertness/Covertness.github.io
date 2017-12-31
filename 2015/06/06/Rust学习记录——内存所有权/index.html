@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Rust,内存管理,Ownership,Borrowing," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。">
+<meta name="keywords" content="Rust,内存管理,Ownership,Borrowing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust学习记录——内存所有权">
+<meta property="og:url" content="http://covertness.me/2015/06/06/Rust学习记录——内存所有权/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.445Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rust学习记录——内存所有权">
+<meta name="twitter:description" content="Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。">
+<meta name="twitter:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/06/06/Rust学习记录——内存所有权/"/>
+
+
+
+
+
+  <title> Rust学习记录——内存所有权 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/06/06/Rust学习记录——内存所有权/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Rust学习记录——内存所有权
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-06T20:11:53+08:00">
+                Jun 6 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/06/06/Rust学习记录——内存所有权/" class="leancloud_visitors" data-flag-title="Rust学习记录——内存所有权">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg" alt=""></p>
+<p>Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。<br><a id="more"></a></p>
+<p>虽然计算设备的内存大小随着时间的推移一直成几何倍的增长，但内存始终是造成程序各种运行时问题的主要因素之一，因而在编程语言几十年的发展过程中一直在尝试各种方法来帮助程序更加有效地管理内存。<br>众所周知，程序可用的内存区域主要被分为栈区域和堆区域：栈区域在程序编译阶段便固定下来，使用方便但是大小固定；堆区域用于在程序运行期间需要更多内存时使用，可动态扩展但需要自行管理。随着程序处理的事务越来越多，堆区域使用愈加频繁，随之而来的问题也越来越多：内存泄漏、非法地址请求、内存碎片等等。因而希望内存能够自动化管理的需求越来越强烈，一种叫做垃圾回收（ Garbage Collectors ）的内存管理机制应运而生。<br>垃圾回收通过扫描内存来发现不再需要的内存区块然后自动释放它们，这种扫描一般会根据需要不定期的被触发。这种方法使得程序不再需要手动地去释放内存，大大减少了很多内存管理方面的问题。但由于这种方法减弱了程序对内存的控制能力，随之也带来了一些新的问题。垃圾回收过程需要占用一定的 CPU 时间，而且不受程序直接控制，这对于比较繁忙的场景（如 Web 后台程序）以及实时性要求比较高的场景（如 IoT 系统）会造成一定的干扰，有时甚至会大大降低系统的稳定性。鉴于此一些编程语言选择了另外一种解决思路——使用 RAII 来解决内存管理的问题。<br>RAII 基于面向对象编程（ OOP ）的思维，在对象初始化时申请内存资源，在对象销毁时释放内存资源，使得内存分配情况固定下来，不再需要动态化的内存管理手段，保证了程序运行时期的稳定性。 Rust 通过<a href="https://doc.rust-lang.org/stable/book/ownership.html" target="_blank" rel="noopener">所有权（ Ownership ）</a>的概念实现了基于 RAII 的内存管理机制。在 Rust 中变量对其所持有的内存拥有所有权，而且同一时间仅允许一个变量拥有同一块内存资源，当变量被销毁时其拥有的内存资源随即也被释放。不过由于所有权是唯一的，这可能会给资源的使用带来困难，为了解决这个问题， Rust 引进了<a href="https://doc.rust-lang.org/stable/book/references-and-borrowing.html" target="_blank" rel="noopener">租借（ Borrowing ）</a>的概念。一个变量所拥有的内存资源可以租借给另外一个变量，借到资源的变量可以读写这个资源，类似于 C++ 中的引用，不同的是租借者只允许有一个，而且租借期间原来的所有者不能改变此资源。 对于一些更加复杂的情况（如多线程环境）， Rust 也通过其他的特性规范（如 Send 和 Sync）予以支持。 Rust 通过这些方式不但解决了内存管理自动化的问题，而且还能帮助程序避免由于内存竞争导致的运行时问题。<br>下面是在其他语言中稍不注意便会出现的一个内存竞争问题。遍历列表的过程中删除一个匹配的值，下面是一个使用 Java 编写的例子：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapRemove</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            map.put(i, <span class="string">"value"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            Integer key = entry.getKey();</span><br><span class="line">            System.out.println(<span class="string">"Check the key "</span> + + key);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (entry.getValue().equals(<span class="string">"value5"</span>)) &#123;</span><br><span class="line">                map.remove(key);</span><br><span class="line">                System.out.println(<span class="string">"The key "</span> + + key + <span class="string">" was deleted"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey() +<span class="string">" = "</span> + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>程序逻辑看上去没有任何问题，但运行此程序时会发现在删除操作后抛出如下的异常：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.util.ConcurrentModificationException</span><br><span class="line">	at java.util.HashMap<span class="variable">$HashIterator</span>.nextEntry(HashMap.java:922)</span><br><span class="line">	at java.util.HashMap<span class="variable">$EntryIterator</span>.next(HashMap.java:962)</span><br><span class="line">	at java.util.HashMap<span class="variable">$EntryIterator</span>.next(HashMap.java:960)</span><br><span class="line">	at MapRemove.main(MapRemove.java:12)</span><br></pre></td></tr></table></figure></p>
+<p>原来是删除操作导致原来的迭代器失效进而引发的异常，这类迭代器的实现机制导致的问题理应由语言本身或者其标准库负责，但这里却导致了程序运行时的崩溃。同样逻辑的 Rust 代码如下：<br><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">	<span class="keyword">let</span> <span class="keyword">mut</span> map = HashMap::new();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">9</span> &#123;</span><br><span class="line">		map.insert(i, <span class="string">"value"</span>.to_string() + &amp;i.to_string());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (key, value) <span class="keyword">in</span> map.iter() &#123;</span><br><span class="line">		<span class="built_in">println!</span>(<span class="string">"Check the key &#123;&#125; "</span>, key);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> *value == <span class="string">"value5"</span> &#123;</span><br><span class="line">			map.remove(key);</span><br><span class="line">			<span class="built_in">println!</span>(<span class="string">"The key &#123;&#125; was deleted"</span>, key);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (key, value) <span class="keyword">in</span> map.iter() &#123;</span><br><span class="line">		<span class="built_in">println!</span>(<span class="string">"&#123;&#125; = &#123;&#125;"</span>, key, value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译这段代码时 Rust 编译器便会打印如下错误：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">map_remove.rs:15:4: 15:7 error: cannot borrow `map` as mutable because it is also borrowed as immutable</span><br><span class="line">map_remove.rs:15 			map.remove(key);</span><br></pre></td></tr></table></figure></p>
+<p>由于此时<code>map</code>所有的资源已经被租借了，因而<code>map</code>自己暂时是不能改变其所有的资源的。 Rust 的语法规则又一次帮助程序纠正了潜在的错误。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Rust/" rel="tag"># Rust</a>
+          
+            <a href="/tags/内存管理/" rel="tag"># 内存管理</a>
+          
+            <a href="/tags/Ownership/" rel="tag"># Ownership</a>
+          
+            <a href="/tags/Borrowing/" rel="tag"># Borrowing</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/30/Rust学习记录——并发与同步/" rel="next" title="Rust学习记录——并发与同步">
+                <i class="fa fa-chevron-left"></i> Rust学习记录——并发与同步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/25/《聋哑部落》——无声的热血高校/" rel="prev" title="《聋哑部落》——无声的热血高校">
+                《聋哑部落》——无声的热血高校 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

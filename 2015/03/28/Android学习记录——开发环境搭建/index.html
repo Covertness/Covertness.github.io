@@ -1,0 +1,967 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Android Studio,Genymotion," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="使用Android Studio开发Android应用的基本流程，记录了从环境搭建到一个浏览器应用（见上图）开发完成的整个过程。">
+<meta name="keywords" content="Android,Android Studio,Genymotion">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android学习记录——开发环境搭建">
+<meta property="og:url" content="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="使用Android Studio开发Android应用的基本流程，记录了从环境搭建到一个浏览器应用（见上图）开发完成的整个过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_install_studio.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_start.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_create.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_version.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_activity.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_options.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_main.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_device.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_genymotion_device.PNG">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android学习记录——开发环境搭建">
+<meta name="twitter:description" content="使用Android Studio开发Android应用的基本流程，记录了从环境搭建到一个浏览器应用（见上图）开发完成的整个过程。">
+<meta name="twitter:image" content="http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/"/>
+
+
+
+
+
+  <title> Android学习记录——开发环境搭建 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android学习记录——开发环境搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-28T14:02:23+08:00">
+                Mar 28 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/03/28/Android学习记录——开发环境搭建/" class="leancloud_visitors" data-flag-title="Android学习记录——开发环境搭建">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif" alt=""></p>
+<p>使用Android Studio开发Android应用的基本流程，记录了从环境搭建到一个浏览器应用（见上图）开发完成的整个过程。<br><a id="more"></a></p>
+<h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">Android Studio</a> 一款官方推荐的Android开发集成环境，基于IntelliJ IDEA</li>
+<li><a href="https://www.genymotion.com/#!/download" target="_blank" rel="noopener">Genymotion</a> Android模拟器，用于调试应用，也可以直接使用Android手机进行调试</li>
+</ul>
+<h2 id="安装Android-Studio"><a href="#安装Android-Studio" class="headerlink" title="安装Android Studio"></a>安装Android Studio</h2><h3 id="1-下载Android-Studio"><a href="#1-下载Android-Studio" class="headerlink" title="1. 下载Android Studio"></a>1. 下载Android Studio</h3><p>可以直接从<a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">Android官网</a>上下载，完成之后进行安装即可。如果访问有困难的话可以尝试从<a href="http://www.android-studio.org/index.php/download" target="_blank" rel="noopener">这里</a>下载。</p>
+<h3 id="2-启动Android-Studio"><a href="#2-启动Android-Studio" class="headerlink" title="2. 启动Android Studio"></a>2. 启动Android Studio</h3><p>启动时如提示未安装JVM，请从<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">这里</a>下载安装JDK并<a href="http://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html" target="_blank" rel="noopener">配置环境变量（Windows版本需要）</a>后再次打开Android Studio。</p>
+<h3 id="3-配置Android-Studio"><a href="#3-配置Android-Studio" class="headerlink" title="3. 配置Android Studio"></a>3. 配置Android Studio</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_install_studio.PNG" alt=""></p>
+<p>第一次使用Android Studio会自动弹出导入配置提示框，保持默认选择ok继续；然后弹出欢迎界面，点击Next出现选择配置提示，保持默认即可，而后出现安卓SDK的License说明，Accept即可；最后选择Finish后会自动下载安装Android SDK，过程可能比较漫长请耐心等待，完成后再次点击Finish完成整个配置过程。</p>
+<h2 id="创建第一个应用——MyBrowse"><a href="#创建第一个应用——MyBrowse" class="headerlink" title="创建第一个应用——MyBrowse"></a>创建第一个应用——MyBrowse</h2><p>完成初始化配置后，Android Studio便会显示开始界面，现在便可以开始创建自己的应用了。</p>
+<h3 id="1-选择Start-a-new-Android-Studio-project"><a href="#1-选择Start-a-new-Android-Studio-project" class="headerlink" title="1. 选择Start a new Android Studio project"></a>1. 选择Start a new Android Studio project</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_start.PNG" alt=""></p>
+<h3 id="2-配置此应用的一些基本信息，如下图所示"><a href="#2-配置此应用的一些基本信息，如下图所示" class="headerlink" title="2. 配置此应用的一些基本信息，如下图所示"></a>2. 配置此应用的一些基本信息，如下图所示</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_create.PNG" alt=""></p>
+<h3 id="3-选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认"><a href="#3-选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认" class="headerlink" title="3. 选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认"></a>3. 选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_version.PNG" alt=""></p>
+<h3 id="4-选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认"><a href="#4-选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认" class="headerlink" title="4. 选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认"></a>4. 选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_activity.PNG" alt=""></p>
+<h3 id="5-为这个activity设置一些基本的参数，如下图所示"><a href="#5-为这个activity设置一些基本的参数，如下图所示" class="headerlink" title="5. 为这个activity设置一些基本的参数，如下图所示"></a>5. 为这个activity设置一些基本的参数，如下图所示</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_options.PNG" alt=""></p>
+<p>完成对应用的配置后，Android Studio会使用Gradle（一种自动构建工具）根据刚才的配置创建应用，结束后注意查看窗口下方有无Error Message，如果没有则说明应用创建成功。<br><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_main.PNG" alt=""></p>
+<h2 id="安装Genymotion"><a href="#安装Genymotion" class="headerlink" title="安装Genymotion"></a>安装Genymotion</h2><p>创建完成后应用已经可以运行，下面安装Genymotion来测试下这个应用（如果使用真实Android手机测试参考<a href="http://blog.csdn.net/zkxhhf/article/details/9270243" target="_blank" rel="noopener">《Android Studio真机调试》</a>）。</p>
+<h3 id="1-下载Genymotion"><a href="#1-下载Genymotion" class="headerlink" title="1. 下载Genymotion"></a>1. 下载Genymotion</h3><p>在<a href="https://www.genymotion.com/#!/download" target="_blank" rel="noopener">Genymotion官网</a>创建账号并邮件激活，之后便可下载安装Genymotion。</p>
+<h3 id="2-创建虚拟Android手机"><a href="#2-创建虚拟Android手机" class="headerlink" title="2. 创建虚拟Android手机"></a>2. 创建虚拟Android手机</h3><p>首先启动Genymotion，登录之前注册的账号；然后点击Add，选择一款与应用运行的Android平台版本相符的手机；最后下载完之后即可启动此手机。</p>
+<h3 id="3-安装Android-Studio的Genymotion插件"><a href="#3-安装Android-Studio的Genymotion插件" class="headerlink" title="3. 安装Android Studio的Genymotion插件"></a>3. 安装Android Studio的Genymotion插件</h3><p>此插件可以在Android Studio中方便地打开Genymotion里的虚拟Android手机。首先打开Android Studio，定位到菜单项File &gt; Settings；然后选择Plugins，点击Browse Repositories；最后右击Genymotion选择Download and install即可。</p>
+<h2 id="运行应用"><a href="#运行应用" class="headerlink" title="运行应用"></a>运行应用</h2><h3 id="1-点击Android-Studio上方类似播放按钮的绿色按键，然后在弹出的Choose-Device对话框中选择一款的（虚拟）Android手机"><a href="#1-点击Android-Studio上方类似播放按钮的绿色按键，然后在弹出的Choose-Device对话框中选择一款的（虚拟）Android手机" class="headerlink" title="1. 点击Android Studio上方类似播放按钮的绿色按键，然后在弹出的Choose Device对话框中选择一款的（虚拟）Android手机"></a>1. 点击Android Studio上方类似播放按钮的绿色按键，然后在弹出的Choose Device对话框中选择一款的（虚拟）Android手机</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_studio_choose_device.PNG" alt=""></p>
+<h3 id="2-等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）"><a href="#2-等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）" class="headerlink" title="2. 等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）"></a>2. 等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）</h3><p><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_genymotion_device.PNG" alt=""></p>
+<h2 id="实现MyBrowse的功能"><a href="#实现MyBrowse的功能" class="headerlink" title="实现MyBrowse的功能"></a>实现MyBrowse的功能</h2><p>刚才运行的应用除了在屏幕上显示一行文字外没有任何其他用处，下面将为这个应用添加浏览器的功能，这样就可以使用它上网了。</p>
+<h3 id="1-双击res-layout文件夹中的browse-main-xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它"><a href="#1-双击res-layout文件夹中的browse-main-xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它" class="headerlink" title="1. 双击res/layout文件夹中的browse_main.xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它"></a>1. 双击res/layout文件夹中的browse_main.xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它</h3><h3 id="2-在下方选中Text标签页便可看到browse-main-xml的内容，然后将文件的内容用下面的代码覆盖"><a href="#2-在下方选中Text标签页便可看到browse-main-xml的内容，然后将文件的内容用下面的代码覆盖" class="headerlink" title="2. 在下方选中Text标签页便可看到browse_main.xml的内容，然后将文件的内容用下面的代码覆盖"></a>2. 在下方选中Text标签页便可看到browse_main.xml的内容，然后将文件的内容用下面的代码覆盖</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/edit_url"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:inputType</span>=<span class="string">"textUri"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:hint</span>=<span class="string">"@string/edit_url"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:onClick</span>=<span class="string">"visitWeb"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/button_go"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">WebView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/myWebView"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-打开res-values文件夹中的strings-xml，其内容替换成下面的文本"><a href="#3-打开res-values文件夹中的strings-xml，其内容替换成下面的文本" class="headerlink" title="3. 打开res/values文件夹中的strings.xml，其内容替换成下面的文本"></a>3. 打开res/values文件夹中的strings.xml，其内容替换成下面的文本</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>MyBrowse<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"edit_url"</span>&gt;</span>要访问的网页链接<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"button_go"</span>&gt;</span>-&gt;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"action_settings"</span>&gt;</span>Settings<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-打开java-me-covertness-mybrowse中的BrowseActivity-java文件，将文件的内容用下面的代码覆盖"><a href="#4-打开java-me-covertness-mybrowse中的BrowseActivity-java文件，将文件的内容用下面的代码覆盖" class="headerlink" title="4. 打开java/me.covertness.mybrowse中的BrowseActivity.java文件，将文件的内容用下面的代码覆盖"></a>4. 打开java/me.covertness.mybrowse中的BrowseActivity.java文件，将文件的内容用下面的代码覆盖</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.covertness.mybrowse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.ActionBarActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.Menu;</span><br><span class="line"><span class="keyword">import</span> android.view.MenuItem;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.webkit.WebView;</span><br><span class="line"><span class="keyword">import</span> android.webkit.WebViewClient;</span><br><span class="line"><span class="keyword">import</span> android.widget.EditText;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BrowseActivity</span> <span class="keyword">extends</span> <span class="title">ActionBarActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.browse_main);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></span><br><span class="line">        getMenuInflater().inflate(R.menu.menu_browse, menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></span><br><span class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></span><br><span class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></span><br><span class="line">        <span class="keyword">int</span> id = item.getItemId();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></span><br><span class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visitWeb</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        EditText editText = (EditText) findViewById(R.id.edit_url);</span><br><span class="line">        String url = editText.getText().toString();</span><br><span class="line"></span><br><span class="line">        WebView myWebView = (WebView)findViewById(R.id.myWebView);</span><br><span class="line">        myWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient());</span><br><span class="line">        myWebView.getSettings().setJavaScriptEnabled(<span class="keyword">true</span>);</span><br><span class="line">        myWebView.loadUrl(url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-替换manifests-AndroidManifest-xml为以下内容"><a href="#5-替换manifests-AndroidManifest-xml为以下内容" class="headerlink" title="5. 替换manifests/AndroidManifest.xml为以下内容"></a>5. 替换manifests/AndroidManifest.xml为以下内容</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"me.covertness.mybrowse"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".BrowseActivity"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>如果是Android Studio 1.0版本请将<code>android:icon=&quot;@mipmap/ic_launcher&quot;</code>改为<code>android:icon=&quot;@drawable/ic_launcher&quot;</code>。</strong></p>
+<h2 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h2><p>按之前运行应用中的方法打开修改后的应用，在顶部输入框中输入<a href="http://baidu.com" target="_blank" rel="noopener">http://baidu.com</a>，然后点击右侧的箭头，片刻之后便可在下方看到百度的首页了。<br><img src="http://covertness.qiniudn.com/android_kaifahuanjindajian_mybrowser.gif" alt=""></p>
+<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><p>下面依照修改文件的顺序从界面、逻辑、权限三个方面对应用涉及的知识进行总结。</p>
+<h3 id="1-界面"><a href="#1-界面" class="headerlink" title="1. 界面"></a>1. 界面</h3><p>browse_main.xml是界面元素的描述文件，MyBrowse界面上存在三个部件：输入框、箭头按钮和网页浏览器，其依次对应文件中的<a href="http://developer.android.com/guide/topics/ui/controls/text.html" target="_blank" rel="noopener">EditText</a>、<a href="http://developer.android.com/guide/topics/ui/controls/button.html" target="_blank" rel="noopener">Button</a>和<a href="http://developer.android.com/guide/webapps/webview.html" target="_blank" rel="noopener">WebView</a>。除此之外文件中还存在名为<a href="http://developer.android.com/guide/topics/ui/layout/linear.html" target="_blank" rel="noopener">LinearLayout</a>的节，用来规定各个部件在界面中如何布局。</p>
+<h3 id="2-逻辑"><a href="#2-逻辑" class="headerlink" title="2. 逻辑"></a>2. 逻辑</h3><p>BrowseActivity.java是应用逻辑的描述文件，MyBrowse只实现了一个功能，当箭头按钮被按下时让网页浏览器显示输入框里填写的URL对应的页面。这个逻辑在此文件的visitWeb函数中实现。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visitWeb</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    EditText editText = (EditText) findViewById(R.id.edit_url);</span><br><span class="line">    String url = editText.getText().toString();</span><br><span class="line"></span><br><span class="line">    WebView myWebView = (WebView)findViewById(R.id.myWebView);</span><br><span class="line">    myWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient());</span><br><span class="line">    myWebView.getSettings().setJavaScriptEnabled(<span class="keyword">true</span>);</span><br><span class="line">    myWebView.loadUrl(url);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此函数在箭头按钮被点击时执行：首先从输入框中获取url并将其存入变量中；然后获取网页浏览器对应的句柄，覆盖默认的链接打开行为（避免在网页浏览器中打开其他链接时调用系统的浏览器），允许运行网页中的JavaScript代码；最后载入页面内容。其中部分逻辑在应用初始化时执行效率更高，此处仅是为了方便代码阅读。</p>
+<h3 id="3-权限"><a href="#3-权限" class="headerlink" title="3. 权限"></a>3. 权限</h3><p>AndroidManifest.xml告诉Android系统如何启动应用，是一个重要的应用配置文件。MyBrowse需要访问因特网的权限，因此需要在此文件中添加如下配置：<code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</code>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Android-Studio/" rel="tag"># Android Studio</a>
+          
+            <a href="/tags/Genymotion/" rel="tag"># Genymotion</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/07/《飞行器里的好小伙》——国际笑话群英汇/" rel="next" title="《飞行器里的好小伙》——国际笑话群英汇">
+                <i class="fa fa-chevron-left"></i> 《飞行器里的好小伙》——国际笑话群英汇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/04/《一点小信仰》——让我们能够在狂风暴雨中安睡/" rel="prev" title="《一点小信仰》——让我们能够在狂风暴雨中安睡">
+                《一点小信仰》——让我们能够在狂风暴雨中安睡 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要用到的工具"><span class="nav-number">1.</span> <span class="nav-text">需要用到的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Android-Studio"><span class="nav-number">2.</span> <span class="nav-text">安装Android Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载Android-Studio"><span class="nav-number">2.1.</span> <span class="nav-text">1. 下载Android Studio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-启动Android-Studio"><span class="nav-number">2.2.</span> <span class="nav-text">2. 启动Android Studio</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置Android-Studio"><span class="nav-number">2.3.</span> <span class="nav-text">3. 配置Android Studio</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建第一个应用——MyBrowse"><span class="nav-number">3.</span> <span class="nav-text">创建第一个应用——MyBrowse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-选择Start-a-new-Android-Studio-project"><span class="nav-number">3.1.</span> <span class="nav-text">1. 选择Start a new Android Studio project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置此应用的一些基本信息，如下图所示"><span class="nav-number">3.2.</span> <span class="nav-text">2. 配置此应用的一些基本信息，如下图所示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认"><span class="nav-number">3.3.</span> <span class="nav-text">3. 选择应用运行的Android平台，一般高版本系统可以运行低版本的应用，反之不可以，这里保持默认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认"><span class="nav-number">3.4.</span> <span class="nav-text">4. 选择应用的activity，activity类似于窗口的概念，一个应用可以有多个activity，这里选择的是应用加载时的第一个activity，这里保持默认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-为这个activity设置一些基本的参数，如下图所示"><span class="nav-number">3.5.</span> <span class="nav-text">5. 为这个activity设置一些基本的参数，如下图所示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Genymotion"><span class="nav-number">4.</span> <span class="nav-text">安装Genymotion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载Genymotion"><span class="nav-number">4.1.</span> <span class="nav-text">1. 下载Genymotion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建虚拟Android手机"><span class="nav-number">4.2.</span> <span class="nav-text">2. 创建虚拟Android手机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装Android-Studio的Genymotion插件"><span class="nav-number">4.3.</span> <span class="nav-text">3. 安装Android Studio的Genymotion插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行应用"><span class="nav-number">5.</span> <span class="nav-text">运行应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-点击Android-Studio上方类似播放按钮的绿色按键，然后在弹出的Choose-Device对话框中选择一款的（虚拟）Android手机"><span class="nav-number">5.1.</span> <span class="nav-text">1. 点击Android Studio上方类似播放按钮的绿色按键，然后在弹出的Choose Device对话框中选择一款的（虚拟）Android手机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）"><span class="nav-number">5.2.</span> <span class="nav-text">2. 等待片刻后便可在对应的（虚拟）Android手机上看到应用已经打开（如果手机处于锁屏状态请先解锁）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现MyBrowse的功能"><span class="nav-number">6.</span> <span class="nav-text">实现MyBrowse的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-双击res-layout文件夹中的browse-main-xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它"><span class="nav-number">6.1.</span> <span class="nav-text">1. 双击res/layout文件夹中的browse_main.xml，便可看到现在应用的预览，和刚才在手机中显示的一样，现在我们开始修改它</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在下方选中Text标签页便可看到browse-main-xml的内容，然后将文件的内容用下面的代码覆盖"><span class="nav-number">6.2.</span> <span class="nav-text">2. 在下方选中Text标签页便可看到browse_main.xml的内容，然后将文件的内容用下面的代码覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-打开res-values文件夹中的strings-xml，其内容替换成下面的文本"><span class="nav-number">6.3.</span> <span class="nav-text">3. 打开res/values文件夹中的strings.xml，其内容替换成下面的文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-打开java-me-covertness-mybrowse中的BrowseActivity-java文件，将文件的内容用下面的代码覆盖"><span class="nav-number">6.4.</span> <span class="nav-text">4. 打开java/me.covertness.mybrowse中的BrowseActivity.java文件，将文件的内容用下面的代码覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-替换manifests-AndroidManifest-xml为以下内容"><span class="nav-number">6.5.</span> <span class="nav-text">5. 替换manifests/AndroidManifest.xml为以下内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试应用"><span class="nav-number">7.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结"><span class="nav-number">8.</span> <span class="nav-text">要点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-界面"><span class="nav-number">8.1.</span> <span class="nav-text">1. 界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-逻辑"><span class="nav-number">8.2.</span> <span class="nav-text">2. 逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-权限"><span class="nav-number">8.3.</span> <span class="nav-text">3. 权限</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

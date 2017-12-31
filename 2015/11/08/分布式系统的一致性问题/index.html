@@ -1,0 +1,940 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="分布式," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="分布式系统中的数据如何保证一致性一直是设计分布式系统时比较棘手的问题，在过去的几十年里人们已经提出了很多与之相关的理论试图去完美地解决它。">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统的一致性问题">
+<meta property="og:url" content="http://covertness.me/2015/11/08/分布式系统的一致性问题/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="分布式系统中的数据如何保证一致性一直是设计分布式系统时比较棘手的问题，在过去的几十年里人们已经提出了很多与之相关的理论试图去完美地解决它。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/fenbushixitong_cap.svg">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式系统的一致性问题">
+<meta name="twitter:description" content="分布式系统中的数据如何保证一致性一直是设计分布式系统时比较棘手的问题，在过去的几十年里人们已经提出了很多与之相关的理论试图去完美地解决它。">
+<meta name="twitter:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/fenbushixitong_cap.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/11/08/分布式系统的一致性问题/"/>
+
+
+
+
+
+  <title> 分布式系统的一致性问题 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/11/08/分布式系统的一致性问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                分布式系统的一致性问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-08T14:33:52+08:00">
+                Nov 8 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/11/08/分布式系统的一致性问题/" class="leancloud_visitors" data-flag-title="分布式系统的一致性问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/fenbushixitong_cap.svg" alt=""></p>
+<p>分布式系统中的数据如何保证一致性一直是设计分布式系统时比较棘手的问题，在过去的几十年里人们已经提出了很多与之相关的理论试图去完美地解决它。<br><a id="more"></a></p>
+<h2 id="为什么会出现一致性问题"><a href="#为什么会出现一致性问题" class="headerlink" title="为什么会出现一致性问题"></a>为什么会出现一致性问题</h2><p>以最常见的分布式系统–银行 ATM 为例，假设某人 A 的一个帐户内存有200块钱，某一时间点 A 和他的朋友 B 同时在两个不同的 ATM 机进行取款200块的操作，此时系统便出现了一致性问题，因为不管系统作出何种回应都会导致不一致的问题：</p>
+<ol>
+<li>系统接受一方的取款请求，拒绝另一方的取款请求<br> 这会导致被拒绝的一方认为系统不可用，因为任何一方此时都认为帐户里应有200块的余额可用。</li>
+<li>系统对于两个请求均接受<br> 银行帐户发生透支。</li>
+<li>系统同时拒绝两个请求<br> 两方都认为系统不可用。</li>
+</ol>
+<h2 id="解决一致性问题的一些算法"><a href="#解决一致性问题的一些算法" class="headerlink" title="解决一致性问题的一些算法"></a>解决一致性问题的一些算法</h2><p>上述问题出现的根本原因还是由于缺乏一个既定的规则，因而发生了冲突。下面简要介绍一些能够解决这一问题的算法。</p>
+<h3 id="Lamport-面包店算法"><a href="#Lamport-面包店算法" class="headerlink" title="Lamport 面包店算法"></a>Lamport 面包店算法</h3><p>类似于去营业厅排号，每个请求先申请到一个独一无二的号码，然后按号码小者优先的规则进行办理。对应到上面的例子，A、B两人取钱前都获得了一个号码，假设 A 的号码是1， B 的是 2，那么系统将会接受 A 的请求而拒绝 B 的， B 发现失败后也能通过排号的纪录查到原因。<br>这个方法看似简单易行，但在分布式系统中难以实现，因为在分布式系统中要维护一个全局的排号系统并不容易，这往往需要较高的硬件环境，可以参考<a href="http://www.ithome.com/html/it/25938.htm" target="_blank" rel="noopener">谷歌利用GPS和原子钟使数据库全球范围信息同步</a>。</p>
+<h3 id="Vector-Clocks"><a href="#Vector-Clocks" class="headerlink" title="Vector Clocks"></a>Vector Clocks</h3><p>这个算法与上面的面包店算法算法都是 <a href="https://en.wikipedia.org/wiki/Leslie_Lamport" target="_blank" rel="noopener">Lamport</a> 提出的，可以说是上一个算法的改进版，去除了维护全局排号系统的负担。从字面大概也可以猜到，这个算法通过一系列的计数器来实现。还是对应到上面的例子，A、B所用的 ATM 机需要自己维护一个计数器序列，每次操作将这个序列里自己的计数器加一，当 ATM 发送请求到系统中时需要附带这个序列。假设刚开始时两台 ATM 的计数都为0，那么 A 操作后的 ATM 将发送 [{a, 1}, {b, 0}]， B 的将发送 [{a, 0}, {b, 1}]，可以看出 A 的序列中 b 比 B 的序列中 b 还小，说明有冲突，此时可以按照时间顺序谁先到处理谁，后来的拒绝，假如同时到达则按 ATM 机的字母排号选择，排号小的（这里就是 A ）操作被执行。注意 Vector Clocks 本身并不包含冲突的解决过程，它仅是发现冲突，但上述冲突解决方法已被大多数采用此算法的实际系统采用。<br>这个算法已有一些分布式系统采用，比如 Riak 和早期的 Cassandra、 Dynamo 。但此方法需要每次请求前先向其他节点获得对方计数器的最新版本，而且还要给 Vector Clocks 存储留一定的空间，造成性能和资源的消耗加剧，实际使用效果并不佳。</p>
+<h3 id="选举算法"><a href="#选举算法" class="headerlink" title="选举算法"></a>选举算法</h3><p>既然解决冲突那么麻烦，于是有了一些尽量避开冲突的方法，选举算法就是其中之一。首先在系统中通过既定的规则选举出一个 Master ，其余节点都为 Slave ，外来请求都通过 Master 处理， Slave 节点只需把 Master 上的数据同步过来即可。以上面的例子来说， A 与 B 可以先定下规矩，在使用这个账号取钱时都要先打电话跟对方确认，这样就能够避免冲突。当 Master 节点失效时，系统其他节点再通过之前定好的规则选举新的 Master 。这里的选举规则比较常见的有 <a href="http://zh.wikipedia.org/wiki/Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">Paxos</a> 和 <a href="http://blog.csdn.net/cszhouwei/article/details/38374603" target="_blank" rel="noopener">Raft</a>。<br>现在比较流行的分布式系统大多采用这一方法，比如 MongoDB、Redis 和 Dynamo 等，此外还可以使用 <a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">ZooKeeper</a> 等支持选举算法的工具实现自己的分布式系统。这个方法的缺点是当 Master 失效后系统会短暂的处于不可用状态。</p>
+<h3 id="Quorum-NRW"><a href="#Quorum-NRW" class="headerlink" title="Quorum NRW"></a>Quorum NRW</h3><p>一种从客户端侧解决一致性问题的投票算法，它通过客户端同步操作多个实例来保证一致性，具体冲突解决由客户端自己实现，详细内容可参考<a href="http://blog.csdn.net/dellme99/article/details/15432249" target="_blank" rel="noopener">这里</a>。</p>
+<h3 id="Rev-Tree"><a href="#Rev-Tree" class="headerlink" title="Rev Tree"></a>Rev Tree</h3><p>另外一种避开冲突的解决算法，类似于 Git 的版本树。对每次操作产生一个对应的 Rev Id ，将每次操作的 Rev Id 都放到上次操作之后形成主分支，当有一个拥有不一致的 Rev Tree 的数据想进行合并时冲突产生，此时便会产生一个新的分支，然后两个分支同时工作。默认会以最长分支为主分支，其他分支及其所有的数据会在一段时间后删除。还是以 ATM 的例子进行说明，在这种情况下 A、B 的取款请求都会被成功响应，而后假如 A 又通过 ATM 进行了一些操作而 B 没有，那么 A 的请求会被最终记录下来，而 B 的请求一段时间后会被删除，显然对于取款这样需要即时完成的操作，这种方法并不可取。<br>此算法在 <a href="http://couchdb.apache.org/" target="_blank" rel="noopener">CouchDB</a> 中被使用。这个算法把冲突的解决交给了时间，活跃度最高的数据会被保存下来，类似于民主选举的理念，适用于没有权威决策要求的去中心化系统。</p>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p>这是比特币网络中用于记录交易过程生成总账单的算法，类似于上面提到的 Rev Tree 算法，不过基于安全性的需要增加了非对称加密、计算能力验证等逻辑。具体内容可参考我之前的一篇博客–<a href="http://covertness.me/2015/08/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%83%8C%E5%90%8E%E7%9A%84%E6%8A%80%E6%9C%AF/">比特币背后的技术</a>。</p>
+<h3 id="CRDT"><a href="#CRDT" class="headerlink" title="CRDT"></a>CRDT</h3><p>力图从数据结构上避免冲突。 CRDT 就是指能够避免冲突的可复制的数据结构，而且这类数据结构的合并过程一般情况下都会满足 <a href="https://lostechies.com/jimmybogard/2013/06/06/acid-2-0-in-action/" target="_blank" rel="noopener">ACID 2.0</a>：</p>
+<ol>
+<li>结合律 <code>f(a,f(b,c)) = f(f(a,b),c)</code></li>
+<li>交换律 <code>f(a,b) = f(b,a)</code></li>
+<li>等冪性 <code>f(f(x))=f(x)</code></li>
+</ol>
+<p>目前已知的满足以上几点的数据结构有计数器（Counter）、寄存器（Register）、集合（Set）、图（Graph）等，详见<a href="https://github.com/pfraze/crdt_notes" target="_blank" rel="noopener">这里</a>。<br>更多的 CRDT 仍处于理论界的探讨证明中，目前仅有少数几个分布式系统使用了这一数据结构，比如 Riak 和 Project FiFo 。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/30/《天注定》——来自社会底层的呐喊/" rel="next" title="《天注定》——来自社会底层的呐喊">
+                <i class="fa fa-chevron-left"></i> 《天注定》——来自社会底层的呐喊
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/20/快速搭建OpenVPN服务/" rel="prev" title="快速搭建OpenVPN服务">
+                快速搭建OpenVPN服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会出现一致性问题"><span class="nav-number">1.</span> <span class="nav-text">为什么会出现一致性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决一致性问题的一些算法"><span class="nav-number">2.</span> <span class="nav-text">解决一致性问题的一些算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lamport-面包店算法"><span class="nav-number">2.1.</span> <span class="nav-text">Lamport 面包店算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector-Clocks"><span class="nav-number">2.2.</span> <span class="nav-text">Vector Clocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选举算法"><span class="nav-number">2.3.</span> <span class="nav-text">选举算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quorum-NRW"><span class="nav-number">2.4.</span> <span class="nav-text">Quorum NRW</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rev-Tree"><span class="nav-number">2.5.</span> <span class="nav-text">Rev Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块链"><span class="nav-number">2.6.</span> <span class="nav-text">区块链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRDT"><span class="nav-number">2.7.</span> <span class="nav-text">CRDT</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

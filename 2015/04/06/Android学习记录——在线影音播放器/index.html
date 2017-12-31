@@ -1,0 +1,953 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,音视频处理,ExoPlayer,Gradle," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一个简单的在线视频播放应用，基于Google去年新推出的ExoPlayer开源框架。">
+<meta name="keywords" content="Android,音视频处理,ExoPlayer,Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android学习记录——在线影音播放器">
+<meta property="og:url" content="http://covertness.me/2015/04/06/Android学习记录——在线影音播放器/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="一个简单的在线视频播放应用，基于Google去年新推出的ExoPlayer开源框架。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_app_screencast.gif">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android学习记录——在线影音播放器">
+<meta name="twitter:description" content="一个简单的在线视频播放应用，基于Google去年新推出的ExoPlayer开源框架。">
+<meta name="twitter:image" content="http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_app_screencast.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/04/06/Android学习记录——在线影音播放器/"/>
+
+
+
+
+
+  <title> Android学习记录——在线影音播放器 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/04/06/Android学习记录——在线影音播放器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android学习记录——在线影音播放器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-06T14:49:51+08:00">
+                Apr 6 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/04/06/Android学习记录——在线影音播放器/" class="leancloud_visitors" data-flag-title="Android学习记录——在线影音播放器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_app_screencast.gif" alt=""></p>
+<p>一个简单的在线视频播放应用，基于Google去年新推出的ExoPlayer开源框架。<br><a id="more"></a></p>
+<h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">Android Studio</a> Android集成开发环境</li>
+<li><a href="https://www.genymotion.com/" target="_blank" rel="noopener">Genymotion</a> Android模拟器</li>
+<li><a href="http://git-scm.com" target="_blank" rel="noopener">Git</a> 用于下载位于GitHub上的ExoPlayer代码</li>
+</ul>
+<p>Android Studio和Genymotion的基本使用方法可参考<a href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/">《Android学习记录——开发环境搭建》</a>，Git的使用说明可参考<a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="noopener">《git - 简明指南》</a>。</p>
+<h2 id="创建应用——ExoPlayerTest"><a href="#创建应用——ExoPlayerTest" class="headerlink" title="创建应用——ExoPlayerTest"></a>创建应用——ExoPlayerTest</h2><h3 id="1-使用Android-Studio创建一个名为ExoPlayerTest的Android项目"><a href="#1-使用Android-Studio创建一个名为ExoPlayerTest的Android项目" class="headerlink" title="1. 使用Android Studio创建一个名为ExoPlayerTest的Android项目"></a>1. 使用Android Studio创建一个名为ExoPlayerTest的Android项目</h3><p>配置除了以下参数之外与MyBrowse项目基本一致：</p>
+<blockquote>
+<p>Minimum SDK: API 16: Android 4.1 (Jelly Bean)<br>Activity Name: MainActivity<br>Layout Name: activity_main<br>Title: ExoPlayerTest<br>Menu Resource Name: menu_main</p>
+</blockquote>
+<h3 id="2-获取ExoPlayer"><a href="#2-获取ExoPlayer" class="headerlink" title="2. 获取ExoPlayer"></a>2. 获取ExoPlayer</h3><p>在Terminal中定位到ExoPlayerTest项目的上层目录，然后执行如下命令：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/google/ExoPlayer.git</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-把ExoPlayer添加到ExoPlayerTest项目"><a href="#3-把ExoPlayer添加到ExoPlayerTest项目" class="headerlink" title="3. 把ExoPlayer添加到ExoPlayerTest项目"></a>3. 把ExoPlayer添加到ExoPlayerTest项目</h3><p>修改ExoPlayerTest项目的以下Gradle脚本，添加相应的依赖项：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// settings.gradle</span><br><span class="line">include &apos;:app&apos;, &apos;:..:ExoPlayer:library&apos;</span><br><span class="line"></span><br><span class="line">// build.gradle</span><br><span class="line">dependencies &#123;</span><br><span class="line">    classpath &apos;com.novoda:bintray-release:0.2.7&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// app/build.gradle</span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile project(&apos;:..:ExoPlayer:library&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建"><a href="#4-点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建" class="headerlink" title="4. 点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建"></a>4. 点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建</h3><h2 id="实现播放在线视频的功能"><a href="#实现播放在线视频的功能" class="headerlink" title="实现播放在线视频的功能"></a>实现播放在线视频的功能</h2><h3 id="1-修改界面（activity-main-xml）"><a href="#1-修改界面（activity-main-xml）" class="headerlink" title="1. 修改界面（activity_main.xml）"></a>1. 修改界面（activity_main.xml）</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/root"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:keepScreenOn</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.exoplayer.VideoSurfaceView</span> <span class="attr">android:id</span>=<span class="string">"@+id/surface_view"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-修改逻辑（MainActivity-java）"><a href="#2-修改逻辑（MainActivity-java）" class="headerlink" title="2. 修改逻辑（MainActivity.java）"></a>2. 修改逻辑（MainActivity.java）</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.covertness.exoplayertest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.media.MediaCodec;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.ActionBarActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.os.Handler;</span><br><span class="line"><span class="keyword">import</span> android.net.Uri;</span><br><span class="line"><span class="keyword">import</span> android.view.Menu;</span><br><span class="line"><span class="keyword">import</span> android.view.MenuItem;</span><br><span class="line"><span class="keyword">import</span> android.view.Surface;</span><br><span class="line"><span class="keyword">import</span> android.view.SurfaceHolder;</span><br><span class="line"><span class="keyword">import</span> android.widget.Toast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.ExoPlaybackException;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.ExoPlayer;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.MediaCodecAudioTrackRenderer;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.MediaCodecTrackRenderer;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.MediaCodecVideoTrackRenderer;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.TrackRenderer;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.VideoSurfaceView;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.audio.AudioTrack;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.source.DefaultSampleSource;</span><br><span class="line"><span class="keyword">import</span> com.google.android.exoplayer.source.FrameworkSampleExtractor;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ActionBarActivity</span> <span class="keyword">implements</span> <span class="title">ExoPlayer</span>.<span class="title">Listener</span>,</span></span><br><span class="line"><span class="class">        <span class="title">SurfaceHolder</span>.<span class="title">Callback</span>, <span class="title">MediaCodecVideoTrackRenderer</span>.<span class="title">EventListener</span>,</span></span><br><span class="line"><span class="class">        <span class="title">MediaCodecAudioTrackRenderer</span>.<span class="title">EventListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExoPlayer player;                           <span class="comment">// ExoPlayer</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Handler mainHandler;                  <span class="comment">// 负责音视频事件分发</span></span><br><span class="line">    <span class="keyword">private</span> TrackRenderer videoRenderer;                <span class="comment">// 视频渲染器</span></span><br><span class="line">    <span class="keyword">private</span> TrackRenderer audioRenderer;                <span class="comment">// 音频渲染器</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> VideoSurfaceView surfaceView;               <span class="comment">// 播放界面</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MainActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mainHandler = <span class="keyword">new</span> Handler();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">preparePlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (player == <span class="keyword">null</span>) &#123;</span><br><span class="line">            player = ExoPlayer.Factory.newInstance(<span class="number">2</span>, <span class="number">1000</span>, <span class="number">5000</span>);</span><br><span class="line">            player.addListener(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">            Uri uri = Uri.parse(<span class="string">"http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4"</span>);</span><br><span class="line"></span><br><span class="line">            DefaultSampleSource sampleSource =</span><br><span class="line">                    <span class="keyword">new</span> DefaultSampleSource(<span class="keyword">new</span> FrameworkSampleExtractor(<span class="keyword">this</span>, uri, <span class="keyword">null</span>), <span class="number">2</span>);</span><br><span class="line">            videoRenderer = <span class="keyword">new</span> MediaCodecVideoTrackRenderer(sampleSource,</span><br><span class="line">                    <span class="keyword">null</span>, <span class="keyword">true</span>, MediaCodec.VIDEO_SCALING_MODE_SCALE_TO_FIT, <span class="number">5000</span>, <span class="keyword">null</span>, mainHandler,</span><br><span class="line">                    <span class="keyword">this</span>, <span class="number">50</span>);</span><br><span class="line">            audioRenderer = <span class="keyword">new</span> MediaCodecAudioTrackRenderer(sampleSource, <span class="keyword">null</span>, <span class="keyword">true</span>, mainHandler, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">            player.prepare(videoRenderer, audioRenderer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startPlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        player.sendMessage(videoRenderer, MediaCodecVideoTrackRenderer.MSG_SET_SURFACE, surfaceView.getHolder().getSurface());</span><br><span class="line">        player.setPlayWhenReady(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">releasePlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (player != <span class="keyword">null</span>) &#123;</span><br><span class="line">            player.release();</span><br><span class="line">            player = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        surfaceView = (VideoSurfaceView) findViewById(R.id.surface_view);</span><br><span class="line">        surfaceView.getHolder().addCallback(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        preparePlayer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line"></span><br><span class="line">        releasePlayer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line"></span><br><span class="line">        releasePlayer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line"></span><br><span class="line">        preparePlayer();</span><br><span class="line">        startPlayer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></span><br><span class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></span><br><span class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></span><br><span class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></span><br><span class="line">        <span class="keyword">int</span> id = item.getItemId();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></span><br><span class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ExoPlayer.Listener 实现</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPlayerStateChanged</span><span class="params">(<span class="keyword">boolean</span> playWhenReady, <span class="keyword">int</span> playbackState)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPlayWhenReadyCommitted</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPlayerError</span><span class="params">(ExoPlaybackException error)</span> </span>&#123;</span><br><span class="line">        Toast.makeText(getApplicationContext(), R.string.play_fail, Toast.LENGTH_LONG).show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// SurfaceHolder.Callback 实现</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line">        startPlayer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MediaCodecVideoTrackRenderer.EventListener 实现</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDroppedFrames</span><span class="params">(<span class="keyword">int</span> count, <span class="keyword">long</span> elapsed)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVideoSizeChanged</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">float</span> pixelWidthHeightRatio)</span> </span>&#123;</span><br><span class="line">        surfaceView.setVideoWidthHeightRatio(</span><br><span class="line">                height == <span class="number">0</span> ? <span class="number">1</span> : (width * pixelWidthHeightRatio) / height);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MediaCodecAudioTrackRenderer.EventListener 实现</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAudioTrackInitializationError</span><span class="params">(AudioTrack.InitializationException e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAudioTrackWriteError</span><span class="params">(AudioTrack.WriteException e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDrawnToSurface</span><span class="params">(Surface surface)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDecoderInitializationError</span><span class="params">(MediaCodecTrackRenderer.DecoderInitializationException e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCryptoError</span><span class="params">(MediaCodec.CryptoException e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-添加一个字符串资源-strings-xml"><a href="#3-添加一个字符串资源-strings-xml" class="headerlink" title="3. 添加一个字符串资源(strings.xml)"></a>3. 添加一个字符串资源(strings.xml)</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>ExoPlayerTest<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"action_settings"</span>&gt;</span>Settings<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"play_fail"</span>&gt;</span>播放失败！<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-修改AndroidManifest-xml"><a href="#4-修改AndroidManifest-xml" class="headerlink" title="4. 修改AndroidManifest.xml"></a>4. 修改AndroidManifest.xml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"me.covertness.exoplayertest"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/Theme.AppCompat.NoActionBar"</span> &gt;</span>                      <span class="comment">&lt;!--开启全屏模式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:configChanges</span>=<span class="string">"keyboardHidden|orientation|screenSize"</span> &gt;</span>       <span class="comment">&lt;!--监听一些可能导致activity重新创建的事件，防止其重启--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h2><p>使用Android 4.1或以上版本的手机打开ExoPlayerTest，等待片刻后便可欣赏到邓紫棋的这首2015新曲——《多远都要在一起》。</p>
+<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><h3 id="1-界面"><a href="#1-界面" class="headerlink" title="1. 界面"></a>1. 界面</h3><p>ExoPlayerTest使用<a href="http://developer.android.com/reference/android/widget/FrameLayout.html" target="_blank" rel="noopener">FrameLayout</a>承载视频界面，此布局上的控件呈现堆叠效果。第一个添加的控件被放在最底层，最后一个添加到框架布局中的视图显示在最顶层，上一层的控件会覆盖下一层的控件。</p>
+<h3 id="2-逻辑"><a href="#2-逻辑" class="headerlink" title="2. 逻辑"></a>2. 逻辑</h3><p>ExoPlayerTest启动后便直接开始加载播放视频，应用暂停或退出都直接停止视频的播放并释放相关的资源，尚未实现用户可操控的逻辑。因而可归纳为加载视频、播放视频和销毁资源三个步骤，对应MainActivity.java中的三个函数preparePlayer、startPlayer和releasePlayer。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">preparePlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (player == <span class="keyword">null</span>) &#123;</span><br><span class="line">        player = ExoPlayer.Factory.newInstance(<span class="number">2</span>, <span class="number">1000</span>, <span class="number">5000</span>);</span><br><span class="line">        player.addListener(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        Uri uri = Uri.parse(<span class="string">"http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4"</span>);</span><br><span class="line"></span><br><span class="line">        DefaultSampleSource sampleSource =</span><br><span class="line">                <span class="keyword">new</span> DefaultSampleSource(<span class="keyword">new</span> FrameworkSampleExtractor(<span class="keyword">this</span>, uri, <span class="keyword">null</span>), <span class="number">2</span>);</span><br><span class="line">        videoRenderer = <span class="keyword">new</span> MediaCodecVideoTrackRenderer(sampleSource,</span><br><span class="line">                <span class="keyword">null</span>, <span class="keyword">true</span>, MediaCodec.VIDEO_SCALING_MODE_SCALE_TO_FIT, <span class="number">5000</span>, <span class="keyword">null</span>, mainHandler,</span><br><span class="line">                <span class="keyword">this</span>, <span class="number">50</span>);</span><br><span class="line">        audioRenderer = <span class="keyword">new</span> MediaCodecAudioTrackRenderer(sampleSource, <span class="keyword">null</span>, <span class="keyword">true</span>, mainHandler, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        player.prepare(videoRenderer, audioRenderer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>preparePlayer首先初始化一个ExoPlayer实例，然后使用ExoPlayer默认的采样源DefaultSampleSource从<a href="http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4" target="_blank" rel="noopener">URL</a>中获取视频数据，最后指定MediaCodecVideoTrackRenderer和MediaCodecAudioTrackRenderer为相应的视频和音频渲染器。<br>需要注意的是因为MediaCodecVideoTrackRenderer和MediaCodecAudioTrackRenderer仅支持<a href="http://developer.android.com/guide/appendix/media-formats.html" target="_blank" rel="noopener">Android原生的几种视频格式</a>，因而这个应用遇到一些其他格式的视频时并不能正常播放，此时onPlayerError会被触发，ExoPlayerTest在这里通过Toast给用户一个提示，告知播放失败。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startPlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    player.sendMessage(videoRenderer, MediaCodecVideoTrackRenderer.MSG_SET_SURFACE, surfaceView.getHolder().getSurface());</span><br><span class="line">    player.setPlayWhenReady(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>startPlayer发送一个消息给ExoPlayer，告诉它开始播放视频。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">releasePlayer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (player != <span class="keyword">null</span>) &#123;</span><br><span class="line">        player.release();</span><br><span class="line">        player = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>releasePlayer释放ExoPlayer所占用的资源。</p>
+<h3 id="3-AndroidManifest-xml"><a href="#3-AndroidManifest-xml" class="headerlink" title="3. AndroidManifest.xml"></a>3. AndroidManifest.xml</h3><p>此应用需要全屏显示，通过添加如下配置实现：<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">android:theme="@style/Theme.AppCompat.NoActionBar"</span><br></pre></td></tr></table></figure></p>
+<p>默认当手机屏幕旋转时系统会重新创建Activity，按照现在的逻辑这样会导致视频重新从头播放，可以通过以下配置规避：<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">android:configChanges="keyboardHidden|orientation|screenSize"</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/音视频处理/" rel="tag"># 音视频处理</a>
+          
+            <a href="/tags/ExoPlayer/" rel="tag"># ExoPlayer</a>
+          
+            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/04/《一点小信仰》——让我们能够在狂风暴雨中安睡/" rel="next" title="《一点小信仰》——让我们能够在狂风暴雨中安睡">
+                <i class="fa fa-chevron-left"></i> 《一点小信仰》——让我们能够在狂风暴雨中安睡
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/11/Linux 添加 Swap 空间/" rel="prev" title="Linux 添加 Swap 空间">
+                Linux 添加 Swap 空间 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要用到的工具"><span class="nav-number">1.</span> <span class="nav-text">需要用到的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用——ExoPlayerTest"><span class="nav-number">2.</span> <span class="nav-text">创建应用——ExoPlayerTest</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用Android-Studio创建一个名为ExoPlayerTest的Android项目"><span class="nav-number">2.1.</span> <span class="nav-text">1. 使用Android Studio创建一个名为ExoPlayerTest的Android项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-获取ExoPlayer"><span class="nav-number">2.2.</span> <span class="nav-text">2. 获取ExoPlayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-把ExoPlayer添加到ExoPlayerTest项目"><span class="nav-number">2.3.</span> <span class="nav-text">3. 把ExoPlayer添加到ExoPlayerTest项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建"><span class="nav-number">2.4.</span> <span class="nav-text">4. 点击编辑器上方的Sync进行同步，Gradle会自动下载其他依赖完成项目的构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现播放在线视频的功能"><span class="nav-number">3.</span> <span class="nav-text">实现播放在线视频的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-修改界面（activity-main-xml）"><span class="nav-number">3.1.</span> <span class="nav-text">1. 修改界面（activity_main.xml）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修改逻辑（MainActivity-java）"><span class="nav-number">3.2.</span> <span class="nav-text">2. 修改逻辑（MainActivity.java）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-添加一个字符串资源-strings-xml"><span class="nav-number">3.3.</span> <span class="nav-text">3. 添加一个字符串资源(strings.xml)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改AndroidManifest-xml"><span class="nav-number">3.4.</span> <span class="nav-text">4. 修改AndroidManifest.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试应用"><span class="nav-number">4.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结"><span class="nav-number">5.</span> <span class="nav-text">要点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-界面"><span class="nav-number">5.1.</span> <span class="nav-text">1. 界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-逻辑"><span class="nav-number">5.2.</span> <span class="nav-text">2. 逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-AndroidManifest-xml"><span class="nav-number">5.3.</span> <span class="nav-text">3. AndroidManifest.xml</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

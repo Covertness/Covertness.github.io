@@ -1,0 +1,964 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,定位,地图,Restful," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一个可以把现在的心情记录到地图上的 APP ，基于高德 LBS 开放平台。">
+<meta name="keywords" content="Android,定位,地图,Restful">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android学习记录——让应用通晓地理">
+<meta property="og:url" content="http://covertness.me/2015/05/17/Android学习记录——让应用通晓地理/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="一个可以把现在的心情记录到地图上的 APP ，基于高德 LBS 开放平台。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.444Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android学习记录——让应用通晓地理">
+<meta name="twitter:description" content="一个可以把现在的心情记录到地图上的 APP ，基于高德 LBS 开放平台。">
+<meta name="twitter:image" content="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/05/17/Android学习记录——让应用通晓地理/"/>
+
+
+
+
+
+  <title> Android学习记录——让应用通晓地理 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/05/17/Android学习记录——让应用通晓地理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android学习记录——让应用通晓地理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-17T13:08:45+08:00">
+                May 17 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/05/17/Android学习记录——让应用通晓地理/" class="leancloud_visitors" data-flag-title="Android学习记录——让应用通晓地理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif" alt=""></p>
+<p>一个可以把现在的心情记录到地图上的 APP ，基于高德 LBS 开放平台。<br><a id="more"></a></p>
+<h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">Android Studio</a> Android 集成开发环境</li>
+<li><a href="https://www.genymotion.com/" target="_blank" rel="noopener">Genymotion</a> Android 模拟器</li>
+<li><a href="http://lbs.amap.com/" target="_blank" rel="noopener">高德 LBS 开放平台</a> 提供定位、地图及其数据存储</li>
+<li><a href="http://loopj.com/android-async-http/" target="_blank" rel="noopener">Android Asynchronous Http Client</a> Android 异步 HTTP 请求库</li>
+</ul>
+<p>Android Studio 和 Genymotion 的基本使用方法可参考<a href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/">《Android学习记录——开发环境搭建》</a>。</p>
+<h2 id="创建应用——MoodMap"><a href="#创建应用——MoodMap" class="headerlink" title="创建应用——MoodMap"></a>创建应用——MoodMap</h2><h3 id="1-使用-Android-Studio-创建一个名为-MoodMap-的-Android-项目"><a href="#1-使用-Android-Studio-创建一个名为-MoodMap-的-Android-项目" class="headerlink" title="1. 使用 Android Studio 创建一个名为 MoodMap 的 Android 项目"></a>1. 使用 Android Studio 创建一个名为 MoodMap 的 Android 项目</h3><p>配置保持默认参数即可：</p>
+<blockquote>
+<p>Minimum SDK: API 16: Android 4.1 (Jelly Bean)<br>Activity Name: MainActivity<br>Layout Name: activity_main<br>Title: MoodMap<br>Menu Resource Name: menu_main</p>
+</blockquote>
+<h2 id="导入高德-LBS-开放平台相关-SDK"><a href="#导入高德-LBS-开放平台相关-SDK" class="headerlink" title="导入高德 LBS 开放平台相关 SDK"></a>导入高德 LBS 开放平台相关 SDK</h2><h3 id="1-注册高德-LBS-开放平台账号并获取相关-SDK-的-KEY"><a href="#1-注册高德-LBS-开放平台账号并获取相关-SDK-的-KEY" class="headerlink" title="1. 注册高德 LBS 开放平台账号并获取相关 SDK 的 KEY"></a>1. 注册高德 LBS 开放平台账号并获取相关 SDK 的 KEY</h3><p>注册账号后在<a href="http://lbs.amap.com/console/" target="_blank" rel="noopener">我的 KEY</a>页面获取 Android 平台 SDK 和 Rest 服务接口的 KEY。</p>
+<h3 id="2-下载-SDK"><a href="#2-下载-SDK" class="headerlink" title="2. 下载 SDK"></a>2. 下载 SDK</h3><ul>
+<li><a href="http://lbs.amap.com/api/android-sdk/down/" target="_blank" rel="noopener">高德地图Android SDK（2D矢量） V2.4.1</a></li>
+<li><a href="http://lbs.amap.com/api/android-cloud-sdk/down/" target="_blank" rel="noopener">高德地图 Android云图 SDK v1.1.0</a></li>
+<li><a href="http://lbs.amap.com/api/android-location-sdk/down/" target="_blank" rel="noopener">高德地图定位 SDK V1.3.2</a></li>
+</ul>
+<h3 id="3-配置-SDK-库文件"><a href="#3-配置-SDK-库文件" class="headerlink" title="3. 配置 SDK 库文件"></a>3. 配置 SDK 库文件</h3><p>将 SDK 包中对应的 .jar 文件复制到当前 app 项目下的 libs 目录中；然后再 Android Studio 中依次右击 .jar文件，选择 Add as library ，将其导入当前 app 项目。</p>
+<h2 id="创建一张云图"><a href="#创建一张云图" class="headerlink" title="创建一张云图"></a>创建一张云图</h2><p>通过以下命令请求 Rest 服务接口创建一张用于存储心情数据的云图：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -d <span class="string">"key=RestKey&amp;name=mymap"</span> <span class="string">"http://yuntuapi.amap.com/datamanage/table/create"</span></span><br></pre></td></tr></table></figure></p>
+<p>RestKey为刚才申请的 Rest 服务接口的 KEY，注意保存返回结果中的tableid，后面需要保存到 AndroidManifest.xml 文件中。</p>
+<h2 id="导入-Android-Asynchronous-Http-Client"><a href="#导入-Android-Asynchronous-Http-Client" class="headerlink" title="导入 Android Asynchronous Http Client"></a>导入 Android Asynchronous Http Client</h2><p>在项目 build.gradle 文件的 dependencies 节中添加一行<code>compile &#39;com.loopj.android:android-async-http:1.4.5&#39;</code>。</p>
+<h2 id="实现-APP-的功能"><a href="#实现-APP-的功能" class="headerlink" title="实现 APP 的功能"></a>实现 APP 的功能</h2><h3 id="1-界面"><a href="#1-界面" class="headerlink" title="1. 界面"></a>1. 界面</h3><p>res/layout/activity_main.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span> <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> <span class="attr">android:paddingLeft</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingRight</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingTop</span>=<span class="string">"@dimen/activity_vertical_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingBottom</span>=<span class="string">"@dimen/activity_vertical_margin"</span> <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.amap.api.maps2d.MapView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span> <span class="attr">android:id</span>=<span class="string">"@+id/map"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"fill_parent"</span> <span class="attr">android:layout_height</span>=<span class="string">"fill_parent"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>res/layout/choose_mood.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"fill_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"fill_parent"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageButton</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/happyButton"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">"@drawable/face_happy"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:contentDescription</span>=<span class="string">"@string/happy"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageButton</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/smileButton"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">"@drawable/face_smile"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:contentDescription</span>=<span class="string">"@string/smile"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageButton</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/sadButton"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">"@drawable/face_sad"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:contentDescription</span>=<span class="string">"@string/sad"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>res/values/strings.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>MoodMap<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"action_settings"</span>&gt;</span>Settings<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"your_mood"</span>&gt;</span>现在的心情<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"happy"</span>&gt;</span>开心<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"sad"</span>&gt;</span>伤心<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"smile"</span>&gt;</span>微笑<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>复制以下3张图片到 res/drawable/ 目录下：</p>
+<ul>
+<li><a href="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_face_happy.png" target="_blank" rel="noopener">face_happy.png</a></li>
+<li><a href="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_face_sad.png" target="_blank" rel="noopener">face_sad.png</a></li>
+<li><a href="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_face_smile.png" target="_blank" rel="noopener">face_smile.png</a></li>
+</ul>
+<h3 id="2-逻辑"><a href="#2-逻辑" class="headerlink" title="2. 逻辑"></a>2. 逻辑</h3><p>MainActivity.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.covertness.moodmap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Dialog;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.ApplicationInfo;</span><br><span class="line"><span class="keyword">import</span> android.content.pm.PackageManager;</span><br><span class="line"><span class="keyword">import</span> android.location.Location;</span><br><span class="line"><span class="keyword">import</span> android.os.Handler;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.ActionBarActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.Menu;</span><br><span class="line"><span class="keyword">import</span> android.view.MenuItem;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.ImageButton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.model.AMapCloudException;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.model.CloudItem;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.model.CloudItemDetail;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.model.LatLonPoint;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.search.CloudResult;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.cloud.search.CloudSearch;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.location.AMapLocation;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.location.AMapLocationListener;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.location.LocationManagerProxy;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.location.LocationProviderProxy;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.AMap;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.CameraUpdateFactory;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.LocationSource;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.MapView;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.BitmapDescriptor;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.BitmapDescriptorFactory;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.LatLng;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.LatLngBounds;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.Marker;</span><br><span class="line"><span class="keyword">import</span> com.amap.api.maps2d.model.MarkerOptions;</span><br><span class="line"><span class="keyword">import</span> com.loopj.android.http.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.http.Header;</span><br><span class="line"><span class="keyword">import</span> org.json.JSONException;</span><br><span class="line"><span class="keyword">import</span> org.json.JSONObject;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ActionBarActivity</span> <span class="keyword">implements</span> <span class="title">LocationSource</span>, <span class="title">AMapLocationListener</span>,</span></span><br><span class="line"><span class="class">        <span class="title">CloudSearch</span>.<span class="title">OnCloudSearchListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String amapRestfulKey;</span><br><span class="line">    <span class="keyword">private</span> String cloudTableId;</span><br><span class="line">    <span class="keyword">private</span> MapView mapView;</span><br><span class="line">    <span class="keyword">private</span> AMap aMap;</span><br><span class="line">    <span class="keyword">private</span> LocationManagerProxy locationManagerProxy;</span><br><span class="line">    <span class="keyword">private</span> CloudSearch cloudSearch;</span><br><span class="line">    <span class="keyword">private</span> CloudSearch.Query currentQuery;</span><br><span class="line">    <span class="keyword">private</span> OnLocationChangedListener locationChangedListener;</span><br><span class="line">    <span class="keyword">private</span> AMapLocation currentLocation = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> AsyncHttpClient httpClient = <span class="keyword">new</span> AsyncHttpClient();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ApplicationInfo app = <span class="keyword">this</span>.getPackageManager().getApplicationInfo(<span class="keyword">this</span>.getPackageName(),PackageManager.GET_META_DATA);</span><br><span class="line">            amapRestfulKey = app.metaData.getString(<span class="string">"me.covertness.moodmap.restful.apikey"</span>);</span><br><span class="line">            cloudTableId = app.metaData.getString(<span class="string">"me.covertness.moodmap.cloud.tableid"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">            Log.e(<span class="string">"metadata"</span>, <span class="string">"Failed to load meta-data, NameNotFound: "</span> + e.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            Log.e(<span class="string">"metadata"</span>, <span class="string">"Failed to load meta-data, NullPointer: "</span> + e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mapView = (MapView) findViewById(R.id.map);</span><br><span class="line">        mapView.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (aMap == <span class="keyword">null</span>) &#123;</span><br><span class="line">            aMap = mapView.getMap();</span><br><span class="line">            aMap.setLocationSource(<span class="keyword">this</span>);   <span class="comment">// 设置定位监听</span></span><br><span class="line">            <span class="comment">// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false</span></span><br><span class="line">            aMap.setMyLocationEnabled(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cloudSearch = <span class="keyword">new</span> CloudSearch(<span class="keyword">this</span>);</span><br><span class="line">        cloudSearch.setOnCloudSearchListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line"></span><br><span class="line">        mapView.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onPause();</span><br><span class="line"></span><br><span class="line">        mapView.onPause();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line"></span><br><span class="line">        mapView.onResume();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSaveInstanceState</span><span class="params">(Bundle outState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onSaveInstanceState(outState);</span><br><span class="line"></span><br><span class="line">        mapView.onSaveInstanceState(outState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></span><br><span class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></span><br><span class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></span><br><span class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></span><br><span class="line">        <span class="keyword">int</span> id = item.getItemId();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></span><br><span class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">activate</span><span class="params">(OnLocationChangedListener onLocationChangedListener)</span> </span>&#123;</span><br><span class="line">        locationChangedListener = onLocationChangedListener;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (locationManagerProxy == <span class="keyword">null</span>) &#123;</span><br><span class="line">            locationManagerProxy = LocationManagerProxy.getInstance(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，</span></span><br><span class="line">        <span class="comment">//注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求</span></span><br><span class="line">        <span class="comment">//在定位结束后，在合适的生命周期调用destroy()方法</span></span><br><span class="line">        <span class="comment">//其中如果间隔时间为-1，则定位只定一次</span></span><br><span class="line">        locationManagerProxy.requestLocationData(</span><br><span class="line">                LocationProviderProxy.AMapNetwork, -<span class="number">1</span>, <span class="number">10</span>, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deactivate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        locationChangedListener = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (locationManagerProxy != <span class="keyword">null</span>) &#123;</span><br><span class="line">            locationManagerProxy.removeUpdates(<span class="keyword">this</span>);</span><br><span class="line">            locationManagerProxy.destroy();</span><br><span class="line">        &#125;</span><br><span class="line">        locationManagerProxy = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLocationChanged</span><span class="params">(AMapLocation aMapLocation)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (locationChangedListener != <span class="keyword">null</span> &amp;&amp; aMapLocation != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> retCode = aMapLocation.getAMapException().getErrorCode();</span><br><span class="line">            <span class="keyword">if</span> (retCode == <span class="number">0</span>) &#123;</span><br><span class="line">                currentLocation = aMapLocation;</span><br><span class="line">                locationChangedListener.onLocationChanged(currentLocation);<span class="comment">// 显示系统小蓝点</span></span><br><span class="line">                updateMapData();</span><br><span class="line">                showMoodDialog();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Log.e(<span class="string">"locate"</span>, aMapLocation.getAMapException().getErrorMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 此方法已经废弃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLocationChanged</span><span class="params">(Location location)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStatusChanged</span><span class="params">(String provider, <span class="keyword">int</span> status, Bundle extras)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProviderEnabled</span><span class="params">(String provider)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProviderDisabled</span><span class="params">(String provider)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCloudSearched</span><span class="params">(CloudResult result, <span class="keyword">int</span> rCode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rCode == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (result != <span class="keyword">null</span> &amp;&amp; result.getQuery() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result.getQuery().equals(currentQuery)) &#123;</span><br><span class="line">                    <span class="comment">//获取云数据</span></span><br><span class="line">                    List&lt;CloudItem&gt; mCloudItems = result.getClouds();</span><br><span class="line">                    <span class="keyword">if</span> (mCloudItems != <span class="keyword">null</span> &amp;&amp; mCloudItems.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        aMap.clear();</span><br><span class="line">                        PoiOverlay mPoiCloudOverlay = <span class="keyword">new</span> PoiOverlay(<span class="keyword">this</span>, aMap, mCloudItems);</span><br><span class="line">                        mPoiCloudOverlay.removeFromMap();</span><br><span class="line">                        mPoiCloudOverlay.addToMap();</span><br><span class="line">                        mPoiCloudOverlay.zoomToSpan();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        Log.d(<span class="string">"search"</span>, <span class="string">"result is empty"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Log.d(<span class="string">"search"</span>, <span class="string">"result is empty"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Log.e(<span class="string">"search"</span>, <span class="string">"error code: "</span> + rCode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCloudItemDetailSearched</span><span class="params">(CloudItemDetail cloudItemDetail, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showMoodDialog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Dialog moodDialog = <span class="keyword">new</span> Dialog(<span class="keyword">this</span>);</span><br><span class="line">        moodDialog.setContentView(R.layout.choose_mood);</span><br><span class="line">        moodDialog.setTitle(R.string.your_mood);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> JsonHttpResponseHandler publishMoodHandler = <span class="keyword">new</span> JsonHttpResponseHandler() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(<span class="keyword">int</span> statusCode, Header[] headers, JSONObject response)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (response.getInt(<span class="string">"status"</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">final</span> Handler handler = <span class="keyword">new</span> Handler();</span><br><span class="line">                        handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                                updateMapData();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, <span class="number">5000</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        Log.e(<span class="string">"publishMood"</span>, <span class="string">"failed: "</span> + response.getString(<span class="string">"info"</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ImageButton happyButton = (ImageButton) moodDialog.findViewById(R.id.happyButton);</span><br><span class="line">        <span class="comment">// if button is clicked, close the custom dialog</span></span><br><span class="line">        happyButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                moodDialog.dismiss();</span><br><span class="line">                publishMood(happyButton.getContentDescription().toString(), publishMoodHandler);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ImageButton smileButton = (ImageButton) moodDialog.findViewById(R.id.smileButton);</span><br><span class="line">        <span class="comment">// if button is clicked, close the custom dialog</span></span><br><span class="line">        smileButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                moodDialog.dismiss();</span><br><span class="line">                publishMood(smileButton.getContentDescription().toString(), publishMoodHandler);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> ImageButton sadButton = (ImageButton) moodDialog.findViewById(R.id.sadButton);</span><br><span class="line">        <span class="comment">// if button is clicked, close the custom dialog</span></span><br><span class="line">        sadButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                moodDialog.dismiss();</span><br><span class="line">                publishMood(sadButton.getContentDescription().toString(), publishMoodHandler);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        moodDialog.show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">publishMood</span><span class="params">(String mood, AsyncHttpResponseHandler responseHandler)</span> </span>&#123;</span><br><span class="line">        RequestParams params = <span class="keyword">new</span> RequestParams();</span><br><span class="line">        params.put(<span class="string">"key"</span>, amapRestfulKey);</span><br><span class="line">        params.put(<span class="string">"tableid"</span>, cloudTableId);</span><br><span class="line">        params.put(<span class="string">"loctype"</span>, <span class="string">"1"</span>);</span><br><span class="line"></span><br><span class="line">        JSONObject jsonObject = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            jsonObject.put(<span class="string">"_name"</span>, mood);</span><br><span class="line">            jsonObject.put(<span class="string">"_location"</span>,</span><br><span class="line">                    currentLocation.getLongitude() + <span class="string">","</span> + currentLocation.getLatitude());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        params.put(<span class="string">"data"</span>, jsonObject.toString());</span><br><span class="line">        httpClient.post(<span class="string">"http://yuntuapi.amap.com/datamanage/data/create"</span>, params, responseHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateMapData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//圆形查询范围</span></span><br><span class="line">        CloudSearch.SearchBound bound = <span class="keyword">new</span> CloudSearch.SearchBound(<span class="keyword">new</span> LatLonPoint(</span><br><span class="line">                currentLocation.getLatitude(), currentLocation.getLongitude()), <span class="number">50000</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//构造查询对象</span></span><br><span class="line">            currentQuery = <span class="keyword">new</span> CloudSearch.Query(cloudTableId, <span class="string">""</span>, bound);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//异步搜索</span></span><br><span class="line">            cloudSearch.searchCloudAsyn(currentQuery);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (AMapCloudException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PoiOverlay</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;CloudItem&gt; mPois;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AMap mAMap;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Context mainContext;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Marker&gt; mPoiMarks = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PoiOverlay</span><span class="params">(Context context, AMap amap, List&lt;CloudItem&gt; pois)</span> </span>&#123;</span><br><span class="line">        mainContext = context;</span><br><span class="line">        mAMap = amap;</span><br><span class="line">        mPois = pois;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addToMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mPois.size(); i++) &#123;</span><br><span class="line">            Marker marker = mAMap.addMarker(getMarkerOptions(i));</span><br><span class="line">            marker.setObject(i);</span><br><span class="line">            mPoiMarks.add(marker);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeFromMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Marker mark : mPoiMarks) &#123;</span><br><span class="line">            mark.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">zoomToSpan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mPois != <span class="keyword">null</span> &amp;&amp; mPois.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mAMap == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            LatLngBounds bounds = getLatLngBounds();</span><br><span class="line">            mAMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, <span class="number">20</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> LatLngBounds <span class="title">getLatLngBounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        LatLngBounds.Builder b = LatLngBounds.builder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mPois.size(); i++) &#123;</span><br><span class="line">            b.include(<span class="keyword">new</span> LatLng(mPois.get(i).getLatLonPoint().getLatitude(),</span><br><span class="line">                    mPois.get(i).getLatLonPoint().getLongitude()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> MarkerOptions <span class="title">getMarkerOptions</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MarkerOptions()</span><br><span class="line">                .position(</span><br><span class="line">                        <span class="keyword">new</span> LatLng(mPois.get(index).getLatLonPoint()</span><br><span class="line">                                .getLatitude(), mPois.get(index)</span><br><span class="line">                                .getLatLonPoint().getLongitude()))</span><br><span class="line">                .title(getTitle(index)).snippet(getSnippet(index))</span><br><span class="line">                .icon(getBitmapDescriptor(index));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> BitmapDescriptor <span class="title">getBitmapDescriptor</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        String title = mPois.get(index).getTitle();</span><br><span class="line">        <span class="keyword">if</span> (title.equals(mainContext.getString(R.string.happy))) &#123;</span><br><span class="line">            <span class="keyword">return</span> BitmapDescriptorFactory.fromResource(R.drawable.face_happy);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (title.equals(mainContext.getString(R.string.smile))) &#123;</span><br><span class="line">            <span class="keyword">return</span> BitmapDescriptorFactory.fromResource(R.drawable.face_smile);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (title.equals(mainContext.getString(R.string.sad))) &#123;</span><br><span class="line">            <span class="keyword">return</span> BitmapDescriptorFactory.fromResource(R.drawable.face_sad);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">getTitle</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mPois.get(index).getTitle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> String <span class="title">getSnippet</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mPois.get(index).getSnippet();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-修改AndroidManifest-xml"><a href="#3-修改AndroidManifest-xml" class="headerlink" title="3. 修改AndroidManifest.xml"></a>3. 修改AndroidManifest.xml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"me.covertness.moodmap"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_COARSE_LOCATION"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_PHONE_STATE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CHANGE_WIFI_STATE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_WIFI_STATE"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CHANGE_CONFIGURATION"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">"com.amap.api.v2.apikey"</span> <span class="attr">android:value</span>=<span class="string">"AndroidKey"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">"me.covertness.moodmap.restful.apikey"</span> <span class="attr">android:value</span>=<span class="string">"RestKey"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">"me.covertness.moodmap.cloud.tableid"</span> <span class="attr">android:value</span>=<span class="string">"CloudTableId"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意将代码中的<code>AndroidKey</code>、<code>RestKey</code>和<code>CloudTableId</code>替换成自己应用的。</strong></p>
+<h2 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h2><p>使用 Android 4.1 或以上版本的手机打开 MoodMap （Genymotion模拟器需要先打开GPS并设置当前的位置），选择一个表情，等待片刻便能在地图上看到自己所在的位置多了一个表情，如下图所示。<br><img src="http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif" alt=""></p>
+<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><h3 id="1-界面-1"><a href="#1-界面-1" class="headerlink" title="1. 界面"></a>1. 界面</h3><p>应用初始化完成后会创建一个<a href="http://www.mkyong.com/android/android-custom-dialog-example/" target="_blank" rel="noopener">自定义的对话框</a>，其布局文件位于 choose_mood.xml 文件中，当用户做出选择后该对话框即关闭。</p>
+<h3 id="2-逻辑-1"><a href="#2-逻辑-1" class="headerlink" title="2. 逻辑"></a>2. 逻辑</h3><p>此应用启动后首先初始化 2D 地图 SDK，然后发起定位请求，获得位置信息后显示对话框让用户选择当前的心情，之后保存用户的心情到云图，最后更新云图数据显示到地图上。期间使用到 2D 地图 SDK 、 定位 SDK 和 云图 SDK ，具体使用方法可参看实现代码及文档。</p>
+<h3 id="3-AndroidManifest-xml"><a href="#3-AndroidManifest-xml" class="headerlink" title="3. AndroidManifest.xml"></a>3. AndroidManifest.xml</h3><p>应用将用到第三方服务的 KEY 保存到了 meta-data 字段，可在 Java 代码中通过如下方式获取：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    ApplicationInfo app = <span class="keyword">this</span>.getPackageManager().getApplicationInfo(<span class="keyword">this</span>.getPackageName(),PackageManager.GET_META_DATA);</span><br><span class="line">    amapRestfulKey = app.metaData.getString(<span class="string">"me.covertness.moodmap.restful.apikey"</span>);</span><br><span class="line">    cloudTableId = app.metaData.getString(<span class="string">"me.covertness.moodmap.cloud.tableid"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">    Log.e(<span class="string">"metadata"</span>, <span class="string">"Failed to load meta-data, NameNotFound: "</span> + e.getMessage());</span><br><span class="line">&#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">    Log.e(<span class="string">"metadata"</span>, <span class="string">"Failed to load meta-data, NullPointer: "</span> + e.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/定位/" rel="tag"># 定位</a>
+          
+            <a href="/tags/地图/" rel="tag"># 地图</a>
+          
+            <a href="/tags/Restful/" rel="tag"># Restful</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/11/《我11》——一个起于白衬衣终于遗精的故事/" rel="next" title="《我11》——一个起于白衬衣终于遗精的故事">
+                <i class="fa fa-chevron-left"></i> 《我11》——一个起于白衬衣终于遗精的故事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/21/《无人知晓》——小小的棺材，安静的孩子/" rel="prev" title="《无人知晓》——小小的棺材，安静的孩子">
+                《无人知晓》——小小的棺材，安静的孩子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要用到的工具"><span class="nav-number">1.</span> <span class="nav-text">需要用到的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用——MoodMap"><span class="nav-number">2.</span> <span class="nav-text">创建应用——MoodMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用-Android-Studio-创建一个名为-MoodMap-的-Android-项目"><span class="nav-number">2.1.</span> <span class="nav-text">1. 使用 Android Studio 创建一个名为 MoodMap 的 Android 项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入高德-LBS-开放平台相关-SDK"><span class="nav-number">3.</span> <span class="nav-text">导入高德 LBS 开放平台相关 SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-注册高德-LBS-开放平台账号并获取相关-SDK-的-KEY"><span class="nav-number">3.1.</span> <span class="nav-text">1. 注册高德 LBS 开放平台账号并获取相关 SDK 的 KEY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下载-SDK"><span class="nav-number">3.2.</span> <span class="nav-text">2. 下载 SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置-SDK-库文件"><span class="nav-number">3.3.</span> <span class="nav-text">3. 配置 SDK 库文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一张云图"><span class="nav-number">4.</span> <span class="nav-text">创建一张云图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入-Android-Asynchronous-Http-Client"><span class="nav-number">5.</span> <span class="nav-text">导入 Android Asynchronous Http Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现-APP-的功能"><span class="nav-number">6.</span> <span class="nav-text">实现 APP 的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-界面"><span class="nav-number">6.1.</span> <span class="nav-text">1. 界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-逻辑"><span class="nav-number">6.2.</span> <span class="nav-text">2. 逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改AndroidManifest-xml"><span class="nav-number">6.3.</span> <span class="nav-text">3. 修改AndroidManifest.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试应用"><span class="nav-number">7.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结"><span class="nav-number">8.</span> <span class="nav-text">要点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-界面-1"><span class="nav-number">8.1.</span> <span class="nav-text">1. 界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-逻辑-1"><span class="nav-number">8.2.</span> <span class="nav-text">2. 逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-AndroidManifest-xml"><span class="nav-number">8.3.</span> <span class="nav-text">3. AndroidManifest.xml</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

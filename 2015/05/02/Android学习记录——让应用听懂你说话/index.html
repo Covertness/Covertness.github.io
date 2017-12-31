@@ -1,0 +1,952 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Gradle,语音识别,百度开放服务," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一个简单的语音识别Demo，基于百度语音识别云服务。">
+<meta name="keywords" content="Android,Gradle,语音识别,百度开放服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android学习记录——让应用听懂你说话">
+<meta property="og:url" content="http://covertness.me/2015/05/02/Android学习记录——让应用听懂你说话/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="一个简单的语音识别Demo，基于百度语音识别云服务。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif">
+<meta property="og:image" content="http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif">
+<meta property="og:updated_time" content="2017-12-31T05:53:33.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android学习记录——让应用听懂你说话">
+<meta name="twitter:description" content="一个简单的语音识别Demo，基于百度语音识别云服务。">
+<meta name="twitter:image" content="http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2015/05/02/Android学习记录——让应用听懂你说话/"/>
+
+
+
+
+
+  <title> Android学习记录——让应用听懂你说话 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/05/02/Android学习记录——让应用听懂你说话/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android学习记录——让应用听懂你说话
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-02T17:03:25+08:00">
+                May 2 2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/05/02/Android学习记录——让应用听懂你说话/" class="leancloud_visitors" data-flag-title="Android学习记录——让应用听懂你说话">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif" alt=""></p>
+<p>一个简单的语音识别Demo，基于百度语音识别云服务。<br><a id="more"></a></p>
+<h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
+<li><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="noopener">Android Studio</a> Android 集成开发环境</li>
+<li><a href="https://www.genymotion.com/" target="_blank" rel="noopener">Genymotion</a> Android 模拟器</li>
+<li><a href="http://developer.baidu.com/wiki/index.php?title=docs/cplat/media/voice" target="_blank" rel="noopener">百度语音识别服务</a> 提供云端语音识别</li>
+</ul>
+<p>Android Studio 和 Genymotion 的基本使用方法可参考<a href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/">《Android学习记录——开发环境搭建》</a>。</p>
+<h2 id="创建应用——-Listen"><a href="#创建应用——-Listen" class="headerlink" title="创建应用—— Listen"></a>创建应用—— Listen</h2><h3 id="1-使用-Android-Studio-创建一个名为-Listen-的-Android-项目"><a href="#1-使用-Android-Studio-创建一个名为-Listen-的-Android-项目" class="headerlink" title="1. 使用 Android Studio 创建一个名为 Listen 的 Android 项目"></a>1. 使用 Android Studio 创建一个名为 Listen 的 Android 项目</h3><p>配置保持默认参数即可：</p>
+<blockquote>
+<p>Minimum SDK: API 16: Android 4.1 (Jelly Bean)<br>Activity Name: MainActivity<br>Layout Name: activity_main<br>Title: Listen<br>Menu Resource Name: menu_main</p>
+</blockquote>
+<h2 id="导入百度语音识别-SDK"><a href="#导入百度语音识别-SDK" class="headerlink" title="导入百度语音识别 SDK"></a>导入百度语音识别 SDK</h2><h3 id="1-注册百度开放云平台账号并开启语音识别服务"><a href="#1-注册百度开放云平台账号并开启语音识别服务" class="headerlink" title="1. 注册百度开放云平台账号并开启语音识别服务"></a>1. 注册百度开放云平台账号并开启语音识别服务</h3><p>步骤比较简单，具体可参考<a href="http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-Android-SDK-Manual.pdf" target="_blank" rel="noopener">《开发手册》</a>的集成指南一节</p>
+<h3 id="2-下载-Android-SDK"><a href="#2-下载-Android-SDK" class="headerlink" title="2. 下载 Android SDK"></a>2. 下载 Android SDK</h3><p>目前最新版本为<a href="http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-SDK-Android-1.6.2.zip" target="_blank" rel="noopener">1.6.2</a></p>
+<h3 id="3-配置-SDK-库文件"><a href="#3-配置-SDK-库文件" class="headerlink" title="3. 配置 SDK 库文件"></a>3. 配置 SDK 库文件</h3><p>将 SDK 包中 libs 目录下的所有文件和文件夹复制到当前 app 项目下的 libs 目录中；然后再 Android Studio 中右击 galaxy.jar，选择 Add as library ，将其导入当前 app 项目；最后由于 SDK 中还包含 .so 库，还需在项目 build.gradle 中指定 jni 库的目录为 libs 目录。最终 build.gradle 文件如下所示。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 21</span><br><span class="line">    buildToolsVersion &quot;21.1.2&quot;</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId &quot;me.covertness.listen&quot;</span><br><span class="line">        minSdkVersion 16</span><br><span class="line">        targetSdkVersion 21</span><br><span class="line">        versionCode 1</span><br><span class="line">        versionName &quot;1.0&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled false</span><br><span class="line">            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sourceSets &#123;</span><br><span class="line">        main &#123;</span><br><span class="line">            jniLibs.srcDirs = [&apos;libs&apos;]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</span><br><span class="line">    compile &apos;com.android.support:appcompat-v7:22.0.0&apos;</span><br><span class="line">    compile files(&apos;libs/galaxy.jar&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现语音识别的功能"><a href="#实现语音识别的功能" class="headerlink" title="实现语音识别的功能"></a>实现语音识别的功能</h2><h3 id="1-修改界面"><a href="#1-修改界面" class="headerlink" title="1. 修改界面"></a>1. 修改界面</h3><p>activity_main.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span> <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> <span class="attr">android:paddingLeft</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingRight</span>=<span class="string">"@dimen/activity_horizontal_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingTop</span>=<span class="string">"@dimen/activity_vertical_margin"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:paddingBottom</span>=<span class="string">"@dimen/activity_vertical_margin"</span> <span class="attr">tools:context</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"188dip"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"100dip"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"@string/start_listening"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_centerInParent</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:onClick</span>=<span class="string">"startListening"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"48sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>strings.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>Listen<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"error_title"</span>&gt;</span>错误<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"error_message"</span>&gt;</span>出错了，错误码：<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"start_listening"</span>&gt;</span>听我说<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_title"</span>&gt;</span>语音识别<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_wait"</span>&gt;</span>请说话<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_listening"</span>&gt;</span>倾听中<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_speech"</span>&gt;</span>你刚才说了：<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_noword"</span>&gt;</span>抱歉，没有听到你的声音，请重试<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"listen_dialog_networkerror"</span>&gt;</span>网络连接失败，请稍后重试<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"action_settings"</span>&gt;</span>Settings<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-修改逻辑"><a href="#2-修改逻辑" class="headerlink" title="2. 修改逻辑"></a>2. 修改逻辑</h3><p>MainActivity.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> me.covertness.listen;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.AlertDialog;</span><br><span class="line"><span class="keyword">import</span> android.app.ProgressDialog;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.DialogInterface;</span><br><span class="line"><span class="keyword">import</span> android.os.Handler;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.ActionBarActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.Menu;</span><br><span class="line"><span class="keyword">import</span> android.view.MenuItem;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baidu.voicerecognition.android.VoiceRecognitionClient;</span><br><span class="line"><span class="keyword">import</span> com.baidu.voicerecognition.android.VoiceRecognitionConfig;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ActionBarActivity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> VoiceRecognitionClient baiduRecognitionClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        baiduRecognitionClient = VoiceRecognitionClient.getInstance(<span class="keyword">this</span>.getApplicationContext());</span><br><span class="line">        baiduRecognitionClient.setTokenApis(your_API_KEY, your_SECRET_KEY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></span><br><span class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></span><br><span class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></span><br><span class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></span><br><span class="line">        <span class="keyword">int</span> id = item.getItemId();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></span><br><span class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startListening</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        MyVoiceRecognitionListener listener = <span class="keyword">new</span> MyVoiceRecognitionListener(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">int</span> ret = baiduRecognitionClient.startVoiceRecognition(</span><br><span class="line">                listener, <span class="keyword">new</span> VoiceRecognitionConfig()</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">if</span> (ret == VoiceRecognitionClient.START_WORK_RESULT_WORKING) &#123;</span><br><span class="line">            ProgressDialog ringProgressDialog = ProgressDialog.show(<span class="keyword">this</span>,</span><br><span class="line">                    getString(R.string.listen_dialog_title), getString(R.string.listen_dialog_wait),</span><br><span class="line">                    <span class="keyword">false</span>);</span><br><span class="line">            listener.setRecognitionDialog(ringProgressDialog);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            AlertDialog alertDialog = <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>).create();</span><br><span class="line">            alertDialog.setTitle(R.string.error_title);</span><br><span class="line">            alertDialog.setMessage(getString(R.string.error_message) + ret);</span><br><span class="line">            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, <span class="string">"OK"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            alertDialog.show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVoiceRecognitionListener</span> <span class="keyword">implements</span> <span class="title">VoiceRecognitionClient</span>.<span class="title">VoiceClientStatusChangeListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Context mainContext;</span><br><span class="line">    <span class="keyword">private</span> ProgressDialog recognitionDialog;</span><br><span class="line">    <span class="keyword">private</span> String recogntionResult = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    MyVoiceRecognitionListener(Context context) &#123;</span><br><span class="line">        <span class="keyword">this</span>.mainContext = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRecognitionDialog</span><span class="params">(ProgressDialog recognitionDialog)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.recognitionDialog = recognitionDialog;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings</span> (value=<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClientStatusChange</span><span class="params">(<span class="keyword">int</span> status, Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(status)&#123;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_START_RECORDING:</span><br><span class="line">                Log.i(<span class="string">"ClientStatusChange"</span>, <span class="string">"start recording"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_SPEECH_START:</span><br><span class="line">                recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_listening));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_SPEECH_END:</span><br><span class="line">                <span class="keyword">if</span> (recogntionResult.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_speech) + recogntionResult);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_noword));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_FINISH:</span><br><span class="line">                closeDialog();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_UPDATE_RESULTS:</span><br><span class="line">                ArrayList&lt;String&gt; words = (ArrayList&lt;String&gt;)obj;</span><br><span class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="keyword">for</span> (String w : words) &#123;</span><br><span class="line">                    sb.append(w);</span><br><span class="line">                &#125;</span><br><span class="line">                recogntionResult = sb.toString();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNetworkStatusChange</span><span class="params">(<span class="keyword">int</span> i, Object o)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(<span class="keyword">int</span> type, <span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">        String errorMessage;</span><br><span class="line">        <span class="keyword">if</span> (code == VoiceRecognitionClient.ERROR_CLIENT_NO_SPEECH) &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.listen_dialog_noword);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (code == VoiceRecognitionClient.ERROR_NETWORK_CONNECT_ERROR) &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.listen_dialog_networkerror);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.error_message) + code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        recognitionDialog.setMessage(errorMessage);</span><br><span class="line">        closeDialog();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">closeDialog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Handler handler = <span class="keyword">new</span> Handler();</span><br><span class="line">        handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                recognitionDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">3000</span>);  <span class="comment">// 3000 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意将代码中的<code>your_API_KEY</code>和<code>your_SECRET_KEY</code>替换成自己应用的。</strong></p>
+<h3 id="3-修改AndroidManifest-xml"><a href="#3-修改AndroidManifest-xml" class="headerlink" title="3. 修改AndroidManifest.xml"></a>3. 修改AndroidManifest.xml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"me.covertness.listen"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.RECORD_AUDIO"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_PHONE_STATE"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_SETTINGS"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h2><p>使用 Android 4.1 或以上版本的手机打开 Listen ，点击<code>听我说</code>按钮，看到<code>请说话</code>提示后对麦克风说一句话，稍后便可看到屏幕上显示自己刚说过的话了，如下图所示。<br><img src="http://covertness.qiniudn.com/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif" alt=""></p>
+<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><h3 id="1-界面"><a href="#1-界面" class="headerlink" title="1. 界面"></a>1. 界面</h3><p>Listen主界面只有一个居中布局（<code>android:layout_centerInParent=&quot;true&quot;</code>）的按钮，当启动语音识别后会出现一个<a href="http://developer.android.com/reference/android/app/ProgressDialog.html" target="_blank" rel="noopener">ProgressDialog</a>类型的对话框，ProgressDialog多用于后台正在工作时告知用户等待。</p>
+<h3 id="2-逻辑"><a href="#2-逻辑" class="headerlink" title="2. 逻辑"></a>2. 逻辑</h3><p>Listen首先对用户的讲话进行录音，然后通过网络将其发送至百度语音识别的云端进行处理，完成后的识别结果通过网络返回，最终显示在界面上。由于 SDK 已经对整个过程进行了封装，因而我们只需对其进行一些个性化的配置，并处理其返回的结果即可。</p>
+<p>对其进行配置可通过VoiceRecognitionConfig来完成，目前 SDK 支持对语种、识别语言的领域等参数进行设置，具体可参考 SDK 中的 API 文档。</p>
+<p>对返回结果的处理是通过实现接口VoiceRecognitionClient.VoiceClientStatusChangeListener来完成的。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVoiceRecognitionListener</span> <span class="keyword">implements</span> <span class="title">VoiceRecognitionClient</span>.<span class="title">VoiceClientStatusChangeListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Context mainContext;</span><br><span class="line">    <span class="keyword">private</span> ProgressDialog recognitionDialog;</span><br><span class="line">    <span class="keyword">private</span> String recogntionResult = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    MyVoiceRecognitionListener(Context context) &#123;</span><br><span class="line">        <span class="keyword">this</span>.mainContext = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRecognitionDialog</span><span class="params">(ProgressDialog recognitionDialog)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.recognitionDialog = recognitionDialog;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SuppressWarnings</span> (value=<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClientStatusChange</span><span class="params">(<span class="keyword">int</span> status, Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(status)&#123;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_START_RECORDING:</span><br><span class="line">                Log.i(<span class="string">"ClientStatusChange"</span>, <span class="string">"start recording"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_SPEECH_START:</span><br><span class="line">                recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_listening));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_SPEECH_END:</span><br><span class="line">                <span class="keyword">if</span> (recogntionResult.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_speech) + recogntionResult);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    recognitionDialog.setMessage(mainContext.getString(R.string.listen_dialog_noword));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_FINISH:</span><br><span class="line">                closeDialog();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> VoiceRecognitionClient.CLIENT_STATUS_UPDATE_RESULTS:</span><br><span class="line">                ArrayList&lt;String&gt; words = (ArrayList&lt;String&gt;)obj;</span><br><span class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="keyword">for</span> (String w : words) &#123;</span><br><span class="line">                    sb.append(w);</span><br><span class="line">                &#125;</span><br><span class="line">                recogntionResult = sb.toString();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNetworkStatusChange</span><span class="params">(<span class="keyword">int</span> i, Object o)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(<span class="keyword">int</span> type, <span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">        String errorMessage;</span><br><span class="line">        <span class="keyword">if</span> (code == VoiceRecognitionClient.ERROR_CLIENT_NO_SPEECH) &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.listen_dialog_noword);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (code == VoiceRecognitionClient.ERROR_NETWORK_CONNECT_ERROR) &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.listen_dialog_networkerror);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            errorMessage = mainContext.getString(R.string.error_message) + code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        recognitionDialog.setMessage(errorMessage);</span><br><span class="line">        closeDialog();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">closeDialog</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Handler handler = <span class="keyword">new</span> Handler();</span><br><span class="line">        handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                recognitionDialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">3000</span>);  <span class="comment">// 3000 milliseconds</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出其主要是通过状态变化（<code>onClientStatusChange</code>）来告知结果的。识别结果的捕获主要通过<code>CLIENT_STATUS_UPDATE_RESULTS</code>状态告知，需要注意的是在一次识别过程中此状态可能会被多次触发，识别结果每次都被全量返回，因而这个Demo仅保存了最终的识别结果。另外两个接口方法用来处理出错的情况，具体可参考 SDK 中的<a href="http://bcs.duapp.com/cplat-01/mediacloud%2Fvoice%2FBaidu-Voice-Android-SDK-Manual.pdf" target="_blank" rel="noopener">开发手册</a> 4.2 节。</p>
+<h3 id="3-AndroidManifest-xml"><a href="#3-AndroidManifest-xml" class="headerlink" title="3. AndroidManifest.xml"></a>3. AndroidManifest.xml</h3><p>SDK 需要如下权限才能正常运行，否则在初始化（<code>VoiceRecognitionClient.getInstance</code>）时应用便会崩溃。<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.RECORD_AUDIO"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_PHONE_STATE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_SETTINGS"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          
+            <a href="/tags/语音识别/" rel="tag"># 语音识别</a>
+          
+            <a href="/tags/百度开放服务/" rel="tag"># 百度开放服务</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/14/Tor网络初探/" rel="next" title="Tor网络初探">
+                <i class="fa fa-chevron-left"></i> Tor网络初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/11/《我11》——一个起于白衬衣终于遗精的故事/" rel="prev" title="《我11》——一个起于白衬衣终于遗精的故事">
+                《我11》——一个起于白衬衣终于遗精的故事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要用到的工具"><span class="nav-number">1.</span> <span class="nav-text">需要用到的工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用——-Listen"><span class="nav-number">2.</span> <span class="nav-text">创建应用—— Listen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-使用-Android-Studio-创建一个名为-Listen-的-Android-项目"><span class="nav-number">2.1.</span> <span class="nav-text">1. 使用 Android Studio 创建一个名为 Listen 的 Android 项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入百度语音识别-SDK"><span class="nav-number">3.</span> <span class="nav-text">导入百度语音识别 SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-注册百度开放云平台账号并开启语音识别服务"><span class="nav-number">3.1.</span> <span class="nav-text">1. 注册百度开放云平台账号并开启语音识别服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-下载-Android-SDK"><span class="nav-number">3.2.</span> <span class="nav-text">2. 下载 Android SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置-SDK-库文件"><span class="nav-number">3.3.</span> <span class="nav-text">3. 配置 SDK 库文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现语音识别的功能"><span class="nav-number">4.</span> <span class="nav-text">实现语音识别的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-修改界面"><span class="nav-number">4.1.</span> <span class="nav-text">1. 修改界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修改逻辑"><span class="nav-number">4.2.</span> <span class="nav-text">2. 修改逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-修改AndroidManifest-xml"><span class="nav-number">4.3.</span> <span class="nav-text">3. 修改AndroidManifest.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试应用"><span class="nav-number">5.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结"><span class="nav-number">6.</span> <span class="nav-text">要点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-界面"><span class="nav-number">6.1.</span> <span class="nav-text">1. 界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-逻辑"><span class="nav-number">6.2.</span> <span class="nav-text">2. 逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-AndroidManifest-xml"><span class="nav-number">6.3.</span> <span class="nav-text">3. AndroidManifest.xml</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
