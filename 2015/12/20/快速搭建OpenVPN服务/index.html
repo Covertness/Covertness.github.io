@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T05:53:33.458Z">
+<meta property="og:updated_time" content="2018-03-25T08:20:34.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速搭建OpenVPN服务">
 <meta name="twitter:description" content="使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。">
@@ -379,6 +379,7 @@
 
       
         <p>使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。<br><a id="more"></a></p>
+<p><strong>由于 OpenVPN 的实际效果并不理想（数据传输速度缓慢），推荐使用 <a href="">WireGuard</a> 代替。</strong></p>
 <h3 id="1-在-VPS-上执行以下命令下载安装-OpenVPN"><a href="#1-在-VPS-上执行以下命令下载安装-OpenVPN" class="headerlink" title="1. 在 VPS 上执行以下命令下载安装 OpenVPN"></a>1. 在 VPS 上执行以下命令下载安装 OpenVPN</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget git.io/vpn --no-check-certificate -O openvpn-install.sh &amp;&amp; bash openvpn-install.sh</span><br></pre></td></tr></table></figure>
 <p>其中的 DNS 配置建议使用 Google 。</p>
 <h3 id="2-再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件-ovpn-（可选）"><a href="#2-再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件-ovpn-（可选）" class="headerlink" title="2. 再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件 *.ovpn （可选）"></a>2. 再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件 *.ovpn （可选）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash openvpn-install.sh</span><br></pre></td></tr></table></figure>
@@ -540,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
