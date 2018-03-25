@@ -10,6 +10,8 @@ tags:
 使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。
 <!-- more -->
 
+**由于 OpenVPN 的实际效果并不理想（数据传输速度缓慢），推荐使用 [WireGuard](http://covertness.me/2018/03/25/%E8%BD%BB%E6%9D%BE%E5%87%A0%E6%AD%A5%E6%90%AD%E5%BB%BA%20WireGuard%20%EF%BC%88%E5%BF%AB%E9%80%9F%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%8B%E4%B8%80%E4%BB%A3%20VPN%EF%BC%89/) 代替。**
+
 ### 1. 在 VPS 上执行以下命令下载安装 OpenVPN
 ```bash
 $ wget git.io/vpn --no-check-certificate -O openvpn-install.sh && bash openvpn-install.sh
