@@ -88,6 +88,8 @@ deploy:
   type: git
   repository: git@git.coding.net:covertness/covertness.git
   branch: master
+  # repository: git@github.com:Covertness/Covertness.github.io.git
+  # branch: master
   
 feed:
   type: atom
