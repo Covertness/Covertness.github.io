@@ -1,0 +1,934 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React,面向对象," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="React 是一个用于构建用户界面的前端框架，其简单易用的特性让它逐渐成为开发前端页面的主流。本文将通过一个简单的购物车例子介绍 React 那些简单而高效的特性。">
+<meta name="keywords" content="React,面向对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React初探——前端面向对象设计的最佳实现">
+<meta property="og:url" content="http://covertness.me/2018/05/21/React初探——前端面向对象设计的最佳实现/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="React 是一个用于构建用户界面的前端框架，其简单易用的特性让它逐渐成为开发前端页面的主流。本文将通过一个简单的购物车例子介绍 React 那些简单而高效的特性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://covertness.qiniudn.com/react_chutan/640px-React-icon.svg.png">
+<meta property="og:updated_time" content="2018-05-24T14:11:35.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React初探——前端面向对象设计的最佳实现">
+<meta name="twitter:description" content="React 是一个用于构建用户界面的前端框架，其简单易用的特性让它逐渐成为开发前端页面的主流。本文将通过一个简单的购物车例子介绍 React 那些简单而高效的特性。">
+<meta name="twitter:image" content="http://covertness.qiniudn.com/react_chutan/640px-React-icon.svg.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://covertness.me/2018/05/21/React初探——前端面向对象设计的最佳实现/"/>
+
+
+
+
+
+  <title> React初探——前端面向对象设计的最佳实现 | 无影风随 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="https://about.me/wuyingfengsui55" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2018/05/21/React初探——前端面向对象设计的最佳实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React初探——前端面向对象设计的最佳实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T19:48:34+08:00">
+                May 21 2018
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/21/React初探——前端面向对象设计的最佳实现/" class="leancloud_visitors" data-flag-title="React初探——前端面向对象设计的最佳实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://covertness.qiniudn.com/react_chutan/640px-React-icon.svg.png" alt=""></p>
+<p>React 是一个用于构建用户界面的前端框架，其简单易用的特性让它逐渐成为开发前端页面的主流。本文将通过一个简单的购物车例子介绍 React 那些简单而高效的特性。<br><a id="more"></a></p>
+<h2 id="为什么使用-React"><a href="#为什么使用-React" class="headerlink" title="为什么使用 React"></a>为什么使用 React</h2><h3 id="面向对象的设计理念"><a href="#面向对象的设计理念" class="headerlink" title="面向对象的设计理念"></a>面向对象的设计理念</h3><p>React 组件化的开发模型汲取了众多面向对象编程的最佳实践，通过它很容易就可以实现一个高内聚低耦合的应用。 React 通过 JSX 将要显示的元素和它们之间相互的逻辑内聚在一个 Component 里，然后通过 Props 和 Events 与其他 Component 交互，而内部状态的变化通过 State 来记录更新，这一整套流程对于有一定面向对象编程经验的开发者来说都不会陌生。</p>
+<h3 id="最少的约束"><a href="#最少的约束" class="headerlink" title="最少的约束"></a>最少的约束</h3><p>不同于 <a href="https://angular.io" target="_blank" rel="noopener">Angular</a>、 <a href="https://vuejs.org" target="_blank" rel="noopener">Vue</a> 等框架， React 没有定义太多的语法规则让开发者去遵守，这不仅使得初学者极易上手，而且提供了足够的空间让开发者进行个性化地探索。它既可以和现有的框架融合，也可以开发一些像 <a href="https://redux.js.org/" target="_blank" rel="noopener">Redux</a> 之类的新工具与它结合，构建更为复杂和强大的应用。</p>
+<h3 id="活跃的社区支持"><a href="#活跃的社区支持" class="headerlink" title="活跃的社区支持"></a>活跃的社区支持</h3><p>React 这些简单而高效的特性吸引了很多的开发者贡献于其中，让后来者能够站在他们的肩膀上在更短的时间内开发出更加强大的应用。</p>
+<h2 id="示例——购物车"><a href="#示例——购物车" class="headerlink" title="示例——购物车"></a>示例——购物车</h2><p>购物车是大部分拥有购买功能的应用必备的组件，在这里用户可以对所购买的商品做最后的核算。购物车大多拥有一个商品的列表，在这里陈列着用户已选好的商品，很多时候用户需要对商品的数量进行增减，所以对于每个商品条目还需要一个可以选择数量的输入框，除此之外用户一般都会关心此次购物的花销，因而这里还需要实时显示出商品总的价钱。</p>
+<p>通过上述描绘我们大概可以脑补出这个购物车的三大组件：商品列表、数量输入框和总价。下面就通过 React 来实现这个简单的购物车，如果想先看看购物车长什么样，可以<a href="https://github.com/Covertness/cart" target="_blank" rel="noopener">访问这里</a>查看截图和完整的代码。</p>
+<h3 id="创建-React-应用"><a href="#创建-React-应用" class="headerlink" title="创建 React 应用"></a>创建 React 应用</h3><p>通过 <a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="noopener">Create React App</a> 可以快速地创建 React 应用，使用方法如下：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g create-react-app</span><br><span class="line">$ create-react-app cart</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就创建好了一个名叫 <code>cart</code> 的 React 应用，进入 <code>cart</code> 文件夹执行：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm start</span><br></pre></td></tr></table></figure></p>
+<p>稍等片刻 React 开发环境就准备就绪了，对源文件的任何修改都会实时的反应在浏览器的页面上，非常方便。</p>
+<h3 id="SpinCountInput-——-第一个-Component"><a href="#SpinCountInput-——-第一个-Component" class="headerlink" title="SpinCountInput —— 第一个 Component"></a>SpinCountInput —— 第一个 Component</h3><p>打开 <code>src</code> 文件夹创建一个叫 <code>SpinCountInput.js</code> 的文件，内容如下：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">"prop-types"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">"@material-ui/core/styles"</span>;</span><br><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">"@material-ui/core/Button"</span>;</span><br><span class="line"><span class="keyword">import</span> Input <span class="keyword">from</span> <span class="string">"@material-ui/core/Input"</span>;</span><br><span class="line"><span class="keyword">import</span> AddIcon <span class="keyword">from</span> <span class="string">"@material-ui/icons/Add"</span>;</span><br><span class="line"><span class="keyword">import</span> RemoveIcon <span class="keyword">from</span> <span class="string">"@material-ui/icons/Remove"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = <span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">    button: &#123;</span><br><span class="line">        margin: theme.spacing.unit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SpinCountInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    handleCountChange = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> count = event.target.value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (count.length &gt; <span class="number">0</span> &amp;&amp; !<span class="regexp">/^\d+$/</span>.test(count)) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">this</span>.props.onCountChange(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.props.onCountChange(<span class="keyword">this</span>.props.count + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleRemove = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> count = <span class="keyword">this</span>.props.count - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (count &lt; <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.props.onCountChange(count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; classes &#125; = <span class="keyword">this</span>.props;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;Button mini=&#123;<span class="literal">true</span>&#125; variant=<span class="string">"fab"</span> aria-label=<span class="string">"remove"</span> className=&#123;classes.button&#125; onClick=&#123;<span class="keyword">this</span>.handleRemove&#125;&gt;</span><br><span class="line">                    &lt;RemoveIcon /&gt;</span><br><span class="line">                &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Input value=&#123;this.props.count&#125; onChange=&#123;this.handleCountChange&#125; /</span>&gt;</span><br><span class="line">                &lt;Button mini=&#123;<span class="literal">true</span>&#125; variant=<span class="string">"fab"</span> color=<span class="string">"primary"</span> aria-label=<span class="string">"add"</span> className=&#123;classes.button&#125; onClick=&#123;<span class="keyword">this</span>.handleAdd&#125;&gt;</span><br><span class="line">                    &lt;AddIcon /&gt;</span><br><span class="line">                &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SpinCountInput.propTypes = &#123;</span><br><span class="line">    classes: PropTypes.object.isRequired</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withStyles(styles)(SpinCountInput);</span><br></pre></td></tr></table></figure></p>
+<p>从 <code>SpinCountInput</code> 这个名字中可以猜到这大概就是实现数量输入框功能的代码了，整段代码结构清晰简洁，甚至不需要阅读 React 的文档我们也可以大概知道各部分的功能。 <code>render</code> 可以看作是 React Component 的入口，阅读内部实现可以知晓这个 Component 由两个按钮和一个输入框构成，按钮实现了增减数量的功能，输入框用来直接修改数量。除此之外值得一提的是任何对数量的修改最后调用的都是 <code>this.props.onCountChange</code> ，通过这个接口将数量传到之后会提到的上层 Component 处理，这是 React 推荐的数据同步机制，通过这样的方法就可以达到数据绑定的效果，详见后文。</p>
+<h3 id="使用-Lists-填满购物车"><a href="#使用-Lists-填满购物车" class="headerlink" title="使用 Lists 填满购物车"></a>使用 Lists 填满购物车</h3><p>接着在同一级目录下创建另外一个源文件 <code>Cart.js</code> ，内容如下：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"><span class="keyword">import</span> List <span class="keyword">from</span> <span class="string">'@material-ui/core/List'</span>;</span><br><span class="line"><span class="keyword">import</span> ListItem <span class="keyword">from</span> <span class="string">'@material-ui/core/ListItem'</span>;</span><br><span class="line"><span class="keyword">import</span> ListItemText <span class="keyword">from</span> <span class="string">'@material-ui/core/ListItemText'</span>;</span><br><span class="line"><span class="keyword">import</span> Avatar <span class="keyword">from</span> <span class="string">'@material-ui/core/Avatar'</span>;</span><br><span class="line"><span class="keyword">import</span> SpinCountInput <span class="keyword">from</span> <span class="string">'./SpinCountInput'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = <span class="function"><span class="params">theme</span> =&gt;</span> (&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cart</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; classes, items &#125; = props;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleChange</span>(<span class="params">index, count</span>) </span>&#123;</span><br><span class="line">        props.onItemCountChange(index, count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listItems = items.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span></span><br><span class="line">        &lt;ListItem key=&#123;item.id&#125;&gt;</span><br><span class="line">            &lt;Avatar src=&#123;item.image&#125; /&gt;</span><br><span class="line">            &lt;ListItemText primary=&#123;item.title&#125; secondary=&#123;<span class="string">"价格： "</span> + item.price.toFixed(<span class="number">2</span>)&#125; /&gt;</span><br><span class="line">            &lt;SpinCountInput count=&#123;item.count&#125; onCountChange=&#123;handleChange.bind(<span class="keyword">this</span>, index)&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/ListItem&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">        &lt;div className=&#123;classes.root&#125;&gt;</span></span><br><span class="line"><span class="regexp">            &lt;List&gt;&#123;listItems&#125;&lt;/</span>List&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">Cart.propTypes = &#123;</span></span><br><span class="line"><span class="regexp">    classes: PropTypes.object.isRequired,</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default withStyles(styles)(Cart);</span></span><br></pre></td></tr></table></figure></p>
+<p>这个 Component 位于之前的那个之上，用来产出商品列表，列表的每一列都会包含一个数量输入框，如何区别各个输入框呢， React 通过 <code>key</code> 来予以区分，这里我们使用 <code>id</code> 作为 <code>key</code> 。</p>
+<h3 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h3><p>通过前两个 Component 的交互方式可以看出 React 使用 <code>props</code> 和 <code>events</code> 实现数据传递，上层组件通过 <code>props</code> 将数据交给下层组件，下层组件透过 <code>events</code> 将改动后的数据反馈给上层组件，最终数据只会在上层组件中存在，任何对数据的改动都会汇总到上层组件，这一机制在 React 中叫做 Lifting State Up ，在其他的一些前端框架中也叫做数据绑定。</p>
+<p>这个例子中的最上层组件在 <code>App.js</code> 中，内容如下：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withStyles &#125; <span class="keyword">from</span> <span class="string">'@material-ui/core/styles'</span>;</span><br><span class="line"><span class="keyword">import</span> FormLabel <span class="keyword">from</span> <span class="string">'@material-ui/core/FormLabel'</span>;</span><br><span class="line"><span class="keyword">import</span> Cart <span class="keyword">from</span> <span class="string">'./Cart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = <span class="function"><span class="params">theme</span> =&gt;</span> (&#123;</span><br><span class="line">    total: &#123;</span><br><span class="line">        <span class="string">'float'</span>: <span class="string">'right'</span>,</span><br><span class="line">        <span class="string">'margin-right'</span>: <span class="number">40</span>,</span><br><span class="line">        <span class="string">'font-size'</span>: <span class="string">'2rem'</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            items: props.products</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChange = <span class="function">(<span class="params">index, count</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> items = <span class="keyword">this</span>.state.items;</span><br><span class="line">        items[index].count = count;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123; items &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; classes &#125; = <span class="keyword">this</span>.props;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;Cart items=&#123;<span class="keyword">this</span>.state.items&#125; onItemCountChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br><span class="line">                &lt;FormLabel className=&#123;classes.total&#125;&gt;合计： &#123;<span class="keyword">this</span>.state.items.reduce(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> acc + item.count * item.price, <span class="number">0</span>).toFixed(<span class="number">2</span>)&#125;&lt;<span class="regexp">/FormLabel&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withStyles(styles)(App);</span><br></pre></td></tr></table></figure></p>
+<p>我们将数据 <code>props.products</code> 都存在了这个 Component 的 <code>state</code> 中， React 针对 <code>state</code> 进行了一些封装处理，使它能够支持局部自动更新界面，使用很方便。在这个例子中这一特性最直观的体验便是更新任何商品的数量，都会看到合计的价钱同步更新。需要说明的是这里为了让代码更存粹将具体的示例数据放到了 <code>index.js</code> 中，真实的项目里数据大多都会从后端的接口获取到。</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>每次对源文件更改保存后 React 的脚手架都会自动刷新浏览器呈现最新的效果，此外还可以安装 React 的<a href="https://github.com/facebook/react-devtools" target="_blank" rel="noopener">浏览器插件</a>，这个工具可以在浏览器的调试窗口中显示出 Component 的对应关系方便调试。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/面向对象/" rel="tag"># 面向对象</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/25/轻松几步搭建 WireGuard （快速安全的下一代 VPN）/" rel="next" title="轻松几步搭建 WireGuard （快速安全的下一代 VPN）">
+                <i class="fa fa-chevron-left"></i> 轻松几步搭建 WireGuard （快速安全的下一代 VPN）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/covertness_avatar.jpg"
+               alt="无影风随" />
+          <p class="site-author-name" itemprop="name">无影风随</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/wuyingfengsui" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-zero.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用-React"><span class="nav-number">1.</span> <span class="nav-text">为什么使用 React</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象的设计理念"><span class="nav-number">1.1.</span> <span class="nav-text">面向对象的设计理念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最少的约束"><span class="nav-number">1.2.</span> <span class="nav-text">最少的约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#活跃的社区支持"><span class="nav-number">1.3.</span> <span class="nav-text">活跃的社区支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例——购物车"><span class="nav-number">2.</span> <span class="nav-text">示例——购物车</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-React-应用"><span class="nav-number">2.1.</span> <span class="nav-text">创建 React 应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpinCountInput-——-第一个-Component"><span class="nav-number">2.2.</span> <span class="nav-text">SpinCountInput —— 第一个 Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Lists-填满购物车"><span class="nav-number">2.3.</span> <span class="nav-text">使用 Lists 填满购物车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据绑定"><span class="nav-number">2.4.</span> <span class="nav-text">数据绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试"><span class="nav-number">2.5.</span> <span class="nav-text">调试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+<div class="coding-pages">
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
