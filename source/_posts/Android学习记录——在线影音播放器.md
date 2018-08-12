@@ -9,7 +9,7 @@ tags:
 - Gradle
 
 ---
-![](http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_app_screencast.gif)
+![](https://image.covertness.me/android_zaixianyingyinbofangqi_app_screencast.gif)
 
 一个简单的在线视频播放应用，基于Google去年新推出的ExoPlayer开源框架。
 <!-- more -->

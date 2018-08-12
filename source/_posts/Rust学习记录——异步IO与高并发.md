@@ -7,7 +7,7 @@ tags:
 - 异步IO
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_maxresdefault.jpg)
+![](https://image.covertness.me/yibuioyugaobingfa_maxresdefault.jpg)
 
 在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。
 
@@ -15,7 +15,7 @@ tags:
 ## 为什么要使用异步 IO
 关于使用 Rust 语言编写基本的并发程序，[之前的博客](http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/)已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。
 
-![](http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_thread_pool.png)
+![](https://image.covertness.me/yibuioyugaobingfa_thread_pool.png)
 
 从图中可以看到服务器收到请求后会将它传递给一个工作线程，工作线程对请求进行解析后从磁盘中读取相应的文件然后返回给请求方。设想同时有1千个请求传入，此时则需要同时有1千个线程进行处理，这1千个线程将会几乎同时的请求磁盘，而磁盘在没有缓存的情况下只能依次顺序地处理请求，这就意味着大多数请求将被阻塞，此时这1千个线程将会占用掉系统的很大一部分资源而无所作为，服务器资源被严重浪费。
 
@@ -35,7 +35,7 @@ tags:
 ## 异步 IO 中常见的设计思路
 由于异步 IO 将请求与响应进行了分离，需要将请求和响应在内存中进行缓存（一般通过队列实现）以等待 IO 可用时进行实质的请求或将取得的响应对应到原来的请求方，如下图所示。
 
-![](http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_msg_queue.png)
+![](https://image.covertness.me/yibuioyugaobingfa_msg_queue.png)
 
 上图是一个简单的先写后读的逻辑流程图，首先是注册一次可写事件然后将请求体放入 in 队列（步骤1、2），然后当可写事件到来时便可将 in 队列中的请求体写入 IO 的端口，并同时在 out 队列中构造一个等待状态的响应体（步骤3、4），接着注册一次可读事件（步骤5），最后当可读事件到来时便可获得真实的响应体，在 out 队列中匹配到对应的信息后即获得了一个完整的响应体及其对应的请求信息（步骤6、7）。
 

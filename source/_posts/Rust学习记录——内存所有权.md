@@ -9,7 +9,7 @@ tags:
 - Borrowing
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg)
+![](https://image.covertness.me/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg)
 
 Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。
 <!-- more -->

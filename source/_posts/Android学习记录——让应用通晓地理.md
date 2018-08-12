@@ -9,7 +9,7 @@ tags:
 - Restful
 
 ---
-![](http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif)
+![](https://image.covertness.me/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif)
 
 一个可以把现在的心情记录到地图上的 APP ，基于高德 LBS 开放平台。
 <!-- more -->
@@ -584,7 +584,7 @@ class PoiOverlay {
 
 ## 测试应用
 使用 Android 4.1 或以上版本的手机打开 MoodMap （Genymotion模拟器需要先打开GPS并设置当前的位置），选择一个表情，等待片刻便能在地图上看到自己所在的位置多了一个表情，如下图所示。
-![](http://covertness.qiniudn.com/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif)
+![](https://image.covertness.me/android_rangyingyongtongxiaodili_screencast-Genymotion-2015-05-17_15.32.14.804.gif)
 
 ## 要点总结
 ### 1. 界面

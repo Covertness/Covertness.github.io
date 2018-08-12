@@ -6,7 +6,7 @@ tags:
 - IoT
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/coap_54b7cd308da24.jpg)
+![](https://image.covertness.me/coap_54b7cd308da24.jpg)
 
 Constrained Application Protocol (CoAP) 是为实现物联网中微型设备间互相通讯而设计的网络传输协议，它具有易于实现和使用、低功耗低带宽、能够保障数据安全等特性。
 <!-- more -->

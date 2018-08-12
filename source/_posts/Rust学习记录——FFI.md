@@ -7,7 +7,7 @@ tags:
 - Hashcash
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/rust_ffi_languages.png)
+![](https://image.covertness.me/rust_ffi_languages.png)
 
 Rust 无需运行时（ runtime ）的优势使得 Rust 与其他语言的相互调用变得简单而高效。
 <!-- more -->

@@ -6,7 +6,7 @@ tags:
 - 大数据
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg)
+![](https://image.covertness.me/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg)
 
 R 语言广泛应用于金融、社交网络、机器学习等众多需要大数据分析的领域，其拥有大量实用的开源程序包供使用者直接调用。
 <!-- more -->
@@ -54,13 +54,13 @@ ssec<-getSymbols("^SSEC",from = "2015-01-01",to = Sys.Date(),src = "yahoo", auto
 ```R
 chartSeries(ssec)
 ```
-![](http://7rf2ia.com1.z0.glb.clouddn.com/r_shujutongjifenxiliqi_1.png)
+![](https://image.covertness.me/r_shujutongjifenxiliqi_1.png)
 
 从图中可以看到数据中包含了指数和交易量等一些信息。当然也可以只查看某只股票的具体信息，下面的命令是查看工商银行（ 交易代码为`601398` ）今年的数据：
 ```R
 gsyh<-getSymbols("601398.ss",from = "2015-01-01",to = Sys.Date(),src = "yahoo",auto.assign=FALSE)
 chartSeries(gsyh)
 ```
-![](http://7rf2ia.com1.z0.glb.clouddn.com/r_shujutongjifenxiliqi_2.png)
+![](https://image.covertness.me/r_shujutongjifenxiliqi_2.png)
 
 除了获取股市的数据， R 语言也能通过其他第三方包方便地获取其他网络的海量数据。结合 R 语言丰富的数据分析包即可方便地对这些数据进行数学建模分析。

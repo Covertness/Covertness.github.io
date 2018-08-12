@@ -6,7 +6,7 @@ tags:
 - 虚拟现实
 
 ---
-![](http://7rf2ia.com1.z0.glb.clouddn.com/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg)
+![](https://image.covertness.me/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg)
 
 搭建基于 Unity 引擎制作虚拟现实应用的开发环境。
 <!-- more -->
@@ -27,11 +27,11 @@ git clone https://github.com/nicksuch/Roll-a-ball.git
 
 ### 使用 Unity 打开 Roll-a-ball-VR
 在项目标签页下打开 `Assets > _Scenes` 然后选择 `MiniGame`，然后就可以在 `Scene` 上看到如下所示的预览界面。
-![](http://7rf2ia.com1.z0.glb.clouddn.com/vr_yingyongkaifahuanjindajian_1.PNG)
+![](https://image.covertness.me/vr_yingyongkaifahuanjindajian_1.PNG)
 
 ### 修改配置以支持 VR
 打开 Player 设置标签页（位于`Edit > Project Settings > Player`），然后选择 Android 图标的子页，定位到 Other Settings ， Graphics APIs 选择 OpenGLES3 ， 勾选 Virtual Reality Supported ，去掉 GPU Skinning 、 Android TV Compatibility ，将 Bundle Identifier 修改为 `com.covertness.rollball`， Minimum API Level 修改为 19。最后定位到菜单 `Assets > Import Package > Custom Package` 导入 [Oculus Utilities Package](https://developer.oculus.com/downloads/game-engines/0.1.3.0-beta/Oculus_Utilities_for_Unity_5/)。完成后如下图所示。
-![](http://7rf2ia.com1.z0.glb.clouddn.com/vr_yingyongkaifahuanjindajian_2.PNG)
+![](https://image.covertness.me/vr_yingyongkaifahuanjindajian_2.PNG)
 
 ### 编译部署应用
 1. 在进行编译部署前请确保 Android SDK 已经安装并正确配置（可参考之前的文章[《Android学习记录——开发环境搭建》](http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/)）。

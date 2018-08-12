@@ -7,7 +7,7 @@ tags:
 - 面向对象
 
 ---
-![](http://covertness.qiniudn.com/react_chutan/640px-React-icon.svg.png)
+![](https://image.covertness.me/react_chutan/640px-React-icon.svg.png)
 
 React 是一个用于构建用户界面的前端框架，其简单易用的特性让它逐渐成为开发前端页面的主流。本文将通过一个简单的购物车例子介绍 React 那些简单而高效的特性。
 <!-- more -->

@@ -6,7 +6,7 @@ tags:
 - VPN
 
 ---
-![](http://covertness.qiniudn.com/wire_guard_vpn/best-vpn-software.png)
+![](https://image.covertness.me/wire_guard_vpn/best-vpn-software.png)
 
 WireGuard 是一个快速安全的新型 VPN 隧道程序，它简单高效的特性特别适合在手机等低能耗设备上使用。
 <!-- more -->

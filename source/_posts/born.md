@@ -35,17 +35,17 @@ tags:
 ## 搭建过程
 ### 1. 在Dynadot上获取域名：covertness.me
 Dynadot界面友好，操作简单，根据网站提示指引便可完成。
-![](http://covertness.qiniudn.com/born_domain.PNG)
+![](https://image.covertness.me/born_domain.PNG)
 
 
 ### 2. 注册多说账号
 在[管理页面](http://covertness.duoshuo.com/admin/settings/)获得shortname。shortname即域名的第一节，如域名是covertness.duoshuo.com，则shortname为covertness。
-![](http://covertness.qiniudn.com/born_duoshuo.PNG)
+![](https://image.covertness.me/born_duoshuo.PNG)
 
 
 ### 3. 在GitCafe上创建博客的仓库
 建立一个与用户名一样项目名的项目即可。
-![](http://covertness.qiniudn.com/born_resp.PNG)
+![](https://image.covertness.me/born_resp.PNG)
 
 
 ### 4. 使用Hexo创建一个博客
@@ -63,7 +63,7 @@ $ npm install
 
 ### 6. 添加博客附件
 在七牛云存储上新建一个空间，上传博客附件，然后将外链地址添加到博客原文对应位置即可。
-![](http://covertness.qiniudn.com/born_attach.PNG)
+![](https://image.covertness.me/born_attach.PNG)
 
 
 ### 7. 删除默认主题landscape及默认博客hello-world
@@ -123,11 +123,11 @@ $ hexo d
 
 ### 14. 关联域名
 #### 设置GitCafe中的自定义域名
-![](http://covertness.qiniudn.com/born_domain2dns.PNG)
+![](https://image.covertness.me/born_domain2dns.PNG)
 
 #### 将Dynadot的域名dns绑定到GitCafe服务器的IP
-![](http://covertness.qiniudn.com/born_dns.PNG)
+![](https://image.covertness.me/born_dns.PNG)
 
 
 ### 15. 等待一段时间后（DNS广播时间）访问[covertness.me](http://covertness.me/)
-![](http://covertness.qiniudn.com/born_release.PNG)
+![](https://image.covertness.me/born_release.PNG)
