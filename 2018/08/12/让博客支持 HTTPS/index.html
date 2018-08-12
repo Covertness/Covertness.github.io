@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="博客之前使用七牛云存储图片、视频等静态资源，由于七牛云只有在绑定已备案的自定义域名后才能开启 HTTPS ，步骤繁琐周期长，看到 Let’s Encrypt 提供颁发免费的 SSL 证书，遂决定基于此自建一个简单的 HTTPS 代理服务，方便博客以及日后使用。">
+<meta name="keywords" content="TLS,Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让博客支持 HTTPS">
+<meta property="og:url" content="http://covertness.me/2018/08/12/让博客支持 HTTPS/index.html">
+<meta property="og:site_name" content="无影风随">
+<meta property="og:description" content="博客之前使用七牛云存储图片、视频等静态资源，由于七牛云只有在绑定已备案的自定义域名后才能开启 HTTPS ，步骤繁琐周期长，看到 Let’s Encrypt 提供颁发免费的 SSL 证书，遂决定基于此自建一个简单的 HTTPS 代理服务，方便博客以及日后使用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://image.covertness.me/openssl_https_server/https.png">
+<meta property="og:image" content="https://image.covertness.me/blog_https_enhance.png">
+<meta property="og:updated_time" content="2018-08-12T10:06:40.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="让博客支持 HTTPS">
+<meta name="twitter:description" content="博客之前使用七牛云存储图片、视频等静态资源，由于七牛云只有在绑定已备案的自定义域名后才能开启 HTTPS ，步骤繁琐周期长，看到 Let’s Encrypt 提供颁发免费的 SSL 证书，遂决定基于此自建一个简单的 HTTPS 代理服务，方便博客以及日后使用。">
+<meta name="twitter:image" content="https://image.covertness.me/openssl_https_server/https.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://covertness.me/2018/08/12/让博客支持 HTTPS/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>让博客支持 HTTPS | 无影风随</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无影风随</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="https:/about.me/wuyingfengsui55" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2018/08/12/让博客支持 HTTPS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/covertness_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无影风随">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">让博客支持 HTTPS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：8月 12 2018 16:31:44 / 修改时间：18:06:40" itemprop="dateCreated datePublished" datetime="2018-08-12T16:31:44+08:00">8月 12 2018</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/建站/" itemprop="url" rel="index"><span itemprop="name">建站</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/12/让博客支持 HTTPS/" class="leancloud_visitors" data-flag-title="让博客支持 HTTPS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://image.covertness.me/openssl_https_server/https.png" alt=""></p>
+<p>博客之前使用七牛云存储图片、视频等静态资源，由于七牛云只有在绑定已备案的自定义域名后才能开启 HTTPS ，步骤繁琐周期长，看到 <a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a> 提供颁发免费的 SSL 证书，遂决定基于此自建一个简单的 HTTPS 代理服务，方便博客以及日后使用。</p>
+<a id="more"></a>
+<p>自建的 HTTPS 代理服务提供了一种快速让网站支持 HTTPS 的功能，只需提供要通过 HTTPS 访问的域名及原来的地址，然后更改下域名的 CNAME 就可免费使用 HTTPS ，无需手动申请和更新证书，非常方便。待日后服务稳定后我将开放给大家使用，具体的实现细节也会在以后介绍。</p>
+<p>目前博客的图片、视频等静态资源都是通过这个服务转变为 HTTPS 的地址，下面介绍一下如何将原来基于七牛云的资源链接迁移到新的 HTTPS 链接。</p>
+<h3 id="找出博客中所有的静态资源链接"><a href="#找出博客中所有的静态资源链接" class="headerlink" title="找出博客中所有的静态资源链接"></a>找出博客中所有的静态资源链接</h3><p>由于博客是通过 Markdown 格式存储的，所有需要显示的静态资源都会以类似 <code>![](http://xxx)</code> 这样的方式标记，因此我们可以通过下面的命令将它们都筛选出来：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ grep -Eoi <span class="string">'\!\[\]([^&gt;]+)'</span> -r <span class="built_in">source</span>/_posts | grep -Eo <span class="string">'(http)://[^)]+'</span> &gt; assets_url.txt</span><br></pre></td></tr></table></figure></p>
+<p>我将筛选后的结果放到了 <code>assets_url.txt</code> 文件中以便后续下载使用。</p>
+<h3 id="下载所有的静态资源"><a href="#下载所有的静态资源" class="headerlink" title="下载所有的静态资源"></a>下载所有的静态资源</h3><p>通过 <code>wget</code> 可以很容易地下载 <code>assets_url.txt</code> 里的所有 URL ：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget --restrict-file-names=nocontrol -i assets_url.txt</span><br></pre></td></tr></table></figure></p>
+<p>这里添加 <code>--restrict-file-names=nocontrol</code> 的作用是保证中文的文件名以 UTF-8 的形式存储，否则很可能会出现乱码。此外还需要注意 <code>wget</code> 会将所有文件都下载到当前目录下，所以如果 URL 中存在多级目录时需要手动处理下。</p>
+<p>下载完成后便可以把它们放到一个能够通过 http 访问的文件服务器上，我使用的是 Nginx 搭建的一个文件服务器，为了支持跨域访问添加了如下配置：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">   #</span><br><span class="line">   # Custom headers and headers various browsers *should* be OK with but aren&apos;t</span><br><span class="line">   #</span><br><span class="line">   add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&apos;;</span><br><span class="line">   #</span><br><span class="line">   # Tell client that this pre-flight info is valid for 20 days</span><br><span class="line">   #</span><br><span class="line">   add_header &apos;Access-Control-Max-Age&apos; 1728000;</span><br><span class="line">   add_header &apos;Content-Type&apos; &apos;text/plain; charset=utf-8&apos;;</span><br><span class="line">   add_header &apos;Content-Length&apos; 0;</span><br><span class="line">   return 204;</span><br><span class="line">&#125;</span><br><span class="line">if ($request_method = &apos;POST&apos;) &#123;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Expose-Headers&apos; &apos;Content-Length,Content-Range&apos;;</span><br><span class="line">&#125;</span><br><span class="line">if ($request_method = &apos;GET&apos;) &#123;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&apos;;</span><br><span class="line">   add_header &apos;Access-Control-Expose-Headers&apos; &apos;Content-Length,Content-Range&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="替换博客里原来的链接"><a href="#替换博客里原来的链接" class="headerlink" title="替换博客里原来的链接"></a>替换博客里原来的链接</h3><p>HTTPS 代理服务里配置了 <a href="https://image.covertness.me" target="_blank" rel="noopener">https://image.covertness.me</a> 作为博客的静态资源地址，下面通过 <code>sed</code> 把博客源码里原来七牛云的地址都替换掉：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ find ./<span class="built_in">source</span>/_posts -<span class="built_in">type</span> f -<span class="built_in">exec</span> sed -i <span class="string">''</span> -e <span class="string">'s/http:\/\/7rf2ia.com1.z0.glb.clouddn.com/https:\/\/image.covertness.me/g'</span> &#123;&#125; \;</span><br><span class="line">$ find ./<span class="built_in">source</span>/_posts -<span class="built_in">type</span> f -<span class="built_in">exec</span> sed -i <span class="string">''</span> -e <span class="string">'s/http:\/\/covertness.qiniudn.com/https:\/\/image.covertness.me/g'</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure></p>
+<p>重新发布博客后通过浏览器会发现此时博客的连接是完全安全的了。<br><img src="https://image.covertness.me/blog_https_enhance.png" alt=""></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TLS/" rel="tag"># TLS</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/React初探——前端面向对象设计的最佳实现/" rel="next" title="React初探——前端面向对象设计的最佳实现">
+                <i class="fa fa-chevron-left"></i> React初探——前端面向对象设计的最佳实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/covertness_avatar.jpg"
+                alt="无影风随" />
+            
+              <p class="site-author-name" itemprop="name">无影风随</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">97</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wuyingfengsui@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#找出博客中所有的静态资源链接"><span class="nav-number">1.</span> <span class="nav-text">找出博客中所有的静态资源链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载所有的静态资源"><span class="nav-number">2.</span> <span class="nav-text">下载所有的静态资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换博客里原来的链接"><span class="nav-number">3.</span> <span class="nav-text">替换博客里原来的链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.4.4</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
