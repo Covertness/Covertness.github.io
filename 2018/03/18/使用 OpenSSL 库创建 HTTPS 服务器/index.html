@@ -116,13 +116,13 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="网上现存的大部分 OpenSSL 示例都是通过 C/C++ 编写的，本文通过更加现代的 Rust 语言来实现一个简单的 HTTPS 服务器，程序更加简洁精炼。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://covertness.qiniudn.com/openssl_https_server/https.png">
-<meta property="og:image" content="http://covertness.qiniudn.com/openssl_https_server/snap.png">
-<meta property="og:updated_time" content="2018-03-18T11:25:21.977Z">
+<meta property="og:image" content="https://image.covertness.me/openssl_https_server/https.png">
+<meta property="og:image" content="https://image.covertness.me/openssl_https_server/snap.png">
+<meta property="og:updated_time" content="2018-08-12T07:34:58.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 OpenSSL 库创建 HTTPS 服务器">
 <meta name="twitter:description" content="网上现存的大部分 OpenSSL 示例都是通过 C/C++ 编写的，本文通过更加现代的 Rust 语言来实现一个简单的 HTTPS 服务器，程序更加简洁精炼。">
-<meta name="twitter:image" content="http://covertness.qiniudn.com/openssl_https_server/https.png">
+<meta name="twitter:image" content="https://image.covertness.me/openssl_https_server/https.png">
 
 
 
@@ -354,12 +354,24 @@
                 
               
 
-              <time title="创建时间：3月 18 2018 18:16:17 / 修改时间：19:25:21" itemprop="dateCreated datePublished" datetime="2018-03-18T18:16:17+08:00">3月 18 2018</time>
+              <time title="创建时间：3月 18 2018 18:16:17" itemprop="dateCreated datePublished" datetime="2018-03-18T18:16:17+08:00">3月 18 2018</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：8月 12 2018 15:34:58" itemprop="dateModified" datetime="2018-08-12T15:34:58+08:00">8月 12 2018</time>
               
             
           </span>
@@ -421,7 +433,7 @@
       
 
       
-        <p><img src="http://covertness.qiniudn.com/openssl_https_server/https.png" alt=""></p>
+        <p><img src="https://image.covertness.me/openssl_https_server/https.png" alt=""></p>
 <p>网上现存的大部分 OpenSSL 示例都是通过 C/C++ 编写的，本文通过更加现代的 Rust 语言来实现一个简单的 HTTPS 服务器，程序更加简洁精炼。<br><a id="more"></a><br>随着大家对网络安全的日益重视，大部分 Web 应用都开始使用 HTTPS 取代 HTTP 以提供更安全的服务。 OpenSSL 是一个封装了很多安全加密算法的类库，使用它只需要几行代码就可以给现有的 Web 应用加上安全保护。</p>
 <h3 id="生成加密所需的公钥和私钥"><a href="#生成加密所需的公钥和私钥" class="headerlink" title="生成加密所需的公钥和私钥"></a>生成加密所需的公钥和私钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ openssl req -x509 -newkey rsa:2048 -days 3650 -nodes \</span><br><span class="line">    -keyout server-key.pem -out server-cert.pem</span><br></pre></td></tr></table></figure>
 <p>其中 server-key.pem 存储了私钥信息， server-cert.pem 存储的是公钥信息。</p>
@@ -429,7 +441,7 @@
 <h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> openssl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> openssl::ssl::&#123;Error, SslAcceptor, SslFiletype, SslMethod, SslStream&#125;;</span><br><span class="line"><span class="keyword">use</span> std::net::&#123;TcpListener, TcpStream&#125;;</span><br><span class="line"><span class="keyword">use</span> std::sync::Arc;</span><br><span class="line"><span class="keyword">use</span> std::thread;</span><br><span class="line"><span class="keyword">use</span> std::<span class="built_in">str</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> acceptor = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();</span><br><span class="line">    acceptor</span><br><span class="line">        .set_private_key_file(<span class="string">"server-key.pem"</span>, SslFiletype::PEM)</span><br><span class="line">        .unwrap();</span><br><span class="line">    acceptor</span><br><span class="line">        .set_certificate_chain_file(<span class="string">"server-cert.pem"</span>)</span><br><span class="line">        .unwrap();</span><br><span class="line">    acceptor.check_private_key().unwrap();</span><br><span class="line">    <span class="keyword">let</span> acceptor = Arc::new(acceptor.build());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> listener = TcpListener::bind(<span class="string">"0.0.0.0:8443"</span>).unwrap();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"server is up"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">write_response</span></span>(stream: &amp;<span class="keyword">mut</span> SslStream&lt;TcpStream&gt;) -&gt; <span class="built_in">Result</span>&lt;<span class="built_in">usize</span>, Error&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> len = <span class="number">0</span>;</span><br><span class="line">        len += stream.ssl_write(b"HTTP/<span class="number">1.1</span> <span class="number">200</span> OK\r\n<span class="string">")?;</span></span><br><span class="line"><span class="string">        len += stream.ssl_write(b"</span>Content-Length: <span class="number">10</span>\r\n<span class="string">")?;</span></span><br><span class="line"><span class="string">        len += stream.ssl_write(b"</span>Content-Type: text/html\r\n\r\n<span class="string">")?;</span></span><br><span class="line"><span class="string">        len += stream.ssl_write(b"</span>hello rust<span class="string">")?;</span></span><br><span class="line"><span class="string">        Ok(len)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    fn handle_requset(stream: &amp;mut SslStream&lt;TcpStream&gt;) -&gt; Result&lt;usize, Error&gt; &#123;</span></span><br><span class="line"><span class="string">        let mut buffer = [0; 100];</span></span><br><span class="line"><span class="string">        stream.ssl_read(&amp;mut buffer)?;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        println!("</span>request: &#123;:?&#125;<span class="string">", str::from_utf8(&amp;buffer).unwrap());</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        write_response(stream)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    for stream in listener.incoming() &#123;</span></span><br><span class="line"><span class="string">        match stream &#123;</span></span><br><span class="line"><span class="string">            Ok(stream) =&gt; &#123;</span></span><br><span class="line"><span class="string">                let acceptor = acceptor.clone();</span></span><br><span class="line"><span class="string">                thread::spawn(move || &#123;</span></span><br><span class="line"><span class="string">                    let mut stream = acceptor.accept(stream).unwrap();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                    println!("</span>new client<span class="string">");</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                    match handle_requset(&amp;mut stream) &#123;</span></span><br><span class="line"><span class="string">                        Ok(len) =&gt; &#123;</span></span><br><span class="line"><span class="string">                            println!("</span>response success body len &#123;&#125;<span class="string">", len)</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                        Err(e) =&gt; &#123;</span></span><br><span class="line"><span class="string">                            println!("</span>response error &#123;:?&#125;<span class="string">", e)</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            Err(e) =&gt; &#123;</span></span><br><span class="line"><span class="string">                println!("</span>stream error &#123;:?&#125;<span class="string">", e)</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>这段代码逻辑比较简单，所实现的功能仅是对所有请求都返回 <code>hello rust</code> ，但所有数据已经完成了对应的加解密操作，下面通过浏览器来验证下。</p>
 <h3 id="启动这个程序"><a href="#启动这个程序" class="headerlink" title="启动这个程序"></a>启动这个程序</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cargo run</span><br></pre></td></tr></table></figure>
-<h3 id="使用浏览器访问-https-127-0-0-1-8443"><a href="#使用浏览器访问-https-127-0-0-1-8443" class="headerlink" title="使用浏览器访问 https://127.0.0.1:8443"></a>使用浏览器访问 <code>https://127.0.0.1:8443</code></h3><p><img src="http://covertness.qiniudn.com/openssl_https_server/snap.png" alt=""></p>
+<h3 id="使用浏览器访问-https-127-0-0-1-8443"><a href="#使用浏览器访问-https-127-0-0-1-8443" class="headerlink" title="使用浏览器访问 https://127.0.0.1:8443"></a>使用浏览器访问 <code>https://127.0.0.1:8443</code></h3><p><img src="https://image.covertness.me/openssl_https_server/snap.png" alt=""></p>
 <blockquote>
 <p>Tips: 由于之前生成的公钥并没有交由第三方 CA 授权，所以浏览器会认为此证书无效，这里无需理会这个错误继续访问即可。</p>
 </blockquote>

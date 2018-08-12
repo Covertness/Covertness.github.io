@@ -116,14 +116,14 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_maxresdefault.jpg">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_thread_pool.png">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_msg_queue.png">
-<meta property="og:updated_time" content="2017-12-31T05:53:33.446Z">
+<meta property="og:image" content="https://image.covertness.me/yibuioyugaobingfa_maxresdefault.jpg">
+<meta property="og:image" content="https://image.covertness.me/yibuioyugaobingfa_thread_pool.png">
+<meta property="og:image" content="https://image.covertness.me/yibuioyugaobingfa_msg_queue.png">
+<meta property="og:updated_time" content="2018-08-12T07:34:58.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rust学习记录——异步IO与高并发">
 <meta name="twitter:description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
-<meta name="twitter:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_maxresdefault.jpg">
+<meta name="twitter:image" content="https://image.covertness.me/yibuioyugaobingfa_maxresdefault.jpg">
 
 
 
@@ -372,7 +372,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：12月 31 2017 13:53:33" itemprop="dateModified" datetime="2017-12-31T13:53:33+08:00">12月 31 2017</time>
+                <time title="修改时间：8月 12 2018 15:34:58" itemprop="dateModified" datetime="2018-08-12T15:34:58+08:00">8月 12 2018</time>
               
             
           </span>
@@ -434,11 +434,11 @@
       
 
       
-        <p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_maxresdefault.jpg" alt=""></p>
+        <p><img src="https://image.covertness.me/yibuioyugaobingfa_maxresdefault.jpg" alt=""></p>
 <p>在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。</p>
 <a id="more"></a>
 <h2 id="为什么要使用异步-IO"><a href="#为什么要使用异步-IO" class="headerlink" title="为什么要使用异步 IO"></a>为什么要使用异步 IO</h2><p>关于使用 Rust 语言编写基本的并发程序，<a href="http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/">之前的博客</a>已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。</p>
-<p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_thread_pool.png" alt=""></p>
+<p><img src="https://image.covertness.me/yibuioyugaobingfa_thread_pool.png" alt=""></p>
 <p>从图中可以看到服务器收到请求后会将它传递给一个工作线程，工作线程对请求进行解析后从磁盘中读取相应的文件然后返回给请求方。设想同时有1千个请求传入，此时则需要同时有1千个线程进行处理，这1千个线程将会几乎同时的请求磁盘，而磁盘在没有缓存的情况下只能依次顺序地处理请求，这就意味着大多数请求将被阻塞，此时这1千个线程将会占用掉系统的很大一部分资源而无所作为，服务器资源被严重浪费。</p>
 <p>从上面的例子可以看出是因为磁盘只能串行处理请求而导致大部分线程阻塞，其实不光磁盘 IO ，基于冯·诺依曼结构的计算机中几乎所有的 IO 都有相似的设计。试想如果线程在请求磁盘后无需等待而继续处理其它请求，数据从磁盘中取出后会主动通知线程，这样的话同样处理1千个请求就不再需要1千个线程（因为 IO 是串行的），线程数降低后服务器便有资源处理更多的请求，这样的解决方法就叫做异步 IO ，它是目前编写高并发程序普遍采用的一种方法，大家熟悉的 Nginx 、 Redis 、 Node.js 等很多高性能程序都是基于异步 IO 实现的。</p>
 <h2 id="异步-IO-的弊端"><a href="#异步-IO-的弊端" class="headerlink" title="异步 IO 的弊端"></a>异步 IO 的弊端</h2><p>异步 IO 虽然能够解决同步 IO 带来的性能下降的问题，但它同时也引入了新的问题。几乎所有的编程语言都是顺序执行的，因为这符合人类思考问题的方式，然而异步 IO 却将请求和结果完全割裂开来，甚至导致请求的逻辑与结果的逻辑完全处于不同的上下文当中，这给编写程序造成了极大的困难，尤其是一些逻辑较为复杂需要进行多次 IO 的程序，同时也不易于阅读，项目难以维护。近年来类似 Node.js 这类的新兴语言通过闭包的特性部分地缓解了异步 IO 的这一缺陷，然而依旧存在代码比较凌乱的状况，为了解决这一难题人们想出了很多解决方法，比如 <code>Promise</code> 、 <code>await</code> 、 <code>Future</code> 等。 Rust 官方虽然还未推出正式的异步 IO 方法，但社区已经实现了一套相对完整的方案。</p>
@@ -450,7 +450,7 @@
 </ul>
 <p>如果想了解 mio 的使用方法，也可以看我之前基于 mio 实现的 <a href="https://github.com/Covertness/coap-rs" target="_blank" rel="noopener">CoAP 协议库</a>。</p>
 <h2 id="异步-IO-中常见的设计思路"><a href="#异步-IO-中常见的设计思路" class="headerlink" title="异步 IO 中常见的设计思路"></a>异步 IO 中常见的设计思路</h2><p>由于异步 IO 将请求与响应进行了分离，需要将请求和响应在内存中进行缓存（一般通过队列实现）以等待 IO 可用时进行实质的请求或将取得的响应对应到原来的请求方，如下图所示。</p>
-<p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/yibuioyugaobingfa_msg_queue.png" alt=""></p>
+<p><img src="https://image.covertness.me/yibuioyugaobingfa_msg_queue.png" alt=""></p>
 <p>上图是一个简单的先写后读的逻辑流程图，首先是注册一次可写事件然后将请求体放入 in 队列（步骤1、2），然后当可写事件到来时便可将 in 队列中的请求体写入 IO 的端口，并同时在 out 队列中构造一个等待状态的响应体（步骤3、4），接着注册一次可读事件（步骤5），最后当可读事件到来时便可获得真实的响应体，在 out 队列中匹配到对应的信息后即获得了一个完整的响应体及其对应的请求信息（步骤6、7）。</p>
 <p>从上面的例子中可见异步 IO 的复杂性，需要将原来同步 IO 的一写一读分解为七个步骤完成。总而言之异步 IO 虽然提高了程序的效率，但却加大了开发的难度，同步与异步孰优孰劣最终还是要考虑实际场景，因地制宜。</p>
 

@@ -116,17 +116,17 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_dl.jpg">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_neurons.png">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_activation.png">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_feedforward-nn.png">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_20161006_180814.jpg">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_test4.png">
-<meta property="og:updated_time" content="2017-12-31T05:53:33.459Z">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_dl.jpg">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_neurons.png">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_activation.png">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_feedforward-nn.png">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_20161006_180814.jpg">
+<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_test4.png">
+<meta property="og:updated_time" content="2018-08-12T07:34:59.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习初探——使用Caffe识别手写数字">
 <meta name="twitter:description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
-<meta name="twitter:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_dl.jpg">
+<meta name="twitter:image" content="https://image.covertness.me/shenduxuexichutan_dl.jpg">
 
 
 
@@ -375,7 +375,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：12月 31 2017 13:53:33" itemprop="dateModified" datetime="2017-12-31T13:53:33+08:00">12月 31 2017</time>
+                <time title="修改时间：8月 12 2018 15:34:59" itemprop="dateModified" datetime="2018-08-12T15:34:59+08:00">8月 12 2018</time>
               
             
           </span>
@@ -437,13 +437,13 @@
       
 
       
-        <p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_dl.jpg" alt=""></p>
+        <p><img src="https://image.covertness.me/shenduxuexichutan_dl.jpg" alt=""></p>
 <p>深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。<br><a id="more"></a></p>
 <h1 id="深度学习的优势"><a href="#深度学习的优势" class="headerlink" title="深度学习的优势"></a>深度学习的优势</h1><p>工业革命让人造机器取代人类完成了大部分的体力劳动，随着机器学习能力的不断提升人类有望可以将部分脑力劳动也交给机器完成。深度学习通过模拟生物神经网络来构建学习框架（人造神经网络），每个人造神经元使用激活函数来非线性地编码数据，不同层级的人造神经元间依靠权重值来传输数据，最终整个人造神经网络就会像人类的大脑一样拥有学习的能力（目前人造神经网络的复杂度还远不及生物，仅拥有很基本的学习能力）。深度学习可以让机器以目前最接近生物思考的方法进行运转，进而可能代替人类完成一部分脑力劳动。</p>
 <p>深度学习跟传统的机器学习相比最大的优势在于不需要人工进行特征采集。传统的机器学习需要专业人士在特定数据中发现其特征，而深度学习能够通过算法自动完成这一过程，我们只需要构建一个通用的框架，然后提供数据和所想要的结果，最后通过不断地训练框架及优化其参数就可以获得具备某项能力的机器。</p>
-<h1 id="人造神经网络的构造"><a href="#人造神经网络的构造" class="headerlink" title="人造神经网络的构造"></a>人造神经网络的构造</h1><p>生物神经网络主要由很多神经元相互连接而成，人造神经网络也一样由人造神经元互联而成，如下图所示。<br><img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_neurons.png" alt=""></p>
-<p>一个人造神经元有一定数量的输入接口，每个输入都拥有一个对应的权重值，数据通过输入进入后要通过一个激活函数才能输出，这个函数需要是非线性的（模拟生物神经元），常见的激活函数包括 Sigmoid, Tanh 以及 ReLU ，如下图所示，其中 ReLU 是深度学习中最常用的。<br><img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_activation.png" alt=""></p>
-<p>一个人造神经元的输出可能是另一个的输入，如此不断连接在一起便构成了人造神经网络，如下图所示。<br><img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_feedforward-nn.png" alt=""></p>
+<h1 id="人造神经网络的构造"><a href="#人造神经网络的构造" class="headerlink" title="人造神经网络的构造"></a>人造神经网络的构造</h1><p>生物神经网络主要由很多神经元相互连接而成，人造神经网络也一样由人造神经元互联而成，如下图所示。<br><img src="https://image.covertness.me/shenduxuexichutan_neurons.png" alt=""></p>
+<p>一个人造神经元有一定数量的输入接口，每个输入都拥有一个对应的权重值，数据通过输入进入后要通过一个激活函数才能输出，这个函数需要是非线性的（模拟生物神经元），常见的激活函数包括 Sigmoid, Tanh 以及 ReLU ，如下图所示，其中 ReLU 是深度学习中最常用的。<br><img src="https://image.covertness.me/shenduxuexichutan_activation.png" alt=""></p>
+<p>一个人造神经元的输出可能是另一个的输入，如此不断连接在一起便构成了人造神经网络，如下图所示。<br><img src="https://image.covertness.me/shenduxuexichutan_feedforward-nn.png" alt=""></p>
 <p>一个特定的人造神经网络可以解决一类特定的问题，要获得一个解决特定问题的人造神经网络需要使用相关数据对其进行训练，训练使用结合梯度检验的反向传导算法进行，详细的算法介绍可以看斯坦福的<a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">UFLDL教程</a>。通过大量相关数据的训练人造神经元的权重值会越来越接近真实的范围，其人造神经网络也就越来越成熟。</p>
 <h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>下面将使用深度学习框架 Caffe 结合一个入门级的计算机视觉数据集—— MNIST 来训练一个可以识别手写数字的人造神经网络。 <a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">Caffe</a> 是一个比较流行的深度学习框架，使用它可以较容易的定义所需的人造神经网络，方便地调整相关的优化参数。 <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本。</p>
 <h2 id="通过-Docker-获取-Caffe"><a href="#通过-Docker-获取-Caffe" class="headerlink" title="通过 Docker 获取 Caffe"></a>通过 Docker 获取 Caffe</h2><p>DockerHub 上已有其他人做好的 Caffe 镜像，可直接使用：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker pull kaixhin/caffe</span><br><span class="line">$ docker run -t kaixhin/caffe</span><br></pre></td></tr></table></figure></p>
@@ -459,10 +459,10 @@
 <h2 id="识别手写数字的图片"><a href="#识别手写数字的图片" class="headerlink" title="识别手写数字的图片"></a>识别手写数字的图片</h2><p>等待一段时间后训练完成，之后便可用来识别手写的数字。</p>
 <ol>
 <li><p>首先在一张白纸上使用黑笔写一个数字，然后使用照相机拍摄后传入电脑里，如下图：</p>
-<p> <img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_20161006_180814.jpg" alt=""></p>
+<p> <img src="https://image.covertness.me/shenduxuexichutan_20161006_180814.jpg" alt=""></p>
 </li>
 <li><p>由于 MNIST 中的训练数据都是黑底白字，所以需要使用图像处理软件将图片进行反色处理，处理之后的图片如下：</p>
-<p> <img src="http://7rf2ia.com1.z0.glb.clouddn.com/shenduxuexichutan_test4.png" alt=""></p>
+<p> <img src="https://image.covertness.me/shenduxuexichutan_test4.png" alt=""></p>
 </li>
 <li><p>识别外部图片的神经网络输入和输出不同于训练的神经网络，需要将训练用的神经网络<code>examples/mnist/lenet_train_test.prototxt</code>进行部分更改，在头部删除数据层，添加外部输入层，在尾部将层的类型改为<code>Softmax</code>，把文件重命名为<code>examples/mnist/lenet_deploy.prototxt</code>，其修改后的内容如下：</p>
  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name: &quot;LeNet&quot;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;data&quot;</span><br><span class="line">  type: &quot;Input&quot;</span><br><span class="line">  top: &quot;data&quot;</span><br><span class="line">  input_param &#123; shape: &#123; dim: 1 dim: 1 dim: 28 dim: 28 &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv1&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;data&quot;</span><br><span class="line">  top: &quot;conv1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 20</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool1&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv1&quot;</span><br><span class="line">  top: &quot;pool1&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv2&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;pool1&quot;</span><br><span class="line">  top: &quot;conv2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 50</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool2&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv2&quot;</span><br><span class="line">  top: &quot;pool2&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip1&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;pool2&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 500</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;relu1&quot;</span><br><span class="line">  type: &quot;ReLU&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip2&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 10</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;prob&quot;</span><br><span class="line">  type: &quot;Softmax&quot;</span><br><span class="line">  bottom: &quot;ip2&quot;</span><br><span class="line">  top: &quot;prob&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

@@ -116,12 +116,12 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="Rust 无需运行时（ runtime ）的优势使得 Rust 与其他语言的相互调用变得简单而高效。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/rust_ffi_languages.png">
-<meta property="og:updated_time" content="2017-12-31T05:53:33.445Z">
+<meta property="og:image" content="https://image.covertness.me/rust_ffi_languages.png">
+<meta property="og:updated_time" content="2018-08-12T07:34:58.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rust学习记录——FFI">
 <meta name="twitter:description" content="Rust 无需运行时（ runtime ）的优势使得 Rust 与其他语言的相互调用变得简单而高效。">
-<meta name="twitter:image" content="http://7rf2ia.com1.z0.glb.clouddn.com/rust_ffi_languages.png">
+<meta name="twitter:image" content="https://image.covertness.me/rust_ffi_languages.png">
 
 
 
@@ -370,7 +370,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：12月 31 2017 13:53:33" itemprop="dateModified" datetime="2017-12-31T13:53:33+08:00">12月 31 2017</time>
+                <time title="修改时间：8月 12 2018 15:34:58" itemprop="dateModified" datetime="2018-08-12T15:34:58+08:00">8月 12 2018</time>
               
             
           </span>
@@ -432,7 +432,7 @@
       
 
       
-        <p><img src="http://7rf2ia.com1.z0.glb.clouddn.com/rust_ffi_languages.png" alt=""></p>
+        <p><img src="https://image.covertness.me/rust_ffi_languages.png" alt=""></p>
 <p>Rust 无需运行时（ runtime ）的优势使得 Rust 与其他语言的相互调用变得简单而高效。<br><a id="more"></a></p>
 <p>由于 Rust 致力于成为系统级编程语言，因而它并没有像其他语言一样的运行时环境（ runtime ），这也给其他语言与之结合提供了便利。 <a href="http://www.hashcash.org" target="_blank" rel="noopener">Hashcash</a> 是用来验证计算机计算能力的一种算法，被用于比特币挖矿以及部分反垃圾邮件的系统中，算法简明而有效。此算法作者的实现用的是 C 语言，下面就通过 Rust 的外部函数接口（ Foreign Function Interface ）来调用他实现的 Hashcash C 库接口，以快速实现 Hashcash 算法的 Rust 版本。</p>
 <h2 id="获取-C-语言版本的-Hashcash"><a href="#获取-C-语言版本的-Hashcash" class="headerlink" title="获取 C 语言版本的 Hashcash"></a>获取 C 语言版本的 Hashcash</h2><h3 id="1-下载源码"><a href="#1-下载源码" class="headerlink" title="1. 下载源码"></a>1. 下载源码</h3><p>可从 GitHub 上下载到 Hashcash C 库的镜像，地址如下：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/jbboehr/hashcash.git</span><br></pre></td></tr></table></figure></p>
