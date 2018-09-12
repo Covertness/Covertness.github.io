@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity implements ExoPlayer.Listene
             player = ExoPlayer.Factory.newInstance(2, 1000, 5000);
             player.addListener(this);
 
-            Uri uri = Uri.parse("http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4");
+            Uri uri = Uri.parse("https://image.covertness.me/android_zaixianyingyinbofangqi_test_baseline.mp4");
 
             DefaultSampleSource sampleSource =
                     new DefaultSampleSource(new FrameworkSampleExtractor(this, uri, null), 2);
@@ -339,7 +339,7 @@ ExoPlayerTest启动后便直接开始加载播放视频，应用暂停或退出�
             player = ExoPlayer.Factory.newInstance(2, 1000, 5000);
             player.addListener(this);
 
-            Uri uri = Uri.parse("http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4");
+            Uri uri = Uri.parse("https://image.covertness.me/android_zaixianyingyinbofangqi_test_baseline.mp4");
 
             DefaultSampleSource sampleSource =
                     new DefaultSampleSource(new FrameworkSampleExtractor(this, uri, null), 2);
@@ -353,7 +353,7 @@ ExoPlayerTest启动后便直接开始加载播放视频，应用暂停或退出�
     }
 ```
 
-preparePlayer首先初始化一个ExoPlayer实例，然后使用ExoPlayer默认的采样源DefaultSampleSource从[URL](http://covertness.qiniudn.com/android_zaixianyingyinbofangqi_test_baseline.mp4)中获取视频数据，最后指定MediaCodecVideoTrackRenderer和MediaCodecAudioTrackRenderer为相应的视频和音频渲染器。
+preparePlayer首先初始化一个ExoPlayer实例，然后使用ExoPlayer默认的采样源DefaultSampleSource从[URL](https://image.covertness.me/android_zaixianyingyinbofangqi_test_baseline.mp4)中获取视频数据，最后指定MediaCodecVideoTrackRenderer和MediaCodecAudioTrackRenderer为相应的视频和音频渲染器。
 需要注意的是因为MediaCodecVideoTrackRenderer和MediaCodecAudioTrackRenderer仅支持[Android原生的几种视频格式](http://developer.android.com/guide/appendix/media-formats.html)，因而这个应用遇到一些其他格式的视频时并不能正常播放，此时onPlayerError会被触发，ExoPlayerTest在这里通过Toast给用户一个提示，告知播放失败。
 
 ```java
