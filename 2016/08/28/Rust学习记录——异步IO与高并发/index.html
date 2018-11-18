@@ -112,7 +112,7 @@
 <meta name="keywords" content="Rust,异步IO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust学习记录——异步IO与高并发">
-<meta property="og:url" content="http://covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/index.html">
+<meta property="og:url" content="http://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
 <meta property="og:locale" content="zh-CN">
@@ -132,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/"/>
+  <link rel="canonical" href="http://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/"/>
 
 
 
@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/">
+    <link itemprop="mainEntityOfPage" href="http://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无影风随">
@@ -437,7 +437,7 @@
         <p><img src="https://image.covertness.me/yibuioyugaobingfa_maxresdefault.jpg" alt=""></p>
 <p>在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。</p>
 <a id="more"></a>
-<h2 id="为什么要使用异步-IO"><a href="#为什么要使用异步-IO" class="headerlink" title="为什么要使用异步 IO"></a>为什么要使用异步 IO</h2><p>关于使用 Rust 语言编写基本的并发程序，<a href="http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/">之前的博客</a>已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。</p>
+<h2 id="为什么要使用异步-IO"><a href="#为什么要使用异步-IO" class="headerlink" title="为什么要使用异步 IO"></a>为什么要使用异步 IO</h2><p>关于使用 Rust 语言编写基本的并发程序，<a href="http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/" target="_blank" rel="noopener">之前的博客</a>已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。</p>
 <p><img src="https://image.covertness.me/yibuioyugaobingfa_thread_pool.png" alt=""></p>
 <p>从图中可以看到服务器收到请求后会将它传递给一个工作线程，工作线程对请求进行解析后从磁盘中读取相应的文件然后返回给请求方。设想同时有1千个请求传入，此时则需要同时有1千个线程进行处理，这1千个线程将会几乎同时的请求磁盘，而磁盘在没有缓存的情况下只能依次顺序地处理请求，这就意味着大多数请求将被阻塞，此时这1千个线程将会占用掉系统的很大一部分资源而无所作为，服务器资源被严重浪费。</p>
 <p>从上面的例子可以看出是因为磁盘只能串行处理请求而导致大部分线程阻塞，其实不光磁盘 IO ，基于冯·诺依曼结构的计算机中几乎所有的 IO 都有相似的设计。试想如果线程在请求磁盘后无需等待而继续处理其它请求，数据从磁盘中取出后会主动通知线程，这样的话同样处理1千个请求就不再需要1千个线程（因为 IO 是串行的），线程数降低后服务器便有资源处理更多的请求，这样的解决方法就叫做异步 IO ，它是目前编写高并发程序普遍采用的一种方法，大家熟悉的 Nginx 、 Redis 、 Node.js 等很多高性能程序都是基于异步 IO 实现的。</p>
