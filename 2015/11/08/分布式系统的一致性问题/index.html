@@ -112,7 +112,7 @@
 <meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式系统的一致性问题">
-<meta property="og:url" content="http://www.covertness.me/2015/11/08/分布式系统的一致性问题/index.html">
+<meta property="og:url" content="http://covertness.me/2015/11/08/分布式系统的一致性问题/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="分布式系统中的数据如何保证一致性一直是设计分布式系统时比较棘手的问题，在过去的几十年里人们已经提出了很多与之相关的理论试图去完美地解决它。">
 <meta property="og:locale" content="zh-CN">
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://www.covertness.me/2015/11/08/分布式系统的一致性问题/"/>
+  <link rel="canonical" href="http://covertness.me/2015/11/08/分布式系统的一致性问题/"/>
 
 
 
@@ -242,14 +242,6 @@
         
         
           
-          <li class="menu-item menu-item-about">
-    <a href="https:/about.me/wuyingfengsui55" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />关于</a>
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
@@ -311,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.covertness.me/2015/11/08/分布式系统的一致性问题/">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/11/08/分布式系统的一致性问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无影风随">
@@ -446,7 +438,7 @@
 <h3 id="选举算法"><a href="#选举算法" class="headerlink" title="选举算法"></a>选举算法</h3><p>既然解决冲突那么麻烦，于是有了一些尽量避开冲突的方法，选举算法就是其中之一。首先在系统中通过既定的规则选举出一个 Master ，其余节点都为 Slave ，外来请求都通过 Master 处理， Slave 节点只需把 Master 上的数据同步过来即可。以上面的例子来说， A 与 B 可以先定下规矩，在使用这个账号取钱时都要先打电话跟对方确认，这样就能够避免冲突。当 Master 节点失效时，系统其他节点再通过之前定好的规则选举新的 Master 。这里的选举规则比较常见的有 <a href="http://zh.wikipedia.org/wiki/Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">Paxos</a> 和 <a href="http://blog.csdn.net/cszhouwei/article/details/38374603" target="_blank" rel="noopener">Raft</a>。<br>现在比较流行的分布式系统大多采用这一方法，比如 MongoDB、Redis 和 Dynamo 等，此外还可以使用 <a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">ZooKeeper</a> 等支持选举算法的工具实现自己的分布式系统。这个方法的缺点是当 Master 失效后系统会短暂的处于不可用状态。</p>
 <h3 id="Quorum-NRW"><a href="#Quorum-NRW" class="headerlink" title="Quorum NRW"></a>Quorum NRW</h3><p>一种从客户端侧解决一致性问题的投票算法，它通过客户端同步操作多个实例来保证一致性，具体冲突解决由客户端自己实现，详细内容可参考<a href="http://blog.csdn.net/dellme99/article/details/15432249" target="_blank" rel="noopener">这里</a>。</p>
 <h3 id="Rev-Tree"><a href="#Rev-Tree" class="headerlink" title="Rev Tree"></a>Rev Tree</h3><p>另外一种避开冲突的解决算法，类似于 Git 的版本树。对每次操作产生一个对应的 Rev Id ，将每次操作的 Rev Id 都放到上次操作之后形成主分支，当有一个拥有不一致的 Rev Tree 的数据想进行合并时冲突产生，此时便会产生一个新的分支，然后两个分支同时工作。默认会以最长分支为主分支，其他分支及其所有的数据会在一段时间后删除。还是以 ATM 的例子进行说明，在这种情况下 A、B 的取款请求都会被成功响应，而后假如 A 又通过 ATM 进行了一些操作而 B 没有，那么 A 的请求会被最终记录下来，而 B 的请求一段时间后会被删除，显然对于取款这样需要即时完成的操作，这种方法并不可取。<br>此算法在 <a href="http://couchdb.apache.org/" target="_blank" rel="noopener">CouchDB</a> 中被使用。这个算法把冲突的解决交给了时间，活跃度最高的数据会被保存下来，类似于民主选举的理念，适用于没有权威决策要求的去中心化系统。</p>
-<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p>这是比特币网络中用于记录交易过程生成总账单的算法，类似于上面提到的 Rev Tree 算法，不过基于安全性的需要增加了非对称加密、计算能力验证等逻辑。具体内容可参考我之前的一篇博客–<a href="http://covertness.me/2015/08/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%83%8C%E5%90%8E%E7%9A%84%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">比特币背后的技术</a>。</p>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><p>这是比特币网络中用于记录交易过程生成总账单的算法，类似于上面提到的 Rev Tree 算法，不过基于安全性的需要增加了非对称加密、计算能力验证等逻辑。具体内容可参考我之前的一篇博客–<a href="http://covertness.me/2015/08/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%83%8C%E5%90%8E%E7%9A%84%E6%8A%80%E6%9C%AF/">比特币背后的技术</a>。</p>
 <h3 id="CRDT"><a href="#CRDT" class="headerlink" title="CRDT"></a>CRDT</h3><p>力图从数据结构上避免冲突。 CRDT 就是指能够避免冲突的可复制的数据结构，而且这类数据结构的合并过程一般情况下都会满足 <a href="https://lostechies.com/jimmybogard/2013/06/06/acid-2-0-in-action/" target="_blank" rel="noopener">ACID 2.0</a>：</p>
 <ol>
 <li>结合律 <code>f(a,f(b,c)) = f(f(a,b),c)</code></li>

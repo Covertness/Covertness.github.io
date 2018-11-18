@@ -112,7 +112,7 @@
 <meta name="keywords" content="VPN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速搭建OpenVPN服务">
-<meta property="og:url" content="http://www.covertness.me/2015/12/20/快速搭建OpenVPN服务/index.html">
+<meta property="og:url" content="http://covertness.me/2015/12/20/快速搭建OpenVPN服务/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。">
 <meta property="og:locale" content="zh-CN">
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://www.covertness.me/2015/12/20/快速搭建OpenVPN服务/"/>
+  <link rel="canonical" href="http://covertness.me/2015/12/20/快速搭建OpenVPN服务/"/>
 
 
 
@@ -240,14 +240,6 @@
         
         
           
-          <li class="menu-item menu-item-about">
-    <a href="https:/about.me/wuyingfengsui55" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />关于</a>
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
@@ -309,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.covertness.me/2015/12/20/快速搭建OpenVPN服务/">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2015/12/20/快速搭建OpenVPN服务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无影风随">
@@ -431,7 +423,7 @@
 
       
         <p>使用开源软件 OpenVPN 在一台 VPS 上搭建稳定安全的 VPN 代理服务。<br><a id="more"></a></p>
-<p><strong>由于 OpenVPN 的实际效果并不理想（数据传输速度缓慢），推荐使用 <a href="http://covertness.me/2018/03/25/%E8%BD%BB%E6%9D%BE%E5%87%A0%E6%AD%A5%E6%90%AD%E5%BB%BA%20WireGuard%20%EF%BC%88%E5%BF%AB%E9%80%9F%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%8B%E4%B8%80%E4%BB%A3%20VPN%EF%BC%89/" target="_blank" rel="noopener">WireGuard</a> 代替。</strong></p>
+<p><strong>由于 OpenVPN 的实际效果并不理想（数据传输速度缓慢），推荐使用 <a href="http://covertness.me/2018/03/25/%E8%BD%BB%E6%9D%BE%E5%87%A0%E6%AD%A5%E6%90%AD%E5%BB%BA%20WireGuard%20%EF%BC%88%E5%BF%AB%E9%80%9F%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%8B%E4%B8%80%E4%BB%A3%20VPN%EF%BC%89/">WireGuard</a> 代替。</strong></p>
 <h3 id="1-在-VPS-上执行以下命令下载安装-OpenVPN"><a href="#1-在-VPS-上执行以下命令下载安装-OpenVPN" class="headerlink" title="1. 在 VPS 上执行以下命令下载安装 OpenVPN"></a>1. 在 VPS 上执行以下命令下载安装 OpenVPN</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget git.io/vpn --no-check-certificate -O openvpn-install.sh &amp;&amp; bash openvpn-install.sh</span><br></pre></td></tr></table></figure>
 <p>其中的 DNS 配置建议使用 Google 。</p>
 <h3 id="2-再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件-ovpn-（可选）"><a href="#2-再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件-ovpn-（可选）" class="headerlink" title="2. 再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件 *.ovpn （可选）"></a>2. 再次运行此脚本添加用户，添加完成后会自动生成客户端配置文件 *.ovpn （可选）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash openvpn-install.sh</span><br></pre></td></tr></table></figure>
