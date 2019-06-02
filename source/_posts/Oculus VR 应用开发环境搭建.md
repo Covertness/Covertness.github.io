@@ -1,4 +1,5 @@
 title: Oculus VR 应用开发环境搭建
+urlname: Oculus VR 应用开发环境搭建
 date: 2016/01/10 15:43:24
 categories:
 - 学习记录

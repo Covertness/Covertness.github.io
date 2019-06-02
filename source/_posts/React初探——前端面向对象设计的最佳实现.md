@@ -1,4 +1,5 @@
 title: React初探——前端面向对象设计的最佳实现
+urlname: React初探——前端面向对象设计的最佳实现
 date: 2018/05/21 19:48:34
 categories:
 - 学习记录

@@ -1,4 +1,5 @@
 title: Android学习记录——让应用通晓地理
+urlname: Android学习记录——让应用通晓地理
 date: 2015/05/17 13:08:45
 categories:
 - 学习记录

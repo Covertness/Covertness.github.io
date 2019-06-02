@@ -14,12 +14,13 @@ language: zh-CN
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://covertness.me
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :year/:month/:day/:urlname/
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 permalink_defaults:
+  urlname: index
 
 # Directory
 source_dir: source

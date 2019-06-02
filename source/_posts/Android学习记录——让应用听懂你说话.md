@@ -1,4 +1,5 @@
 title: Android学习记录——让应用听懂你说话
+urlname: Android学习记录——让应用听懂你说话
 date: 2015/05/02 17:03:25
 categories:
 - 学习记录

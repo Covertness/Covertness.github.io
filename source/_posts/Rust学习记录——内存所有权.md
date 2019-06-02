@@ -1,4 +1,5 @@
 title: Rust学习记录——内存所有权
+urlname: Rust学习记录——内存所有权
 date: 2015/06/06 20:11:53
 categories:
 - 学习记录

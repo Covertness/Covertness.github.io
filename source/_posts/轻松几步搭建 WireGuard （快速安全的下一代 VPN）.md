@@ -1,4 +1,5 @@
 title: 轻松几步搭建 WireGuard （快速安全的下一代 VPN）
+urlname: 轻松几步搭建 WireGuard （快速安全的下一代 VPN）
 date: 2018/03/25 16:21:13
 categories:
 - 实用技巧

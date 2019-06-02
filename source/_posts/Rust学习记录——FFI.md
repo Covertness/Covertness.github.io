@@ -1,4 +1,5 @@
 title: Rust学习记录——FFI
+urlname: Rust学习记录——FFI
 date: 2015/08/11 20:43:26
 categories:
 - 学习记录

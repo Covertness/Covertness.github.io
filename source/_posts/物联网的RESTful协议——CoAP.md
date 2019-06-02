@@ -1,4 +1,5 @@
 title: 物联网的RESTful协议——CoAP
+urlname: 物联网的RESTful协议——CoAP
 date: 2015/07/26 14:07:26
 categories:
 - 探索

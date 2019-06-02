@@ -1,4 +1,5 @@
 title: 快速搭建OpenVPN服务
+urlname: 快速搭建OpenVPN服务
 date: 2015/12/20 21:00:11
 categories:
 - 实用技巧

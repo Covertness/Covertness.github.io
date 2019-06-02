@@ -88,7 +88,7 @@ footer:
     version: true
   # -------------------------------------------------------------
   # Any custom text can be defined here.
-  #custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.coding.me"><b>Coding Pages</b></a>
+  custom_text: <a id="beian" href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备19029329号</a><br/><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502003922">粤公网安备44030502003922号</a>
 
 # ---------------------------------------------------------------
 # SEO Settings
@@ -539,8 +539,8 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare:
-  type: button
+# baidushare:
+#   type: button
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.

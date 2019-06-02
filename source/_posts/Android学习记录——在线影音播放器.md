@@ -1,4 +1,5 @@
 title: Android学习记录——在线影音播放器
+urlname: Android学习记录——在线影音播放器
 date: 2015/04/06 14:49:51
 categories:
 - 学习记录

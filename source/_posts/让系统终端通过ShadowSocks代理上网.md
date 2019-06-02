@@ -1,4 +1,5 @@
 title: 让系统终端通过ShadowSocks代理上网
+urlname: 让系统终端通过ShadowSocks代理上网
 date: 2016/06/07 20:41:34
 categories:
 - 实用技巧

@@ -1,4 +1,5 @@
 title: Rust学习记录——语言特性及环境搭建
+urlname: Rust学习记录——语言特性及环境搭建
 date: 2015/05/24 15:23:43
 categories:
 - 学习记录

@@ -1,4 +1,5 @@
 title: 深度学习笔记——使用 Keras 识别数字
+urlname: 深度学习笔记——使用Keras识别数字
 date: 2019/05/24 18:20:14
 categories:
 - 学习记录

@@ -1,4 +1,5 @@
 title: 深度学习初探——使用Caffe识别手写数字
+urlname: 深度学习初探——使用Caffe识别手写数字
 date: 2016/10/06 18:21:34
 categories:
 - 探索

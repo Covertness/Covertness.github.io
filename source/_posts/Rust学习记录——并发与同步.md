@@ -1,4 +1,5 @@
 title: Rust学习记录——并发与同步
+urlname: Rust学习记录——并发与同步
 date: 2015/05/30 21:11:23
 categories:
 - 学习记录

@@ -1,4 +1,5 @@
 title: R语言——数据统计分析利器
+urlname: R语言——数据统计分析利器
 date: 2015/09/16 21:00:22
 categories:
 - 探索

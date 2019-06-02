@@ -1,4 +1,5 @@
 title: three.js——通过 HTML5 页面呈现 VR 内容
+urlname: three.js——通过 HTML5 页面呈现 VR 内容
 date: 2016/12/25 15:01:34
 categories:
 - 学习记录

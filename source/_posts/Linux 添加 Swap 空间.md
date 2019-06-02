@@ -1,4 +1,5 @@
 title: Linux 添加 Swap 空间
+urlname: Linux 添加 Swap 空间
 date: 2015/04/11 16:16:21
 categories:
 - 实用技巧

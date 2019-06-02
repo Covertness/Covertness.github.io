@@ -1,4 +1,5 @@
 title: covertness.me出生记
+urlname: covertness.me出生记
 date: 2014/11/16 09:31:44
 categories:
 - 建站

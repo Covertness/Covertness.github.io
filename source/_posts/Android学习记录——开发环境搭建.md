@@ -1,4 +1,5 @@
 title: Android学习记录——开发环境搭建
+urlname: Android学习记录——开发环境搭建
 date: 2015/03/28 14:02:23
 categories:
 - 学习记录

@@ -1,4 +1,5 @@
 title: Rust学习记录——异步IO与高并发
+urlname: Rust学习记录——异步IO与高并发
 date: 2016/08/28 14:42:34
 categories:
 - 学习记录
