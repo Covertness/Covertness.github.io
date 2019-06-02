@@ -108,26 +108,20 @@
 
 
 
-  <meta name="description" content="深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。">
+  <meta name="description" content="依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。">
 <meta name="keywords" content="机器学习,Keras">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度学习笔记——使用 Keras 识别数字">
-<meta property="og:url" content="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/index.html">
+<meta property="og:title" content="深度学习笔记——搭建一个基于图片识别的推荐系统">
+<meta property="og:url" content="http://covertness.me/2019/06/02/keras-recommender/index.html">
 <meta property="og:site_name" content="无影风随">
-<meta property="og:description" content="深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。">
+<meta property="og:description" content="依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://image.covertness.me/shenduxuexichutan_dl.jpg">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/first_train.png">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/second_train.png">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/third_train.png">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/forth_train.png">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/5th.png">
-<meta property="og:image" content="https://image.covertness.me/deeplearning_keras/6th.png">
-<meta property="og:updated_time" content="2019-06-02T08:47:32.100Z">
+<meta property="og:image" content="https://image.covertness.me/keras_recommender/recommend.png">
+<meta property="og:updated_time" content="2019-06-02T13:12:04.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度学习笔记——使用 Keras 识别数字">
-<meta name="twitter:description" content="深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。">
-<meta name="twitter:image" content="https://image.covertness.me/shenduxuexichutan_dl.jpg">
+<meta name="twitter:title" content="深度学习笔记——搭建一个基于图片识别的推荐系统">
+<meta name="twitter:description" content="依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。">
+<meta name="twitter:image" content="https://image.covertness.me/keras_recommender/recommend.png">
 
 
 
@@ -136,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/"/>
+  <link rel="canonical" href="http://covertness.me/2019/06/02/keras-recommender/"/>
 
 
 
@@ -146,7 +140,7 @@
   };
 </script>
 
-  <title>深度学习笔记——使用 Keras 识别数字 | 无影风随</title>
+  <title>深度学习笔记——搭建一个基于图片识别的推荐系统 | 无影风随</title>
   
 
 
@@ -309,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/">
+    <link itemprop="mainEntityOfPage" href="http://covertness.me/2019/06/02/keras-recommender/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无影风随">
@@ -326,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深度学习笔记——使用 Keras 识别数字
+          <h1 class="post-title" itemprop="name headline">深度学习笔记——搭建一个基于图片识别的推荐系统
               
             
           </h1>
@@ -351,24 +345,12 @@
                 
               
 
-              <time title="创建时间：5月 24 2019 18:20:14" itemprop="dateCreated datePublished" datetime="2019-05-24T18:20:14+08:00">5月 24 2019</time>
+              <time title="创建时间：6月 2 2019 21:11:00 / 修改时间：21:12:04" itemprop="dateCreated datePublished" datetime="2019-06-02T21:11:00+08:00">6月 2 2019</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：6月 2 2019 16:47:32" itemprop="dateModified" datetime="2019-06-02T16:47:32+08:00">6月 2 2019</time>
               
             
           </span>
@@ -399,7 +381,7 @@
 
           
           
-             <span id="/2019/05/24/深度学习笔记——使用Keras识别数字/" class="leancloud_visitors" data-flag-title="深度学习笔记——使用 Keras 识别数字">
+             <span id="/2019/06/02/keras-recommender/" class="leancloud_visitors" data-flag-title="深度学习笔记——搭建一个基于图片识别的推荐系统">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,34 +412,17 @@
       
 
       
-        <p><img src="https://image.covertness.me/shenduxuexichutan_dl.jpg" alt=""></p>
-<p>深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。<br><a id="more"></a></p>
-<h1 id="Keras-简介"><a href="#Keras-简介" class="headerlink" title="Keras 简介"></a>Keras 简介</h1><p>Keras 是一个较高层次的深度学习模型构建工具。它通过调用 TensorFlow、 Theano 等底层引擎完成基础运算，自身提供了简单易用的接口。相比于直接使用 TensorFlow 等框架，它的开发效率更高。</p>
-<h2 id="安装-Keras"><a href="#安装-Keras" class="headerlink" title="安装 Keras"></a>安装 Keras</h2><p>Keras 是一个标准的 python 库，在安装有 python 的终端上运行如下指令即可：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ pip install keras</span><br></pre></td></tr></table></figure></p>
-<p>要想真正运行 Keras 还需要安装对应的底层引擎，如果是 TensorFlow 的话可以执行 <code>pip install tensorflow</code> 进行安装。</p>
-<h1 id="MNIST-数据集"><a href="#MNIST-数据集" class="headerlink" title="MNIST 数据集"></a>MNIST 数据集</h1><p><a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本，由于它被深度学习领域广泛引用被誉为该领域的<code>Hello World</code>数据集。之前写过<a href="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97/" target="_blank" rel="noopener">一篇使用 Caffe 通过 MNIST 训练模型的介绍</a>，这次通过 Keras 完成同样的工作，不同的是由于 Keras 的简洁易用会使整个过程更加明晰。</p>
-<h1 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h1><h2 id="获取要解决问题的数据集"><a href="#获取要解决问题的数据集" class="headerlink" title="获取要解决问题的数据集"></a>获取要解决问题的数据集</h2><p>数据集需要包含输入数据集和输出数据集两个部分，其次这些数据应该被划分为训练集和测试集。其中训练集中还应留出一小部分作为验证集，以备对不断调整的模型进行评估。MNIST 数据集可以直接从 Keras 中获取到：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</span><br><span class="line">(train_images, train_labels), (test_images, test_labels) = mnist.load_data()</span><br></pre></td></tr></table></figure></p>
-<p>加载的数据从网络下载，需要等待一段时间。可以看到数据集已经被分为训练和测试两部分了，验证集的划分后面再做。</p>
-<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>由于深度学习模型都是基于张量来做的，原始数据需要格式化为张量。除此之外数据的取值范围应该尽可能一致，且波动范围小。MNIST 数据集的输入是 28 * 28 的格式，输出是0到9的数组，虽然已经满足张量格式，但还是需要依照具体的模型做适当调整。首先我们尝试使用简单的全连接层来构建模型，全连接层输入数据的格式为 2D 张量，因此输入数据集需要做对应的转化：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_images1 = train_images.reshape((<span class="number">60000</span>, <span class="number">28</span>*<span class="number">28</span>))</span><br><span class="line">train_images1 = train_images1.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br><span class="line">test_images1 = test_images.reshape((<span class="number">10000</span>, <span class="number">28</span>*<span class="number">28</span>))</span><br><span class="line">test_images1 = test_images1.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
-<p>上面除了把输入图片数据转换为 2D 格式之外还把数值范围缩小到了0到1之间。对于单标签多分类问题，模型最后一层通常使用 softmax 激活函数，因而输出数据也需要做相应调整已适应此激活函数：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> to_categorical</span><br><span class="line">train_labels = to_categorical(train_labels)</span><br><span class="line">test_labels = to_categorical(test_labels)</span><br></pre></td></tr></table></figure></p>
-<h2 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h2><p>深度学习模型都是层构成的网络，层数越多模型的参数也就越多，参数越多模型所能学习的“知识”也就越多，但这并不意味着模型的容量越大越好，容量过大的模型容易造成过拟合（训练数据表现优异而测试数据表现糟糕），因为模型形成了针对训练数据的字典式映射，显然这种模型并不是所期望的。因此构建模型一般都是从相对较少的层开始，下面先使用两个全连接层构建网络：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> layers</span><br><span class="line">model = models.Sequential()</span><br><span class="line">model.add(layers.Dense(<span class="number">512</span>, activation=<span class="string">'relu'</span>, input_shape=(<span class="number">28</span>*<span class="number">28</span>,)))</span><br><span class="line">model.add(layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br></pre></td></tr></table></figure></p>
-<p>除了层级的搭建外，构建模型还需要选择验证损失的函数，优化器以及训练过程中需要关注的指标。损失函数的选择取决于问题的类型，对于单标签多分类问题一般使用 <code>categorical_crossentropy</code>；优化器大多数时候 <code>rmsprop</code> 都是合适的；关注的指标对于这个例子就是 <code>accuracy</code>：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model.compile(optimizer=<span class="string">'rmsprop'</span>, loss=<span class="string">'categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
-<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>训练开始之前需要将训练集中留出一小部分作为验证集：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_images1_val = train_images1[:<span class="number">10000</span>]</span><br><span class="line">train_labels_val = train_labels[:<span class="number">10000</span>]</span><br><span class="line">partial_train_images1 = train_images1[<span class="number">10000</span>:]</span><br><span class="line">partial_train_labels = train_labels[<span class="number">10000</span>:]</span><br></pre></td></tr></table></figure></p>
-<p>开始训练：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">history = model.fit(partial_train_images1, partial_train_labels, epochs=<span class="number">20</span>, batch_size=<span class="number">512</span>, validation_data=(train_images1_val, train_labels_val))</span><br></pre></td></tr></table></figure></p>
-<p>将精度结果以图表方式显示出来：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">history_dict = history.history</span><br><span class="line">val_acc_values = history_dict[<span class="string">'val_acc'</span>]</span><br><span class="line">acc_values = history_dict[<span class="string">'acc'</span>]</span><br><span class="line">epochs = range(<span class="number">1</span>, len(acc_values) + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(epochs, acc_values, <span class="string">'bo'</span>, label=<span class="string">'Training acc'</span>)</span><br><span class="line">plt.plot(epochs, val_acc_values, <span class="string">'b'</span>, label=<span class="string">'Validation acc'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epochs'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Accuracy'</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://image.covertness.me/deeplearning_keras/first_train.png" alt=""></p>
-<p>验证精度在第10轮达到了最高点 97.8%。下面在模型中添加一个二维卷积层看精度是否提高：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model2 = models.Sequential()</span><br><span class="line">model2.add(layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>,<span class="number">3</span>), activation=<span class="string">'relu'</span>, input_shape=(<span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)))</span><br><span class="line">model2.add(layers.MaxPooling2D((<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line">model2.add(layers.Flatten())</span><br><span class="line">model2.add(layers.Dense(<span class="number">512</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model2.add(layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br><span class="line">model2.compile(optimizer=<span class="string">'rmsprop'</span>, loss=<span class="string">'categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
-<p>现在的模型输入变成了4D张量，因而输入的训练数据格式也要做相应调整：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_images2 = train_images.reshape((<span class="number">60000</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">train_images2 = train_images2.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br><span class="line">test_images2 = test_images.reshape((<span class="number">10000</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">test_images2 = test_images2.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br><span class="line">train_images2_val = train_images2[:<span class="number">10000</span>]</span><br><span class="line">partial_train_images2 = train_images2[<span class="number">10000</span>:]</span><br></pre></td></tr></table></figure></p>
-<p>重新训练：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">history = model2.fit(partial_train_images2, partial_train_labels, epochs=<span class="number">20</span>, batch_size=<span class="number">512</span>, validation_data=(train_images2_val, train_labels_val))</span><br></pre></td></tr></table></figure></p>
-<p>结束后打印精度的结果如下图：<br><img src="https://image.covertness.me/deeplearning_keras/second_train.png" alt=""></p>
-<p>差不多在第4轮达到了最高点 98.2%，比之前提高了一些。继续添加卷积层然后重复上述步骤，结果见下列图表：<br><img src="https://image.covertness.me/deeplearning_keras/third_train.png" alt=""><br><img src="https://image.covertness.me/deeplearning_keras/forth_train.png" alt=""></p>
-<p>当加到第三卷积层时精度反而下降了，而且训练精度没有继续提升，说明模型可能已经欠拟合，此时可以降低每次梯度更新时的数据量 <code>batch_size</code>，让模型敏感度提高。这里将512调整为64，然后再次训练结果如下：<br><img src="https://image.covertness.me/deeplearning_keras/5th.png" alt=""></p>
-<p>模型重新进入过拟合状态，但验证精度并没有提高(98.5%)，只是恢复到了原来的水平，这时就需要近一步优化层的参数，加大卷积层的影响，降低全连接层的影响。这里通过增大卷积层的输出同时减小全连接层的输出来实现，新的模型定义如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model2 = models.Sequential()</span><br><span class="line">model2.add(layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>,<span class="number">3</span>), activation=<span class="string">'relu'</span>, input_shape=(<span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)))</span><br><span class="line">model2.add(layers.MaxPooling2D((<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line">model2.add(layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>,<span class="number">3</span>), activation=<span class="string">'relu'</span>))</span><br><span class="line">model2.add(layers.MaxPooling2D((<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line">model2.add(layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>,<span class="number">3</span>), activation=<span class="string">'relu'</span>))</span><br><span class="line">model2.add(layers.MaxPooling2D((<span class="number">2</span>,<span class="number">2</span>)))</span><br><span class="line">model2.add(layers.Flatten())</span><br><span class="line">model2.add(layers.Dense(<span class="number">64</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model2.add(layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br><span class="line">model2.compile(optimizer=<span class="string">'rmsprop'</span>, loss=<span class="string">'categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">history = model2.fit(partial_train_images2, partial_train_labels, epochs=<span class="number">10</span>, batch_size=<span class="number">64</span>, validation_data=(train_images2_val, train_labels_val))</span><br></pre></td></tr></table></figure></p>
-<p>结果如下所示：<br><img src="https://image.covertness.me/deeplearning_keras/6th.png" alt=""></p>
-<p>验证精度提升至98.7%，相对初始值已经提高不少。虽然模型精度已经很高，但仍处于过拟合状态，逻辑上仍有优化的空间，比如继续调整层的参数，添加 dropout，添加权重正则化，调整优化器的学习率等等。需要注意的是随着模型越来越复杂，训练的时间也会增加。</p>
-<h2 id="在测试集上进行最后评估"><a href="#在测试集上进行最后评估" class="headerlink" title="在测试集上进行最后评估"></a>在测试集上进行最后评估</h2><p>执行以下函数进行测试集评估：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">test_loss, test_acc = model2.evaluate(test_images2, test_labels)</span><br></pre></td></tr></table></figure></p>
-<p>测试集的精度为98.76%，和验证精度很接近。如果两者相差很大则说明验证数据集的选取有问题，数据集可能过小或不够随机，这种情况下可以考虑<a href="https://machinelearningmastery.com/k-fold-cross-validation/" target="_blank" rel="noopener">重复 K 折验证</a>。</p>
+        <p><img src="https://image.covertness.me/keras_recommender/recommend.png" alt=""></p>
+<p>依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。<br><a id="more"></a></p>
+<h1 id="获取图库"><a href="#获取图库" class="headerlink" title="获取图库"></a>获取图库</h1><p>为了方便对比结果这里从 <a href="https://www.kaggle.com" target="_blank" rel="noopener">kaggle</a> 上找了一个 <a href="https://www.kaggle.com/akkithetechie/furniture-detector" target="_blank" rel="noopener">家具相关的数据集</a>，它每个类别的图片都包含多张因此更容易检查推荐系统的效果。</p>
+<p>从 kaggle 网页上下载数据集后可以发现它包含两部分的数据： train 和 validation ，因为使用现成的模型并不需要训练数据集，所以我们只需要关注 <code>val</code> 目录下的图片，为了方便提取所有类别图片的特征这里把 <code>val</code> 下的图片都聚合到一个目录下：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os, shutil, glob</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> dirPath <span class="keyword">in</span> glob.glob(<span class="string">'val/*'</span>):</span><br><span class="line">    dirName = os.path.basename(dirPath)</span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> glob.glob(dirPath + <span class="string">'/*'</span>):</span><br><span class="line">        fileName = os.path.basename(filePath)</span><br><span class="line">        shutil.move(filePath, <span class="string">'val_join/'</span> + dirName + <span class="string">'_'</span> + fileName)</span><br></pre></td></tr></table></figure></p>
+<h1 id="提取特征"><a href="#提取特征" class="headerlink" title="提取特征"></a>提取特征</h1><p>目前深度学习领域已经有不少针对图像分类训练好的模型，比如 VGG16， VGG19， Inception V3， MobileNet 等等，它们大都是在 <a href="http://www.image-net.org/" target="_blank" rel="noopener">ImageNet</a> 数据集上训练得到的，可以满足大部分的图片分类需求，尤其在小数据集情况下直接使用这些现成模型往往比从头训练的效果更好，这一方法在机器学习领域叫做<em>transfer learning</em>。这里我们使用 Inception V3 这个模型，因为它的输出特征数据相对较少，需要的系统资源少，能够在更广泛的硬件平台上运行。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> listdir</span><br><span class="line"><span class="keyword">from</span> keras.applications.inception_v3 <span class="keyword">import</span> InceptionV3</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> load_img</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> img_to_array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conv_base = InceptionV3(weights=<span class="string">'imagenet'</span>, include_top=<span class="keyword">False</span>, input_shape=(<span class="number">150</span>, <span class="number">150</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_image_features</span><span class="params">(directory)</span>:</span></span><br><span class="line">    images = []</span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> listdir(directory):</span><br><span class="line">        filename = directory + <span class="string">'/'</span> + name</span><br><span class="line">        image = load_img(filename, target_size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        image = img_to_array(image)</span><br><span class="line">        image = image.reshape((<span class="number">1</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">3</span>))</span><br><span class="line">        image = image.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br><span class="line"></span><br><span class="line">        feature = conv_base.predict(image)</span><br><span class="line"></span><br><span class="line">        images.append((name, image, feature.flatten()))</span><br><span class="line">        <span class="keyword">if</span> len(images) == <span class="number">1000</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> images</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">images = extract_image_features(<span class="string">'val_join'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码将 <code>val_join</code> 目录下的所有图片导入，然后使用 <code>InceptionV3</code> 模型进行特征提取。需要注意三点：1、图片导入后针对模型的输入格式进行了预处理：缩放图片到<code>150*150</code>，扩展为 4D 张量，将值的范围缩小到1以内；2、仅使用了 <code>InceptionV3</code> 模型的卷积神经网络部分，没有包含模型的全连接层（<code>include_top</code> 为 <code>False</code>）；3、输出特征 <code>feature</code> 降到了一维，方便后面建立推荐列表。</p>
+<h1 id="建立推荐列表"><a href="#建立推荐列表" class="headerlink" title="建立推荐列表"></a>建立推荐列表</h1><p>有了图片的特征之后便可以使用现有的数学算法找到相邻特征的图片，这里使用<a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" target="_blank" rel="noopener">最近邻算法</a>建立推荐列表：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> NearestNeighbors</span><br><span class="line"></span><br><span class="line">image_features = [i[<span class="number">2</span>] <span class="keyword">for</span> i <span class="keyword">in</span> images]</span><br><span class="line"></span><br><span class="line">nbrs = NearestNeighbors(n_neighbors=<span class="number">6</span>, algorithm=<span class="string">'ball_tree'</span>, metric=<span class="string">"euclidean"</span>, n_jobs = <span class="number">-1</span>).fit(image_features)</span><br><span class="line">distances, indices = nbrs.kneighbors(image_features)</span><br></pre></td></tr></table></figure></p>
+<p><code>indices</code> 便是推荐列表，它针对每张图片都找出了最相似的5张图片，可以通过下面的函数查看效果：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">image_names = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> images]</span><br><span class="line">image_data = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> images]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_recommender</span><span class="params">(image_name)</span>:</span></span><br><span class="line">    index = image_names.index(image_name)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> indices[index][<span class="number">1</span>:]:</span><br><span class="line">        plt.imshow(image_data[i][<span class="number">0</span>])</span><br><span class="line">        plt.figure()</span><br><span class="line">        plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>例如执行 <code>show_recommender(&#39;sofa_00000226.jpg&#39;)</code> 之后便会显示5张类似的沙发图片。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://towardsdatascience.com/creating-a-movie-recommender-using-convolutional-neural-networks-be93e66464a7" target="_blank" rel="noopener">Creating a movie recommender using Convolutional Neural Networks</a></li>
 <li><a href="https://book.douban.com/subject/30293801/" target="_blank" rel="noopener">Python深度学习</a></li>
 </ul>
 
@@ -495,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/让博客支持 HTTPS/" rel="next" title="让博客支持 HTTPS">
-                <i class="fa fa-chevron-left"></i> 让博客支持 HTTPS
+              <a href="/2019/05/24/深度学习笔记——使用Keras识别数字/" rel="next" title="深度学习笔记——使用 Keras 识别数字">
+                <i class="fa fa-chevron-left"></i> 深度学习笔记——使用 Keras 识别数字
               </a>
             
           </div>
@@ -504,10 +469,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/02/keras-recommender/" rel="prev" title="深度学习笔记——搭建一个基于图片识别的推荐系统">
-                深度学习笔记——搭建一个基于图片识别的推荐系统 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -881,7 +842,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Keras-简介"><span class="nav-number">1.</span> <span class="nav-text">Keras 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Keras"><span class="nav-number">1.1.</span> <span class="nav-text">安装 Keras</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-数据集"><span class="nav-number">2.</span> <span class="nav-text">MNIST 数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作流程"><span class="nav-number">3.</span> <span class="nav-text">工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取要解决问题的数据集"><span class="nav-number">3.1.</span> <span class="nav-text">获取要解决问题的数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.2.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建模型"><span class="nav-number">3.3.</span> <span class="nav-text">构建模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练模型"><span class="nav-number">3.4.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在测试集上进行最后评估"><span class="nav-number">3.5.</span> <span class="nav-text">在测试集上进行最后评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取图库"><span class="nav-number">1.</span> <span class="nav-text">获取图库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提取特征"><span class="nav-number">2.</span> <span class="nav-text">提取特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立推荐列表"><span class="nav-number">3.</span> <span class="nav-text">建立推荐列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
