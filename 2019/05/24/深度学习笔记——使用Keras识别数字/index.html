@@ -112,7 +112,7 @@
 <meta name="keywords" content="机器学习,Keras">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习笔记——使用 Keras 识别数字">
-<meta property="og:url" content="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/index.html">
+<meta property="og:url" content="https://www.covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。">
 <meta property="og:locale" content="zh-CN">
@@ -136,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/"/>
+  <link rel="canonical" href="https://www.covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/"/>
 
 
 
@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/">
+    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2019/05/24/深度学习笔记——使用Keras识别数字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="无影风随">
@@ -435,7 +435,7 @@
 <h1 id="Keras-简介"><a href="#Keras-简介" class="headerlink" title="Keras 简介"></a>Keras 简介</h1><p>Keras 是一个较高层次的深度学习模型构建工具。它通过调用 TensorFlow、 Theano 等底层引擎完成基础运算，自身提供了简单易用的接口。相比于直接使用 TensorFlow 等框架，它的开发效率更高。</p>
 <h2 id="安装-Keras"><a href="#安装-Keras" class="headerlink" title="安装 Keras"></a>安装 Keras</h2><p>Keras 是一个标准的 python 库，在安装有 python 的终端上运行如下指令即可：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ pip install keras</span><br></pre></td></tr></table></figure></p>
 <p>要想真正运行 Keras 还需要安装对应的底层引擎，如果是 TensorFlow 的话可以执行 <code>pip install tensorflow</code> 进行安装。</p>
-<h1 id="MNIST-数据集"><a href="#MNIST-数据集" class="headerlink" title="MNIST 数据集"></a>MNIST 数据集</h1><p><a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本，由于它被深度学习领域广泛引用被誉为该领域的<code>Hello World</code>数据集。之前写过<a href="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97/" target="_blank" rel="noopener">一篇使用 Caffe 通过 MNIST 训练模型的介绍</a>，这次通过 Keras 完成同样的工作，不同的是由于 Keras 的简洁易用会使整个过程更加明晰。</p>
+<h1 id="MNIST-数据集"><a href="#MNIST-数据集" class="headerlink" title="MNIST 数据集"></a>MNIST 数据集</h1><p><a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本，由于它被深度学习领域广泛引用被誉为该领域的<code>Hello World</code>数据集。之前写过<a href="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97/">一篇使用 Caffe 通过 MNIST 训练模型的介绍</a>，这次通过 Keras 完成同样的工作，不同的是由于 Keras 的简洁易用会使整个过程更加明晰。</p>
 <h1 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h1><h2 id="获取要解决问题的数据集"><a href="#获取要解决问题的数据集" class="headerlink" title="获取要解决问题的数据集"></a>获取要解决问题的数据集</h2><p>数据集需要包含输入数据集和输出数据集两个部分，其次这些数据应该被划分为训练集和测试集。其中训练集中还应留出一小部分作为验证集，以备对不断调整的模型进行评估。MNIST 数据集可以直接从 Keras 中获取到：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</span><br><span class="line">(train_images, train_labels), (test_images, test_labels) = mnist.load_data()</span><br></pre></td></tr></table></figure></p>
 <p>加载的数据从网络下载，需要等待一段时间。可以看到数据集已经被分为训练和测试两部分了，验证集的划分后面再做。</p>
 <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>由于深度学习模型都是基于张量来做的，原始数据需要格式化为张量。除此之外数据的取值范围应该尽可能一致，且波动范围小。MNIST 数据集的输入是 28 * 28 的格式，输出是0到9的数组，虽然已经满足张量格式，但还是需要依照具体的模型做适当调整。首先我们尝试使用简单的全连接层来构建模型，全连接层输入数据的格式为 2D 张量，因此输入数据集需要做对应的转化：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_images1 = train_images.reshape((<span class="number">60000</span>, <span class="number">28</span>*<span class="number">28</span>))</span><br><span class="line">train_images1 = train_images1.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br><span class="line">test_images1 = test_images.reshape((<span class="number">10000</span>, <span class="number">28</span>*<span class="number">28</span>))</span><br><span class="line">test_images1 = test_images1.astype(<span class="string">'float32'</span>) / <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
