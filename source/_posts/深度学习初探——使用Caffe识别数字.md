@@ -8,7 +8,7 @@ tags:
 - Caffe
 
 ---
-![](https://image.covertness.me/shenduxuexichutan_dl.jpg)
+![](https://image.covertness.cn/shenduxuexichutan_dl.jpg)
 
 深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。
 <!-- more -->
@@ -20,13 +20,13 @@ tags:
 
 # 人造神经网络的构造
 生物神经网络主要由很多神经元相互连接而成，人造神经网络也一样由人造神经元互联而成，如下图所示。
-![](https://image.covertness.me/shenduxuexichutan_neurons.png)
+![](https://image.covertness.cn/shenduxuexichutan_neurons.png)
 
 一个人造神经元有一定数量的输入接口，每个输入都拥有一个对应的权重值，数据通过输入进入后要通过一个激活函数才能输出，这个函数需要是非线性的（模拟生物神经元），常见的激活函数包括 Sigmoid, Tanh 以及 ReLU ，如下图所示，其中 ReLU 是深度学习中最常用的。
-![](https://image.covertness.me/shenduxuexichutan_activation.png)
+![](https://image.covertness.cn/shenduxuexichutan_activation.png)
 
 一个人造神经元的输出可能是另一个的输入，如此不断连接在一起便构成了人造神经网络，如下图所示。
-![](https://image.covertness.me/shenduxuexichutan_feedforward-nn.png)
+![](https://image.covertness.cn/shenduxuexichutan_feedforward-nn.png)
 
 一个特定的人造神经网络可以解决一类特定的问题，要获得一个解决特定问题的人造神经网络需要使用相关数据对其进行训练，训练使用结合梯度检验的反向传导算法进行，详细的算法介绍可以看斯坦福的[UFLDL教程](http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B)。通过大量相关数据的训练人造神经元的权重值会越来越接近真实的范围，其人造神经网络也就越来越成熟。
 
@@ -149,11 +149,11 @@ $ ./examples/mnist/train_lenet.sh
 
 1. 首先在一张白纸上使用黑笔写一个数字，然后使用照相机拍摄后传入电脑里，如下图：
 
-    ![](https://image.covertness.me/shenduxuexichutan_20161006_180814.jpg)
+    ![](https://image.covertness.cn/shenduxuexichutan_20161006_180814.jpg)
 
 2. 由于 MNIST 中的训练数据都是黑底白字，所以需要使用图像处理软件将图片进行反色处理，处理之后的图片如下：
 
-    ![](https://image.covertness.me/shenduxuexichutan_test4.png)
+    ![](https://image.covertness.cn/shenduxuexichutan_test4.png)
 
 3. 识别外部图片的神经网络输入和输出不同于训练的神经网络，需要将训练用的神经网络`examples/mnist/lenet_train_test.prototxt`进行部分更改，在头部删除数据层，添加外部输入层，在尾部将层的类型改为`Softmax`，把文件重命名为`examples/mnist/lenet_deploy.prototxt`，其修改后的内容如下：
 

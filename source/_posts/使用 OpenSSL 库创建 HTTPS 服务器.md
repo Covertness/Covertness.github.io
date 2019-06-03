@@ -9,7 +9,7 @@ tags:
 - OpenSSL
 
 ---
-![](https://image.covertness.me/openssl_https_server/https.png)
+![](https://image.covertness.cn/openssl_https_server/https.png)
 
 网上现存的大部分 OpenSSL 示例都是通过 C/C++ 编写的，本文通过更加现代的 Rust 语言来实现一个简单的 HTTPS 服务器，程序更加简洁精炼。
 <!-- more -->
@@ -105,7 +105,7 @@ $ cargo run
 ```
 
 ### 使用浏览器访问 `https://127.0.0.1:8443`
-![](https://image.covertness.me/openssl_https_server/snap.png)
+![](https://image.covertness.cn/openssl_https_server/snap.png)
 > Tips: 由于之前生成的公钥并没有交由第三方 CA 授权，所以浏览器会认为此证书无效，这里无需理会这个错误继续访问即可。
 
 可以看到浏览器完整地显示了程序返回的 `hello rust` ，对应程序后台也打印了完整的 HTTP 请求头。

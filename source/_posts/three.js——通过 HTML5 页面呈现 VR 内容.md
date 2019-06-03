@@ -7,7 +7,7 @@ tags:
 - 虚拟现实
 
 ---
-![](https://image.covertness.me/vr_player_vr.jpg)
+![](https://image.covertness.cn/vr_player_vr.jpg)
 
 three.js 是一个在网页上绘制 3D 图形的 Javascript 库，它同时支持 WebVR 接口，因而可以通过它很容易地在普通的 HTML5 页面上呈现 VR 内容。
 <!-- more -->
@@ -15,7 +15,7 @@ three.js 是一个在网页上绘制 3D 图形的 Javascript 库，它同时支�
 VR 随着相关硬件的快速升级而日益普及，作为网络主要入口的浏览器也已构建了相关的支持接口——[WebVR](https://webvr.info/)。接下来我们便通过 three.js 在网页上播放一段 VR 视频。需要说明的是由于目前大部分浏览器还未支持 WebVR 接口，因此我们需要一个 [webvr-polyfill](https://github.com/googlevr/webvr-polyfill) 库，通过它才能在大多数浏览器上直接访问 VR 视频内容。完整的示例可以[点击这里](http://covertness.coding.me/vr-player/)访问（为了保证体验请使用 [Chrome 浏览器](http://www.google.cn/chrome/browser/)访问）。
 
 # 播放 360 度视频
-现阶段大部分 VR 相关的视频还是 360 度视频，即能够提供 360 度访问视角，不过就视频格式来说除了拥有[少数几个 VR 相关的参数](https://github.com/google/spatial-media/blob/master/docs/spherical-video-v2-rfc.md)外与传统视频并无太大区别。可以先通过[点击这里](https://image.covertness.me/vr_player_Dance.mp4)访问这个示例的原始视频，我们会看到除了画面有些畸变外与普通视频并无差异。画面的畸变是由于要提供 360 度视角的缘故，而普通的视频只能提供一个平面上的视野，需要在一帧的画面上提供全景的视野就需要将多个画面拼接到一个画面上，最终就变成了刚才看到的那样。而要正常播放这样的视频我们需要将画面还原，其中一种方法便是重新渲染到一个全景的物体上。360 度视频的视角是一个环绕的 360 度，因此只需要将它渲染到一个球体上，然后我们从球体中央观看便是正常的画面了。下面就通过 three.js 来实现这样的效果：
+现阶段大部分 VR 相关的视频还是 360 度视频，即能够提供 360 度访问视角，不过就视频格式来说除了拥有[少数几个 VR 相关的参数](https://github.com/google/spatial-media/blob/master/docs/spherical-video-v2-rfc.md)外与传统视频并无太大区别。可以先通过[点击这里](https://image.covertness.cn/vr_player_Dance.mp4)访问这个示例的原始视频，我们会看到除了画面有些畸变外与普通视频并无差异。画面的畸变是由于要提供 360 度视角的缘故，而普通的视频只能提供一个平面上的视野，需要在一帧的画面上提供全景的视野就需要将多个画面拼接到一个画面上，最终就变成了刚才看到的那样。而要正常播放这样的视频我们需要将画面还原，其中一种方法便是重新渲染到一个全景的物体上。360 度视频的视角是一个环绕的 360 度，因此只需要将它渲染到一个球体上，然后我们从球体中央观看便是正常的画面了。下面就通过 three.js 来实现这样的效果：
 ```js
   const WIDTH = window.innerWidth;
   const HEIGHT = window.innerHeight;

@@ -23,7 +23,7 @@ Rust 是为编写高性能应用程序而设计的一门系统编程语言，旨
 
 ## 环境搭建
 ### 1. 从[官网](http://www.rust-lang.org)下载安装包进行安装
-![](https://image.covertness.me/rust_yuyantexingjihuanjindajian_1.png)
+![](https://image.covertness.cn/rust_yuyantexingjihuanjindajian_1.png)
 
 **Windows平台需要添加相应的环境变量。**
 

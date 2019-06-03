@@ -8,7 +8,7 @@ tags:
 - Keras
 
 ---
-![](https://image.covertness.me/shenduxuexichutan_dl.jpg)
+![](https://image.covertness.cn/shenduxuexichutan_dl.jpg)
 
 深度学习经过最近几年的快速发展业界已经积累了不少工程化的最佳实践，本文通过现在比较流行的 Keras 框架对深度学习的通用工作流程进行了一次梳理。
 <!-- more -->
@@ -96,7 +96,7 @@ plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend()
 ```
-![](https://image.covertness.me/deeplearning_keras/first_train.png)
+![](https://image.covertness.cn/deeplearning_keras/first_train.png)
 
 验证精度在第10轮达到了最高点 97.8%。下面在模型中添加一个二维卷积层看精度是否提高：
 ```python
@@ -125,14 +125,14 @@ history = model2.fit(partial_train_images2, partial_train_labels, epochs=20, bat
 ```
 
 结束后打印精度的结果如下图：
-![](https://image.covertness.me/deeplearning_keras/second_train.png)
+![](https://image.covertness.cn/deeplearning_keras/second_train.png)
 
 差不多在第4轮达到了最高点 98.2%，比之前提高了一些。继续添加卷积层然后重复上述步骤，结果见下列图表：
-![](https://image.covertness.me/deeplearning_keras/third_train.png)
-![](https://image.covertness.me/deeplearning_keras/forth_train.png)
+![](https://image.covertness.cn/deeplearning_keras/third_train.png)
+![](https://image.covertness.cn/deeplearning_keras/forth_train.png)
 
 当加到第三卷积层时精度反而下降了，而且训练精度没有继续提升，说明模型可能已经欠拟合，此时可以降低每次梯度更新时的数据量 `batch_size`，让模型敏感度提高。这里将512调整为64，然后再次训练结果如下：
-![](https://image.covertness.me/deeplearning_keras/5th.png)
+![](https://image.covertness.cn/deeplearning_keras/5th.png)
 
 模型重新进入过拟合状态，但验证精度并没有提高(98.5%)，只是恢复到了原来的水平，这时就需要近一步优化层的参数，加大卷积层的影响，降低全连接层的影响。这里通过增大卷积层的输出同时减小全连接层的输出来实现，新的模型定义如下：
 ```python
@@ -151,7 +151,7 @@ history = model2.fit(partial_train_images2, partial_train_labels, epochs=10, bat
 ```
 
 结果如下所示：
-![](https://image.covertness.me/deeplearning_keras/6th.png)
+![](https://image.covertness.cn/deeplearning_keras/6th.png)
 
 验证精度提升至98.7%，相对初始值已经提高不少。虽然模型精度已经很高，但仍处于过拟合状态，逻辑上仍有优化的空间，比如继续调整层的参数，添加 dropout，添加权重正则化，调整优化器的学习率等等。需要注意的是随着模型越来越复杂，训练的时间也会增加。
 

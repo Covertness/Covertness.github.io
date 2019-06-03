@@ -8,7 +8,7 @@ tags:
 - P2P
 
 ---
-![](https://image.covertness.me/telehash_mesh-logo-128.png)
+![](https://image.covertness.cn/telehash_mesh-logo-128.png)
 
 telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。
 <!-- more -->

@@ -8,7 +8,7 @@ tags:
 - 桌面应用
 
 ---
-![](https://image.covertness.me/electron_electron-icon-avatar.png)
+![](https://image.covertness.cn/electron_electron-icon-avatar.png)
 
 Electron 让开发传统的桌面应用像制作网页一样简单。
 <!-- more -->
@@ -94,7 +94,7 @@ $ git clone https://github.com/JDStraughan/html5-snake.git app
 
 ## 测试程序
 只需执行 `npm start` 就可以启动这个游戏了，如下所示
-![](https://image.covertness.me/electron_snake-preview.gif)
+![](https://image.covertness.cn/electron_snake-preview.gif)
 
 ## 打包程序
 使用 `electron-packager` 就可以将程序打包为指定平台的可执行程序。

@@ -10,7 +10,7 @@ tags:
 - 百度开放服务
 
 ---
-![](https://image.covertness.me/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif)
+![](https://image.covertness.cn/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif)
 
 一个简单的语音识别Demo，基于百度语音识别云服务。
 <!-- more -->
@@ -310,7 +310,7 @@ class MyVoiceRecognitionListener implements VoiceRecognitionClient.VoiceClientSt
 
 ## 测试应用
 使用 Android 4.1 或以上版本的手机打开 Listen ，点击`听我说`按钮，看到`请说话`提示后对麦克风说一句话，稍后便可看到屏幕上显示自己刚说过的话了，如下图所示。
-![](https://image.covertness.me/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif)
+![](https://image.covertness.cn/android_rangyingyongtindongnishuohua_screencast-Genymotion-2015-05-02_17.17.19.305.gif)
 
 ## 要点总结
 ### 1. 界面

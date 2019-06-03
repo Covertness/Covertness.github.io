@@ -8,7 +8,7 @@ tags:
 - 并发
 
 ---
-![](https://image.covertness.me/rust_bingfayutongbu_concurrency-movie-poster.jpg)
+![](https://image.covertness.cn/rust_bingfayutongbu_concurrency-movie-poster.jpg)
 
 并发计算往往带来很多棘手的问题， Rust 通过严格的规范使得部分问题能够尽早地被发现。
 <!-- more -->

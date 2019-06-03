@@ -8,7 +8,7 @@ tags:
 - Nginx
 
 ---
-![](https://image.covertness.me/openssl_https_server/https.png)
+![](https://image.covertness.cn/openssl_https_server/https.png)
 
 博客之前使用七牛云存储图片、视频等静态资源，由于七牛云只有在绑定已备案的自定义域名后才能开启 HTTPS ，步骤繁琐周期长，看到 [Let’s Encrypt](https://letsencrypt.org/) 提供颁发免费的 SSL 证书，遂决定基于此自建一个简单的 HTTPS 代理服务，方便博客以及日后使用。
 
@@ -63,11 +63,11 @@ $ wget --restrict-file-names=nocontrol -i assets_url.txt
 ```
 
 ### 替换博客里原来的链接
-HTTPS 代理服务里配置了 https://image.covertness.me 作为博客的静态资源地址，下面通过 `sed` 把博客源码里原来七牛云的地址都替换掉：
+HTTPS 代理服务里配置了 https://image.covertness.cn 作为博客的静态资源地址，下面通过 `sed` 把博客源码里原来七牛云的地址都替换掉：
 ```bash
 $ find ./source/_posts -type f -exec sed -i '' -e 's/http:\/\/7rf2ia.com1.z0.glb.clouddn.com/https:\/\/image.covertness.me/g' {} \;
 $ find ./source/_posts -type f -exec sed -i '' -e 's/http:\/\/covertness.qiniudn.com/https:\/\/image.covertness.me/g' {} \;
 ```
 
 重新发布博客后通过浏览器会发现此时博客的连接是完全安全的了。
-![](https://image.covertness.me/blog_https_enhance.png)
+![](https://image.covertness.cn/blog_https_enhance.png)
