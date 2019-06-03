@@ -116,14 +116,14 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="R 语言广泛应用于金融、社交网络、机器学习等众多需要大数据分析的领域，其拥有大量实用的开源程序包供使用者直接调用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://image.covertness.me/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg">
-<meta property="og:image" content="https://image.covertness.me/r_shujutongjifenxiliqi_1.png">
-<meta property="og:image" content="https://image.covertness.me/r_shujutongjifenxiliqi_2.png">
-<meta property="og:updated_time" content="2019-06-02T08:43:11.760Z">
+<meta property="og:image" content="https://image.covertness.cn/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg">
+<meta property="og:image" content="https://image.covertness.cn/r_shujutongjifenxiliqi_1.png">
+<meta property="og:image" content="https://image.covertness.cn/r_shujutongjifenxiliqi_2.png">
+<meta property="og:updated_time" content="2019-06-03T14:27:12.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言——数据统计分析利器">
 <meta name="twitter:description" content="R 语言广泛应用于金融、社交网络、机器学习等众多需要大数据分析的领域，其拥有大量实用的开源程序包供使用者直接调用。">
-<meta name="twitter:image" content="https://image.covertness.me/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg">
+<meta name="twitter:image" content="https://image.covertness.cn/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg">
 
 
 
@@ -364,7 +364,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：6月 2 2019 16:43:11" itemprop="dateModified" datetime="2019-06-02T16:43:11+08:00">6月 2 2019</time>
+                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
               
             
           </span>
@@ -426,7 +426,7 @@
       
 
       
-        <p><img src="https://image.covertness.me/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg" alt=""></p>
+        <p><img src="https://image.covertness.cn/r_shujutongjifenxiliqi_76fa2713d8acbde7ad04266a37d8ac57.jpg" alt=""></p>
 <p>R 语言广泛应用于金融、社交网络、机器学习等众多需要大数据分析的领域，其拥有大量实用的开源程序包供使用者直接调用。<br><a id="more"></a></p>
 <h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><h3 id="小巧灵活"><a href="#小巧灵活" class="headerlink" title="小巧灵活"></a>小巧灵活</h3><p>R 是一门脚本语言，大量的算法实现均以第三方包的形式存在，需要时可通过 <a href="https://cran.r-project.org/mirrors.html" target="_blank" rel="noopener">CRAN</a> 下载使用，因而其本身极其轻便，而且可以方便地进行扩展。</p>
 <h3 id="丰富的第三方包"><a href="#丰富的第三方包" class="headerlink" title="丰富的第三方包"></a>丰富的第三方包</h3><p>CRAN 是 R 语言的包管理服务，由于 R 语言基于自由开源的 GPL 协议，因而众多的开发者都乐于将自己开发的源码分享到 CRAN 上。在 CRAN 上能找到几乎所有和统计相关的实现代码，不论是最新的算法还是经典的统计方法。</p>
@@ -440,9 +440,9 @@
 <p>在新启动的 R 运行实例中第一次使用某个包前，需要执行 <code>require</code> 将其导入。</p>
 <h4 id="获取上证交易所今年的交易数据"><a href="#获取上证交易所今年的交易数据" class="headerlink" title="获取上证交易所今年的交易数据"></a>获取上证交易所今年的交易数据</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">ssec&lt;-getSymbols(<span class="string">"^SSEC"</span>,from = <span class="string">"2015-01-01"</span>,to = Sys.Date(),src = <span class="string">"yahoo"</span>, auto.assign=<span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
 <p>上面的指令使用 <code>quantmod</code> 包的 <code>getSymbols</code> 函数从雅虎数据中心获取上证交易所（ <code>SSEC</code> 表示上证 ）今年的交易数据，然后将获取的数据存入了 <code>ssec</code> 这个变量，为了方便查看可以使用下面的函数将其绘制成图表：<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">chartSeries(ssec)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://image.covertness.me/r_shujutongjifenxiliqi_1.png" alt=""></p>
+<p><img src="https://image.covertness.cn/r_shujutongjifenxiliqi_1.png" alt=""></p>
 <p>从图中可以看到数据中包含了指数和交易量等一些信息。当然也可以只查看某只股票的具体信息，下面的命令是查看工商银行（ 交易代码为<code>601398</code> ）今年的数据：<br><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">gsyh&lt;-getSymbols(<span class="string">"601398.ss"</span>,from = <span class="string">"2015-01-01"</span>,to = Sys.Date(),src = <span class="string">"yahoo"</span>,auto.assign=<span class="literal">FALSE</span>)</span><br><span class="line">chartSeries(gsyh)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://image.covertness.me/r_shujutongjifenxiliqi_2.png" alt=""></p>
+<p><img src="https://image.covertness.cn/r_shujutongjifenxiliqi_2.png" alt=""></p>
 <p>除了获取股市的数据， R 语言也能通过其他第三方包方便地获取其他网络的海量数据。结合 R 语言丰富的数据分析包即可方便地对这些数据进行数学建模分析。</p>
 
       

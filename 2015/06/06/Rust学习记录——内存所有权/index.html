@@ -116,12 +116,12 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://image.covertness.me/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
-<meta property="og:updated_time" content="2019-06-02T08:43:33.763Z">
+<meta property="og:image" content="https://image.covertness.cn/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
+<meta property="og:updated_time" content="2019-06-03T14:27:12.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rust学习记录——内存所有权">
 <meta name="twitter:description" content="Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。">
-<meta name="twitter:image" content="https://image.covertness.me/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
+<meta name="twitter:image" content="https://image.covertness.cn/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg">
 
 
 
@@ -362,7 +362,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：6月 2 2019 16:43:33" itemprop="dateModified" datetime="2019-06-02T16:43:33+08:00">6月 2 2019</time>
+                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
               
             
           </span>
@@ -424,7 +424,7 @@
       
 
       
-        <p><img src="https://image.covertness.me/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg" alt=""></p>
+        <p><img src="https://image.covertness.cn/rust_neicunsuoyouquan_20120202th-memory-freer-apple-manager-cleaner.jpg" alt=""></p>
 <p>Rust 基于 RAII 的内存管理机制让内存的使用变得既高效又安全。<br><a id="more"></a></p>
 <p>虽然计算设备的内存大小随着时间的推移一直成几何倍的增长，但内存始终是造成程序各种运行时问题的主要因素之一，因而在编程语言几十年的发展过程中一直在尝试各种方法来帮助程序更加有效地管理内存。<br>众所周知，程序可用的内存区域主要被分为栈区域和堆区域：栈区域在程序编译阶段便固定下来，使用方便但是大小固定；堆区域用于在程序运行期间需要更多内存时使用，可动态扩展但需要自行管理。随着程序处理的事务越来越多，堆区域使用愈加频繁，随之而来的问题也越来越多：内存泄漏、非法地址请求、内存碎片等等。因而希望内存能够自动化管理的需求越来越强烈，一种叫做垃圾回收（ Garbage Collectors ）的内存管理机制应运而生。<br>垃圾回收通过扫描内存来发现不再需要的内存区块然后自动释放它们，这种扫描一般会根据需要不定期的被触发。这种方法使得程序不再需要手动地去释放内存，大大减少了很多内存管理方面的问题。但由于这种方法减弱了程序对内存的控制能力，随之也带来了一些新的问题。垃圾回收过程需要占用一定的 CPU 时间，而且不受程序直接控制，这对于比较繁忙的场景（如 Web 后台程序）以及实时性要求比较高的场景（如 IoT 系统）会造成一定的干扰，有时甚至会大大降低系统的稳定性。鉴于此一些编程语言选择了另外一种解决思路——使用 RAII 来解决内存管理的问题。<br>RAII 基于面向对象编程（ OOP ）的思维，在对象初始化时申请内存资源，在对象销毁时释放内存资源，使得内存分配情况固定下来，不再需要动态化的内存管理手段，保证了程序运行时期的稳定性。 Rust 通过<a href="https://doc.rust-lang.org/stable/book/ownership.html" target="_blank" rel="noopener">所有权（ Ownership ）</a>的概念实现了基于 RAII 的内存管理机制。在 Rust 中变量对其所持有的内存拥有所有权，而且同一时间仅允许一个变量拥有同一块内存资源，当变量被销毁时其拥有的内存资源随即也被释放。不过由于所有权是唯一的，这可能会给资源的使用带来困难，为了解决这个问题， Rust 引进了<a href="https://doc.rust-lang.org/stable/book/references-and-borrowing.html" target="_blank" rel="noopener">租借（ Borrowing ）</a>的概念。一个变量所拥有的内存资源可以租借给另外一个变量，借到资源的变量可以读写这个资源，类似于 C++ 中的引用，不同的是租借者只允许有一个，而且租借期间原来的所有者不能改变此资源。 对于一些更加复杂的情况（如多线程环境）， Rust 也通过其他的特性规范（如 Send 和 Sync）予以支持。 Rust 通过这些方式不但解决了内存管理自动化的问题，而且还能帮助程序避免由于内存竞争导致的运行时问题。<br>下面是在其他语言中稍不注意便会出现的一个内存竞争问题。遍历列表的过程中删除一个匹配的值，下面是一个使用 Java 编写的例子：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapRemove</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            map.put(i, <span class="string">"value"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            Integer key = entry.getKey();</span><br><span class="line">            System.out.println(<span class="string">"Check the key "</span> + + key);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (entry.getValue().equals(<span class="string">"value5"</span>)) &#123;</span><br><span class="line">                map.remove(key);</span><br><span class="line">                System.out.println(<span class="string">"The key "</span> + + key + <span class="string">" was deleted"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey() +<span class="string">" = "</span> + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>程序逻辑看上去没有任何问题，但运行此程序时会发现在删除操作后抛出如下的异常：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.util.ConcurrentModificationException</span><br><span class="line">	at java.util.HashMap<span class="variable">$HashIterator</span>.nextEntry(HashMap.java:922)</span><br><span class="line">	at java.util.HashMap<span class="variable">$EntryIterator</span>.next(HashMap.java:962)</span><br><span class="line">	at java.util.HashMap<span class="variable">$EntryIterator</span>.next(HashMap.java:960)</span><br><span class="line">	at MapRemove.main(MapRemove.java:12)</span><br></pre></td></tr></table></figure></p>

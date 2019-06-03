@@ -116,14 +116,14 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="搭建基于 Unity 引擎制作虚拟现实应用的开发环境。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://image.covertness.me/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg">
-<meta property="og:image" content="https://image.covertness.me/vr_yingyongkaifahuanjindajian_1.PNG">
-<meta property="og:image" content="https://image.covertness.me/vr_yingyongkaifahuanjindajian_2.PNG">
-<meta property="og:updated_time" content="2019-06-02T08:43:57.501Z">
+<meta property="og:image" content="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg">
+<meta property="og:image" content="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_1.PNG">
+<meta property="og:image" content="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_2.PNG">
+<meta property="og:updated_time" content="2019-06-03T14:27:12.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oculus VR 应用开发环境搭建">
 <meta name="twitter:description" content="搭建基于 Unity 引擎制作虚拟现实应用的开发环境。">
-<meta name="twitter:image" content="https://image.covertness.me/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg">
+<meta name="twitter:image" content="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg">
 
 
 
@@ -364,7 +364,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：6月 2 2019 16:43:57" itemprop="dateModified" datetime="2019-06-02T16:43:57+08:00">6月 2 2019</time>
+                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
               
             
           </span>
@@ -426,7 +426,7 @@
       
 
       
-        <p><img src="https://image.covertness.me/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg" alt=""></p>
+        <p><img src="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_samsung-gear-vr.jpg" alt=""></p>
 <p>搭建基于 Unity 引擎制作虚拟现实应用的开发环境。<br><a id="more"></a></p>
 <h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
 <li><a href="http://unity3d.com/cn/get-unity/download?ref=personal" target="_blank" rel="noopener">Unity 5</a> 内置 VR 支持的 3D 应用开发引擎</li>
@@ -436,8 +436,8 @@
 </ul>
 <h2 id="创建第一个应用——Roll-a-ball"><a href="#创建第一个应用——Roll-a-ball" class="headerlink" title="创建第一个应用——Roll-a-ball"></a>创建第一个应用——Roll-a-ball</h2><h3 id="下载-Unity-官方示例-Roll-a-ball-的源码"><a href="#下载-Unity-官方示例-Roll-a-ball-的源码" class="headerlink" title="下载 Unity 官方示例 Roll-a-ball 的源码"></a>下载 Unity 官方示例 Roll-a-ball 的源码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/nicksuch/Roll-a-ball.git</span><br></pre></td></tr></table></figure>
 <p>将这个项目重命名为 Roll-a-ball-VR ，后续将对这个示例修改以支持 VR 设备。</p>
-<h3 id="使用-Unity-打开-Roll-a-ball-VR"><a href="#使用-Unity-打开-Roll-a-ball-VR" class="headerlink" title="使用 Unity 打开 Roll-a-ball-VR"></a>使用 Unity 打开 Roll-a-ball-VR</h3><p>在项目标签页下打开 <code>Assets &gt; _Scenes</code> 然后选择 <code>MiniGame</code>，然后就可以在 <code>Scene</code> 上看到如下所示的预览界面。<br><img src="https://image.covertness.me/vr_yingyongkaifahuanjindajian_1.PNG" alt=""></p>
-<h3 id="修改配置以支持-VR"><a href="#修改配置以支持-VR" class="headerlink" title="修改配置以支持 VR"></a>修改配置以支持 VR</h3><p>打开 Player 设置标签页（位于<code>Edit &gt; Project Settings &gt; Player</code>），然后选择 Android 图标的子页，定位到 Other Settings ， Graphics APIs 选择 OpenGLES3 ， 勾选 Virtual Reality Supported ，去掉 GPU Skinning 、 Android TV Compatibility ，将 Bundle Identifier 修改为 <code>com.covertness.rollball</code>， Minimum API Level 修改为 19。最后定位到菜单 <code>Assets &gt; Import Package &gt; Custom Package</code> 导入 <a href="https://developer.oculus.com/downloads/game-engines/0.1.3.0-beta/Oculus_Utilities_for_Unity_5/" target="_blank" rel="noopener">Oculus Utilities Package</a>。完成后如下图所示。<br><img src="https://image.covertness.me/vr_yingyongkaifahuanjindajian_2.PNG" alt=""></p>
+<h3 id="使用-Unity-打开-Roll-a-ball-VR"><a href="#使用-Unity-打开-Roll-a-ball-VR" class="headerlink" title="使用 Unity 打开 Roll-a-ball-VR"></a>使用 Unity 打开 Roll-a-ball-VR</h3><p>在项目标签页下打开 <code>Assets &gt; _Scenes</code> 然后选择 <code>MiniGame</code>，然后就可以在 <code>Scene</code> 上看到如下所示的预览界面。<br><img src="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_1.PNG" alt=""></p>
+<h3 id="修改配置以支持-VR"><a href="#修改配置以支持-VR" class="headerlink" title="修改配置以支持 VR"></a>修改配置以支持 VR</h3><p>打开 Player 设置标签页（位于<code>Edit &gt; Project Settings &gt; Player</code>），然后选择 Android 图标的子页，定位到 Other Settings ， Graphics APIs 选择 OpenGLES3 ， 勾选 Virtual Reality Supported ，去掉 GPU Skinning 、 Android TV Compatibility ，将 Bundle Identifier 修改为 <code>com.covertness.rollball</code>， Minimum API Level 修改为 19。最后定位到菜单 <code>Assets &gt; Import Package &gt; Custom Package</code> 导入 <a href="https://developer.oculus.com/downloads/game-engines/0.1.3.0-beta/Oculus_Utilities_for_Unity_5/" target="_blank" rel="noopener">Oculus Utilities Package</a>。完成后如下图所示。<br><img src="https://image.covertness.cn/vr_yingyongkaifahuanjindajian_2.PNG" alt=""></p>
 <h3 id="编译部署应用"><a href="#编译部署应用" class="headerlink" title="编译部署应用"></a>编译部署应用</h3><ol>
 <li>在进行编译部署前请确保 Android SDK 已经安装并正确配置（可参考之前的文章<a href="http://covertness.me/2015/03/28/Android学习记录——开发环境搭建/" target="_blank" rel="noopener">《Android学习记录——开发环境搭建》</a>）。</li>
 <li><a href="https://developer.oculus.com/osig/" target="_blank" rel="noopener">获取 osig 签名文件</a>并把它放到项目目录 <code>Assets/Plugins/Android/assets</code> 下，目录如不存在可自行创建。</li>

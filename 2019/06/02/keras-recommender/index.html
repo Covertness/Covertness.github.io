@@ -116,12 +116,12 @@
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://image.covertness.me/keras_recommender/recommend.png">
-<meta property="og:updated_time" content="2019-06-02T13:12:04.148Z">
+<meta property="og:image" content="https://image.covertness.cn/keras_recommender/recommend.png">
+<meta property="og:updated_time" content="2019-06-03T14:27:12.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习笔记——搭建一个基于图片识别的推荐系统">
 <meta name="twitter:description" content="依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。">
-<meta name="twitter:image" content="https://image.covertness.me/keras_recommender/recommend.png">
+<meta name="twitter:image" content="https://image.covertness.cn/keras_recommender/recommend.png">
 
 
 
@@ -345,12 +345,24 @@
                 
               
 
-              <time title="创建时间：6月 2 2019 21:11:00 / 修改时间：21:12:04" itemprop="dateCreated datePublished" datetime="2019-06-02T21:11:00+08:00">6月 2 2019</time>
+              <time title="创建时间：6月 2 2019 21:11:00" itemprop="dateCreated datePublished" datetime="2019-06-02T21:11:00+08:00">6月 2 2019</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
               
             
           </span>
@@ -412,7 +424,7 @@
       
 
       
-        <p><img src="https://image.covertness.me/keras_recommender/recommend.png" alt=""></p>
+        <p><img src="https://image.covertness.cn/keras_recommender/recommend.png" alt=""></p>
 <p>依据用户的喜好推荐对应的东西目前是机器学习领域重要的应用，现在基于已有的卷积神经网络模型就可以快速地创建一个推荐系统，它能根据过去用户选择的图片从图库里推荐类似的图片。<br><a id="more"></a></p>
 <h1 id="获取图库"><a href="#获取图库" class="headerlink" title="获取图库"></a>获取图库</h1><p>为了方便对比结果这里从 <a href="https://www.kaggle.com" target="_blank" rel="noopener">kaggle</a> 上找了一个 <a href="https://www.kaggle.com/akkithetechie/furniture-detector" target="_blank" rel="noopener">家具相关的数据集</a>，它每个类别的图片都包含多张因此更容易检查推荐系统的效果。</p>
 <p>从 kaggle 网页上下载数据集后可以发现它包含两部分的数据： train 和 validation ，因为使用现成的模型并不需要训练数据集，所以我们只需要关注 <code>val</code> 目录下的图片，为了方便提取所有类别图片的特征这里把 <code>val</code> 下的图片都聚合到一个目录下：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os, shutil, glob</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> dirPath <span class="keyword">in</span> glob.glob(<span class="string">'val/*'</span>):</span><br><span class="line">    dirName = os.path.basename(dirPath)</span><br><span class="line">    <span class="keyword">for</span> filePath <span class="keyword">in</span> glob.glob(dirPath + <span class="string">'/*'</span>):</span><br><span class="line">        fileName = os.path.basename(filePath)</span><br><span class="line">        shutil.move(filePath, <span class="string">'val_join/'</span> + dirName + <span class="string">'_'</span> + fileName)</span><br></pre></td></tr></table></figure></p>
