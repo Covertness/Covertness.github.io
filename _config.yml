@@ -12,7 +12,7 @@ language: zh-CN
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://covertness.me
+url: https://www.covertness.me
 root: /
 permalink: :year/:month/:day/:urlname/
 tag_dir: tags
