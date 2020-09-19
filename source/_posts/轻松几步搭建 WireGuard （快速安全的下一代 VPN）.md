@@ -46,6 +46,13 @@ interface: wg0
   listening port: 56660
 ```
 
+### 开启系统的 IP 转发
+```bash
+$ sysctl -w net.ipv4.ip_forward=1
+$ sysctl -w net.ipv6.conf.all.forwarding=1
+```
+为保证重启后仍然生效记得将上述配置保存到 `/etc/sysctl.conf` 。
+
 ### 将 WireGuard 设置成开机启动
 ```bash
 $ systemctl enable wg-quick@wg0
@@ -55,7 +62,7 @@ $ systemctl enable wg-quick@wg0
 ```ini
 [Interface]
 PrivateKey = <Private Key>
-Address = 10.0.0.3/24
+Address = 10.0.0.3/32
 DNS = 8.8.8.8
 
 [Peer]
@@ -73,7 +80,7 @@ $ wg-quick up wg0
 
 ### 在服务端添加客户端信息
 ```bash
-$ sudo wg set wg0 peer <Public Key> allowed-ips 10.0.0.3/24
+$ sudo wg set wg0 peer <Public Key> allowed-ips 10.0.0.3/32
 ```
 `Public Key` 是客户端的公钥。
 如果在服务端配置信息里设置了 `SaveConfig = true` 那么刚才添加的客户端参数信息会在服务端关闭时自动保存到配置文件中。如果想立即存储刚设置的参数也可以执行命令 `wg-quick save wg0` 。
