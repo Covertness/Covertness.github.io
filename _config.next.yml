@@ -72,6 +72,11 @@ footer:
     animated: false
     # Change the color of icon, using Hex Code.
     color: "#808080"
+  beian:
+    enable: true
+    icp: 粤ICP备 19029329号
+    gongan_id: 44030502003922
+    gongan_num: 粤公网安备 44030502003922号
 
   # If not defined, will be used `author` from Hexo main config.
   copyright:
@@ -88,8 +93,6 @@ footer:
     # Version info of NexT after scheme info (vX.X.X).
     version: true
   # -------------------------------------------------------------
-  # Any custom text can be defined here.
-  custom_text: <a id="beian" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19029329号</a><br/><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502003922">粤公网安备44030502003922号</a>
 
 # ---------------------------------------------------------------
 # SEO Settings
