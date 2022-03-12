@@ -1,452 +1,289 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.covertness.me","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="mask-icon" href="/favicon.ico?v=6.3.0" color="#222">
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '6.3.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
-<meta name="keywords" content="机器学习,Caffe">
+    <meta name="description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习初探——使用Caffe识别手写数字">
-<meta property="og:url" content="https://www.covertness.me/2016/10/06/深度学习初探——使用Caffe识别手写数字/index.html">
+<meta property="og:url" content="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_dl.jpg">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_neurons.png">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_activation.png">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_feedforward-nn.png">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_20161006_180814.jpg">
 <meta property="og:image" content="https://image.covertness.cn/shenduxuexichutan_test4.png">
-<meta property="og:updated_time" content="2019-06-03T14:27:12.425Z">
+<meta property="article:published_time" content="2016-10-06T10:21:34.000Z">
+<meta property="article:modified_time" content="2019-06-03T14:27:12.425Z">
+<meta property="article:author" content="无影风随">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Caffe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度学习初探——使用Caffe识别手写数字">
-<meta name="twitter:description" content="深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。">
 <meta name="twitter:image" content="https://image.covertness.cn/shenduxuexichutan_dl.jpg">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
-
+<link rel="canonical" href="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
 
 
 
-  <link rel="canonical" href="https://www.covertness.me/2016/10/06/深度学习初探——使用Caffe识别手写数字/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/","path":"2016/10/06/深度学习初探——使用Caffe识别手写数字/","title":"深度学习初探——使用Caffe识别手写数字"}</script>
 
-
-
-<script type="text/javascript" id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>深度学习初探——使用Caffe识别手写数字 | 无影风随</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习初探——使用Caffe识别手写数字 | 无影风随</title>
   
 
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116"></script>
 
 
 
 
   <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
-
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
-
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">无影风随</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">无影风随</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-    <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
-    <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-    <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  </ul>
 </nav>
 
 
 
-  
-
-
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.</span> <span class="nav-text">深度学习的优势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E9%80%A0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">2.</span> <span class="nav-text">人造神经网络的构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Docker-%E8%8E%B7%E5%8F%96-Caffe"><span class="nav-number">3.1.</span> <span class="nav-text">通过 Docker 获取 Caffe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-MNIST"><span class="nav-number">3.2.</span> <span class="nav-text">下载 MNIST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E8%A1%8C%E8%AE%AD%E7%BB%83"><span class="nav-number">3.3.</span> <span class="nav-text">进行训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E7%9A%84%E5%9B%BE%E7%89%87"><span class="nav-number">3.4.</span> <span class="nav-text">识别手写数字的图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="无影风随"
+      src="/images/covertness_avatar.jpg">
+  <p class="site-author-name" itemprop="name">无影风随</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">100</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wuyingfengsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wuyingfengsui" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyingfengsui@gmail.com" title="E-Mail → mailto:wuyingfengsui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div id="content" class="content">
-            
+    <div class="main-inner post posts-expand">
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
 
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+<div class="post-block">
   
   
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2016/10/06/深度学习初探——使用Caffe识别手写数字/">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="无影风随">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/covertness_avatar.jpg">
+      <meta itemprop="name" content="无影风随">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深度学习初探——使用Caffe识别手写数字 | 无影风随">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习初探——使用Caffe识别手写数字
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-06 18:21:34" itemprop="dateCreated datePublished" datetime="2016-10-06T18:21:34+08:00">2016-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-06-03 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">2019-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A2%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">探索</span></a>
+        </span>
     </span>
 
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">深度学习初探——使用Caffe识别手写数字
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：10月 6 2016 18:21:34" itemprop="dateCreated datePublished" datetime="2016-10-06T18:21:34+08:00">10月 6 2016</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/10/06/深度学习初探——使用Caffe识别手写数字/" class="leancloud_visitors" data-flag-title="深度学习初探——使用Caffe识别手写数字">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+  
+    <span id="/2016/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E6%8E%A2%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8Caffe%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/" class="post-meta-item leancloud_visitors" data-flag-title="深度学习初探——使用Caffe识别手写数字" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <p><img src="https://image.covertness.cn/shenduxuexichutan_dl.jpg" alt=""></p>
-<p>深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。<br><a id="more"></a></p>
+<p>深度学习最近在计算机视觉、语音识别和自然语言处理等方面取得了不错的进展，成为目前机器学习领域热门的研究方向。本文结合深度学习框架 Caffe 从实践角度对深度学习理论进行一些初步地探索。<br><span id="more"></span></p>
 <h1 id="深度学习的优势"><a href="#深度学习的优势" class="headerlink" title="深度学习的优势"></a>深度学习的优势</h1><p>工业革命让人造机器取代人类完成了大部分的体力劳动，随着机器学习能力的不断提升人类有望可以将部分脑力劳动也交给机器完成。深度学习通过模拟生物神经网络来构建学习框架（人造神经网络），每个人造神经元使用激活函数来非线性地编码数据，不同层级的人造神经元间依靠权重值来传输数据，最终整个人造神经网络就会像人类的大脑一样拥有学习的能力（目前人造神经网络的复杂度还远不及生物，仅拥有很基本的学习能力）。深度学习可以让机器以目前最接近生物思考的方法进行运转，进而可能代替人类完成一部分脑力劳动。</p>
 <p>深度学习跟传统的机器学习相比最大的优势在于不需要人工进行特征采集。传统的机器学习需要专业人士在特定数据中发现其特征，而深度学习能够通过算法自动完成这一过程，我们只需要构建一个通用的框架，然后提供数据和所想要的结果，最后通过不断地训练框架及优化其参数就可以获得具备某项能力的机器。</p>
 <h1 id="人造神经网络的构造"><a href="#人造神经网络的构造" class="headerlink" title="人造神经网络的构造"></a>人造神经网络的构造</h1><p>生物神经网络主要由很多神经元相互连接而成，人造神经网络也一样由人造神经元互联而成，如下图所示。<br><img src="https://image.covertness.cn/shenduxuexichutan_neurons.png" alt=""></p>
 <p>一个人造神经元有一定数量的输入接口，每个输入都拥有一个对应的权重值，数据通过输入进入后要通过一个激活函数才能输出，这个函数需要是非线性的（模拟生物神经元），常见的激活函数包括 Sigmoid, Tanh 以及 ReLU ，如下图所示，其中 ReLU 是深度学习中最常用的。<br><img src="https://image.covertness.cn/shenduxuexichutan_activation.png" alt=""></p>
 <p>一个人造神经元的输出可能是另一个的输入，如此不断连接在一起便构成了人造神经网络，如下图所示。<br><img src="https://image.covertness.cn/shenduxuexichutan_feedforward-nn.png" alt=""></p>
-<p>一个特定的人造神经网络可以解决一类特定的问题，要获得一个解决特定问题的人造神经网络需要使用相关数据对其进行训练，训练使用结合梯度检验的反向传导算法进行，详细的算法介绍可以看斯坦福的<a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">UFLDL教程</a>。通过大量相关数据的训练人造神经元的权重值会越来越接近真实的范围，其人造神经网络也就越来越成熟。</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>下面将使用深度学习框架 Caffe 结合一个入门级的计算机视觉数据集—— MNIST 来训练一个可以识别手写数字的人造神经网络。 <a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">Caffe</a> 是一个比较流行的深度学习框架，使用它可以较容易的定义所需的人造神经网络，方便地调整相关的优化参数。 <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本。</p>
+<p>一个特定的人造神经网络可以解决一类特定的问题，要获得一个解决特定问题的人造神经网络需要使用相关数据对其进行训练，训练使用结合梯度检验的反向传导算法进行，详细的算法介绍可以看斯坦福的<a target="_blank" rel="noopener" href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B">UFLDL教程</a>。通过大量相关数据的训练人造神经元的权重值会越来越接近真实的范围，其人造神经网络也就越来越成熟。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>下面将使用深度学习框架 Caffe 结合一个入门级的计算机视觉数据集—— MNIST 来训练一个可以识别手写数字的人造神经网络。 <a target="_blank" rel="noopener" href="http://caffe.berkeleyvision.org/">Caffe</a> 是一个比较流行的深度学习框架，使用它可以较容易的定义所需的人造神经网络，方便地调整相关的优化参数。 <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/mnist/">MNIST</a> 是一个手写数字图片的数据集，其拥有6万个可用于训练的样本及1万个测试样本。</p>
 <h2 id="通过-Docker-获取-Caffe"><a href="#通过-Docker-获取-Caffe" class="headerlink" title="通过 Docker 获取 Caffe"></a>通过 Docker 获取 Caffe</h2><p>DockerHub 上已有其他人做好的 Caffe 镜像，可直接使用：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker pull kaixhin/caffe</span><br><span class="line">$ docker run -t kaixhin/caffe</span><br></pre></td></tr></table></figure></p>
-<p>该镜像基于 Ubuntu 14.04 制作，启动容器后即可通过 bash 进入容器：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">d890e55fa0e0        kaixhin/caffe       <span class="string">"/bin/bash"</span>         17 seconds ago      Up 16 seconds                           romantic_rosalind</span><br><span class="line">$ docker <span class="built_in">exec</span> -ti d890e55fa0e0 /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>该镜像基于 Ubuntu 14.04 制作，启动容器后即可通过 bash 进入容器：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">d890e55fa0e0        kaixhin/caffe       <span class="string">&quot;/bin/bash&quot;</span>         17 seconds ago      Up 16 seconds                           romantic_rosalind</span><br><span class="line">$ docker <span class="built_in">exec</span> -ti d890e55fa0e0 /bin/bash</span><br></pre></td></tr></table></figure></p>
 <h2 id="下载-MNIST"><a href="#下载-MNIST" class="headerlink" title="下载 MNIST"></a>下载 MNIST</h2><p>Caffe 已经包含了获取 MNIST 数据集的脚本，执行之后需要等待其下载完成：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./data/mnist/get_mnist.sh</span><br></pre></td></tr></table></figure></p>
 <p>然后还需要将网上获取到的 MNIST 数据集转换为 lmdb 格式， lmdb 是 Caffe 默认支持的一种数据库格式：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./examples/mnist/create_mnist.sh</span><br></pre></td></tr></table></figure></p>
 <p><strong>由于 docker 中默认并不存在摄像头硬件，可能会看到<code>Failed to initialize libdc1394</code>错误，可以执行<code>ln /dev/null /dev/raw1394</code>来规避这个问题。</strong></p>
-<p>转换完成之后可以使用下面的脚本<code>read_mnist_data.py</code>查看这个数据集的内容：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> lmdb</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">"./python"</span>)</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> caffe</span><br><span class="line"><span class="keyword">import</span> textwrap</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parse = argparse.ArgumentParser()</span><br><span class="line">    parse.add_argument(<span class="string">'--lmdbpath'</span>)</span><br><span class="line">    args = parse.parse_args()</span><br><span class="line">    np.set_printoptions(linewidth=<span class="number">150</span>)</span><br><span class="line"></span><br><span class="line">    env = lmdb.open(args.lmdbpath, readonly=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">with</span> env.begin() <span class="keyword">as</span> txn:</span><br><span class="line">        cursor = txn.cursor()</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> cursor:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'key: '</span>,key</span><br><span class="line">            datum = caffe.proto.caffe_pb2.Datum()</span><br><span class="line">            datum.ParseFromString(value)</span><br><span class="line">            flat_x = np.fromstring(datum.data, dtype=np.uint8)</span><br><span class="line">            x = flat_x.reshape(datum.channels, datum.height, datum.width)</span><br><span class="line">            y = datum.label</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'x: '</span></span><br><span class="line">            <span class="keyword">for</span> row <span class="keyword">in</span> x[<span class="number">0</span>]:</span><br><span class="line">                <span class="keyword">print</span> row</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'y: '</span>,y</span><br><span class="line">            i = i + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">10</span>:</span><br><span class="line">                sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>转换完成之后可以使用下面的脚本<code>read_mnist_data.py</code>查看这个数据集的内容：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> lmdb</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">&quot;./python&quot;</span>)</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> caffe</span><br><span class="line"><span class="keyword">import</span> textwrap</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    parse = argparse.ArgumentParser()</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;--lmdbpath&#x27;</span>)</span><br><span class="line">    args = parse.parse_args()</span><br><span class="line">    np.set_printoptions(linewidth=<span class="number">150</span>)</span><br><span class="line"></span><br><span class="line">    env = lmdb.<span class="built_in">open</span>(args.lmdbpath, readonly=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">with</span> env.begin() <span class="keyword">as</span> txn:</span><br><span class="line">        cursor = txn.cursor()</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> cursor:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;key: &#x27;</span>,key</span><br><span class="line">            datum = caffe.proto.caffe_pb2.Datum()</span><br><span class="line">            datum.ParseFromString(value)</span><br><span class="line">            flat_x = np.fromstring(datum.data, dtype=np.uint8)</span><br><span class="line">            x = flat_x.reshape(datum.channels, datum.height, datum.width)</span><br><span class="line">            y = datum.label</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;x: &#x27;</span></span><br><span class="line">            <span class="keyword">for</span> row <span class="keyword">in</span> x[<span class="number">0</span>]:</span><br><span class="line">                <span class="built_in">print</span> row</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;y: &#x27;</span>,y</span><br><span class="line">            i = i + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">10</span>:</span><br><span class="line">                sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
 <p>上面的脚本会把数据集中前10行的信息显示在屏幕上，包括手写数字的图片和对应的标签，通过下面的命令运行这个脚本：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python read_mnist_data.py --lmdbpath examples/mnist/mnist_train_lmdb</span><br><span class="line">key:  00000000</span><br><span class="line">x:</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   3  18  18  18 126 136 175  26 166 255 247 127   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0  30  36  94 154 170 253 253 253 253 253 225 172 253 242 195  64   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0  49 238 253 253 253 253 253 253 253 253 251  93  82  82  56  39   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0  18 219 253 253 253 253 253 198 182 247 241   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0  80 156 107 253 253 205  11   0  43 154   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0  14   1 154 253  90   0   0   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0 139 253 190   2   0   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0  11 190 253  70   0   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0  35 241 225 160 108   1   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   0  81 240 253 253 119  25   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   0   0  45 186 253 253 150  27   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  16  93 252 253 187   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 249 253 249  64   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0   0   0  46 130 183 253 253 207   2   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0   0   0  39 148 229 253 253 253 250 182   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0   0   0  24 114 221 253 253 253 253 201  78   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0   0   0  23  66 213 253 253 253 253 198  81   2   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0   0   0  18 171 219 253 253 253 253 195  80   9   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0  55 172 226 253 253 253 253 244 133  11   0   0   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[  0   0   0   0 136 253 253 253 212 135 132  16   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">y:  5</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <p><strong>这个脚本需要依赖 python 库 lmdb ，如果运行出错尝试通过<code>pip install lmdb</code>解决。</strong></p>
-<h2 id="进行训练"><a href="#进行训练" class="headerlink" title="进行训练"></a>进行训练</h2><p>Caffe 也已经包含了训练识别 MNIST 的示例，它使用的是 <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf" target="_blank" rel="noopener">LeNet</a> 神经网络（一种比较简单的卷积神经网络），相关的设定都已经配置好，直接运行即可：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./examples/mnist/train_lenet.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="进行训练"><a href="#进行训练" class="headerlink" title="进行训练"></a>进行训练</h2><p>Caffe 也已经包含了训练识别 MNIST 的示例，它使用的是 <a target="_blank" rel="noopener" href="http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf">LeNet</a> 神经网络（一种比较简单的卷积神经网络），相关的设定都已经配置好，直接运行即可：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./examples/mnist/train_lenet.sh</span><br></pre></td></tr></table></figure></p>
 <p><strong>这个 docker 版本的 caffe 仅支持使用 CPU 进行训练，如果遇到<code>Cannot use GPU in CPU-only Caffe: check mode.</code>错误需要将<code>examples/mnist/lenet_solver.prototxt</code>中的<code>solver_mode: GPU</code>修改为<code>solver_mode: CPU</code>。</strong></p>
 <h2 id="识别手写数字的图片"><a href="#识别手写数字的图片" class="headerlink" title="识别手写数字的图片"></a>识别手写数字的图片</h2><p>等待一段时间后训练完成，之后便可用来识别手写的数字。</p>
 <ol>
@@ -457,10 +294,10 @@
 <p> <img src="https://image.covertness.cn/shenduxuexichutan_test4.png" alt=""></p>
 </li>
 <li><p>识别外部图片的神经网络输入和输出不同于训练的神经网络，需要将训练用的神经网络<code>examples/mnist/lenet_train_test.prototxt</code>进行部分更改，在头部删除数据层，添加外部输入层，在尾部将层的类型改为<code>Softmax</code>，把文件重命名为<code>examples/mnist/lenet_deploy.prototxt</code>，其修改后的内容如下：</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name: &quot;LeNet&quot;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;data&quot;</span><br><span class="line">  type: &quot;Input&quot;</span><br><span class="line">  top: &quot;data&quot;</span><br><span class="line">  input_param &#123; shape: &#123; dim: 1 dim: 1 dim: 28 dim: 28 &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv1&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;data&quot;</span><br><span class="line">  top: &quot;conv1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 20</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool1&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv1&quot;</span><br><span class="line">  top: &quot;pool1&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv2&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;pool1&quot;</span><br><span class="line">  top: &quot;conv2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 50</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool2&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv2&quot;</span><br><span class="line">  top: &quot;pool2&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip1&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;pool2&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 500</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;relu1&quot;</span><br><span class="line">  type: &quot;ReLU&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip2&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 10</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;prob&quot;</span><br><span class="line">  type: &quot;Softmax&quot;</span><br><span class="line">  bottom: &quot;ip2&quot;</span><br><span class="line">  top: &quot;prob&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">name: &quot;LeNet&quot;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;data&quot;</span><br><span class="line">  type: &quot;Input&quot;</span><br><span class="line">  top: &quot;data&quot;</span><br><span class="line">  input_param &#123; shape: &#123; dim: 1 dim: 1 dim: 28 dim: 28 &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv1&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;data&quot;</span><br><span class="line">  top: &quot;conv1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 20</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool1&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv1&quot;</span><br><span class="line">  top: &quot;pool1&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;conv2&quot;</span><br><span class="line">  type: &quot;Convolution&quot;</span><br><span class="line">  bottom: &quot;pool1&quot;</span><br><span class="line">  top: &quot;conv2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  convolution_param &#123;</span><br><span class="line">    num_output: 50</span><br><span class="line">    kernel_size: 5</span><br><span class="line">    stride: 1</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;pool2&quot;</span><br><span class="line">  type: &quot;Pooling&quot;</span><br><span class="line">  bottom: &quot;conv2&quot;</span><br><span class="line">  top: &quot;pool2&quot;</span><br><span class="line">  pooling_param &#123;</span><br><span class="line">    pool: MAX</span><br><span class="line">    kernel_size: 2</span><br><span class="line">    stride: 2</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip1&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;pool2&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 500</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;relu1&quot;</span><br><span class="line">  type: &quot;ReLU&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip1&quot;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;ip2&quot;</span><br><span class="line">  type: &quot;InnerProduct&quot;</span><br><span class="line">  bottom: &quot;ip1&quot;</span><br><span class="line">  top: &quot;ip2&quot;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 1</span><br><span class="line">  &#125;</span><br><span class="line">  param &#123;</span><br><span class="line">    lr_mult: 2</span><br><span class="line">  &#125;</span><br><span class="line">  inner_product_param &#123;</span><br><span class="line">    num_output: 10</span><br><span class="line">    weight_filler &#123;</span><br><span class="line">      type: &quot;xavier&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    bias_filler &#123;</span><br><span class="line">      type: &quot;constant&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">layer &#123;</span><br><span class="line">  name: &quot;prob&quot;</span><br><span class="line">  type: &quot;Softmax&quot;</span><br><span class="line">  bottom: &quot;ip2&quot;</span><br><span class="line">  top: &quot;prob&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>将图片复制到 caffe 所在的容器中，使用如下脚本<code>predict_png.py</code>进行识别：</p>
- <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">"./python"</span>)</span><br><span class="line"><span class="keyword">import</span> caffe</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">transform_img</span><span class="params">(img, img_width, img_height)</span>:</span></span><br><span class="line">    <span class="comment">#Image Resizing</span></span><br><span class="line">    img = cv2.resize(img, (img_width, img_height), interpolation = cv2.INTER_CUBIC)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> img</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parse = argparse.ArgumentParser()</span><br><span class="line">    parse.add_argument(<span class="string">'--png'</span>)</span><br><span class="line">    args = parse.parse_args()</span><br><span class="line">    model = <span class="string">'./examples/mnist/lenet_deploy.prototxt'</span></span><br><span class="line">    weights = <span class="string">'./examples/mnist/lenet_iter_10000.caffemodel'</span></span><br><span class="line"></span><br><span class="line">    net = caffe.Net(model, weights, caffe.TEST)</span><br><span class="line"></span><br><span class="line">    img = cv2.imread(args.png, cv2.IMREAD_GRAYSCALE)</span><br><span class="line">    img = transform_img(img, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">    <span class="comment"># print img</span></span><br><span class="line">    net.blobs[<span class="string">'data'</span>].data[...] = img</span><br><span class="line">    out = net.forward()</span><br><span class="line">    prob = out[<span class="string">'prob'</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(prob):</span><br><span class="line">        <span class="keyword">if</span> item == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">print</span> index</span><br></pre></td></tr></table></figure>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">sys.path.insert(<span class="number">0</span>,<span class="string">&quot;./python&quot;</span>)</span><br><span class="line"><span class="keyword">import</span> caffe</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transform_img</span>(<span class="params">img, img_width, img_height</span>):</span><br><span class="line">    <span class="comment">#Image Resizing</span></span><br><span class="line">    img = cv2.resize(img, (img_width, img_height), interpolation = cv2.INTER_CUBIC)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> img</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    parse = argparse.ArgumentParser()</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;--png&#x27;</span>)</span><br><span class="line">    args = parse.parse_args()</span><br><span class="line">    model = <span class="string">&#x27;./examples/mnist/lenet_deploy.prototxt&#x27;</span></span><br><span class="line">    weights = <span class="string">&#x27;./examples/mnist/lenet_iter_10000.caffemodel&#x27;</span></span><br><span class="line"></span><br><span class="line">    net = caffe.Net(model, weights, caffe.TEST)</span><br><span class="line"></span><br><span class="line">    img = cv2.imread(args.png, cv2.IMREAD_GRAYSCALE)</span><br><span class="line">    img = transform_img(img, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">    <span class="comment"># print img</span></span><br><span class="line">    net.blobs[<span class="string">&#x27;data&#x27;</span>].data[...] = img</span><br><span class="line">    out = net.forward()</span><br><span class="line">    prob = out[<span class="string">&#x27;prob&#x27;</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> index, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(prob):</span><br><span class="line">        <span class="keyword">if</span> item == <span class="number">1</span>:</span><br><span class="line">            <span class="built_in">print</span> index</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>通过下面的命令运行这个脚本：</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ python predict_png.py --png digit.png</span><br><span class="line">...</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
@@ -469,619 +306,71 @@
 </li>
 </ol>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://adilmoujahid.com/posts/2016/06/introduction-deep-learning-python-caffe/" target="_blank" rel="noopener">A Practical Introduction to Deep Learning with Caffe and Python</a></li>
-<li><a href="http://caffe.berkeleyvision.org/gathered/examples/mnist.html" target="_blank" rel="noopener">Training LeNet on MNIST with Caffe</a></li>
-<li><a href="https://github.com/BVLC/caffe/wiki/Using-a-Trained-Network:-Deploy" target="_blank" rel="noopener">Using a Trained Network: Deploy</a></li>
+<li><a target="_blank" rel="noopener" href="http://adilmoujahid.com/posts/2016/06/introduction-deep-learning-python-caffe/">A Practical Introduction to Deep Learning with Caffe and Python</a></li>
+<li><a target="_blank" rel="noopener" href="http://caffe.berkeleyvision.org/gathered/examples/mnist.html">Training LeNet on MNIST with Caffe</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BVLC/caffe/wiki/Using-a-Trained-Network:-Deploy">Using a Trained Network: Deploy</a></li>
 </ul>
 
-      
     </div>
 
     
-
     
-    
-    
-
-    
-
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
-          
-            <a href="/tags/Caffe/" rel="tag"># Caffe</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/09/03/《失控》——从生物演变的角度看未来/" rel="next" title="《失控》——从生物演变的角度看未来">
-                <i class="fa fa-chevron-left"></i> 《失控》——从生物演变的角度看未来
-              </a>
-            
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/Caffe/" rel="tag"># Caffe</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/22/《互联网之子》——互联网将打破知识私有/" rel="prev" title="《互联网之子》——互联网将打破知识私有">
-                《互联网之子》——互联网将打破知识私有 <i class="fa fa-chevron-right"></i>
-              </a>
-            
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/09/03/%E3%80%8A%E5%A4%B1%E6%8E%A7%E3%80%8B%E2%80%94%E2%80%94%E4%BB%8E%E7%94%9F%E7%89%A9%E6%BC%94%E5%8F%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B%E6%9C%AA%E6%9D%A5/" rel="prev" title="《失控》——从生物演变的角度看未来">
+                  <i class="fa fa-chevron-left"></i> 《失控》——从生物演变的角度看未来
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/10/22/%E3%80%8A%E4%BA%92%E8%81%94%E7%BD%91%E4%B9%8B%E5%AD%90%E3%80%8B%E2%80%94%E2%80%94%E4%BA%92%E8%81%94%E7%BD%91%E5%B0%86%E6%89%93%E7%A0%B4%E7%9F%A5%E8%AF%86%E7%A7%81%E6%9C%89/" rel="next" title="《互联网之子》——互联网将打破知识私有">
+                  《互联网之子》——互联网将打破知识私有 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </div>
-      
-
-      
-      
     </footer>
-  </div>
-  
-  
-  
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/covertness_avatar.jpg"
-                alt="无影风随" />
-            
-              <p class="site-author-name" itemprop="name">无影风随</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">64</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">分类</span>
-                  
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">100</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:wuyingfengsui@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  
-                </span>
-              
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习的优势"><span class="nav-number">1.</span> <span class="nav-text">深度学习的优势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人造神经网络的构造"><span class="nav-number">2.</span> <span class="nav-text">人造神经网络的构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过-Docker-获取-Caffe"><span class="nav-number">3.1.</span> <span class="nav-text">通过 Docker 获取 Caffe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-MNIST"><span class="nav-number">3.2.</span> <span class="nav-text">下载 MNIST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进行训练"><span class="nav-number">3.3.</span> <span class="nav-text">进行训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别手写数字的图片"><span class="nav-number">3.4.</span> <span class="nav-text">识别手写数字的图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">无影风随</span>
-
-  
-
-  
 </div>
 
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.4.4</div>
 
 
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+</div>
+  </main>
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
-
-
-
-  <div class="footer-custom"><a id="beian" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19029329号</a><br/><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502003922">粤公网安备44030502003922号</a></div>
+  <footer class="footer">
+    <div class="footer-inner">
 
 
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+<div class="copyright">
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1091,136 +380,12 @@
 
   
 
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            
-            counter.save(null, {
-              success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            
-              var newcounter = new Counter();
-              /* Set ACL */
-              var acl = new AV.ACL();
-              acl.setPublicReadAccess(true);
-              acl.setPublicWriteAccess(true);
-              newcounter.setACL(acl);
-              /* End Set ACL */
-              newcounter.set("title", title);
-              newcounter.set("url", url);
-              newcounter.set("time", 1);
-              newcounter.save(null, {
-                success: function(newcounter) {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-                },
-                error: function(newcounter, error) {
-                  console.log('Failed to create');
-                }
-              });
-            
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz","app_key":"uPOqE5gAVtNSKWAiivVEg0CW","server_url":null,"security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+<script src="/js/third-party/comments/livere.js"></script>
 
 </body>
 </html>

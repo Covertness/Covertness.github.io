@@ -1,433 +1,270 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.covertness.me","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="mask-icon" href="/favicon.ico?v=6.3.0" color="#222">
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '6.3.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。">
-<meta name="keywords" content="IoT,P2P">
+    <meta name="description" content="telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="P2P网络加密通讯协议——telehash">
-<meta property="og:url" content="https://www.covertness.me/2015/08/25/P2P网络加密通讯协议——telehash/index.html">
+<meta property="og:url" content="https://www.covertness.me/2015/08/25/P2P%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94telehash/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.covertness.cn/telehash_mesh-logo-128.png">
-<meta property="og:updated_time" content="2019-06-03T14:27:12.166Z">
+<meta property="article:published_time" content="2015-08-25T13:11:15.000Z">
+<meta property="article:modified_time" content="2019-06-03T14:27:12.166Z">
+<meta property="article:author" content="无影风随">
+<meta property="article:tag" content="IoT">
+<meta property="article:tag" content="P2P">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="P2P网络加密通讯协议——telehash">
-<meta name="twitter:description" content="telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。">
 <meta name="twitter:image" content="https://image.covertness.cn/telehash_mesh-logo-128.png">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
-
+<link rel="canonical" href="https://www.covertness.me/2015/08/25/P2P%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94telehash/">
 
 
 
-  <link rel="canonical" href="https://www.covertness.me/2015/08/25/P2P网络加密通讯协议——telehash/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.covertness.me/2015/08/25/P2P%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94telehash/","path":"2015/08/25/P2P网络加密通讯协议——telehash/","title":"P2P网络加密通讯协议——telehash"}</script>
 
-
-
-<script type="text/javascript" id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>P2P网络加密通讯协议——telehash | 无影风随</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>P2P网络加密通讯协议——telehash | 无影风随</title>
   
 
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116"></script>
 
 
 
 
   <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
-
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
-
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">无影风随</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">无影风随</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-    <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
-    <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-    <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  </ul>
 </nav>
 
 
 
-  
-
-
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">设计理念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">完全的端到端消息加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E7%BB%9D%E5%A4%A7%E5%A4%9A%E6%95%B0%E8%AE%BE%E5%A4%87%E7%BB%88%E7%AB%AF"><span class="nav-number">1.2.</span> <span class="nav-text">支持绝大多数设备终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">去中心化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mesh"><span class="nav-number">2.1.</span> <span class="nav-text">Mesh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Link"><span class="nav-number">2.2.</span> <span class="nav-text">Link</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA-telehash-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">快速搭建一个 telehash 网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-telehash-%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">下载 telehash 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">编码实现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="无影风随"
+      src="/images/covertness_avatar.jpg">
+  <p class="site-author-name" itemprop="name">无影风随</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">100</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wuyingfengsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wuyingfengsui" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyingfengsui@gmail.com" title="E-Mail → mailto:wuyingfengsui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div id="content" class="content">
-            
+    <div class="main-inner post posts-expand">
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
 
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+<div class="post-block">
   
   
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2015/08/25/P2P网络加密通讯协议——telehash/">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2015/08/25/P2P%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94telehash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="无影风随">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/covertness_avatar.jpg">
+      <meta itemprop="name" content="无影风随">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="P2P网络加密通讯协议——telehash | 无影风随">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          P2P网络加密通讯协议——telehash
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-08-25 21:11:15" itemprop="dateCreated datePublished" datetime="2015-08-25T21:11:15+08:00">2015-08-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-06-03 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">2019-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A2%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">探索</span></a>
+        </span>
     </span>
 
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">P2P网络加密通讯协议——telehash
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：8月 25 2015 21:11:15" itemprop="dateCreated datePublished" datetime="2015-08-25T21:11:15+08:00">8月 25 2015</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/探索/" itemprop="url" rel="index"><span itemprop="name">探索</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2015/08/25/P2P网络加密通讯协议——telehash/" class="leancloud_visitors" data-flag-title="P2P网络加密通讯协议——telehash">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+  
+    <span id="/2015/08/25/P2P%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94telehash/" class="post-meta-item leancloud_visitors" data-flag-title="P2P网络加密通讯协议——telehash" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <p><img src="https://image.covertness.cn/telehash_mesh-logo-128.png" alt=""></p>
-<p>telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。<br><a id="more"></a></p>
-<h2 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h2><h3 id="完全的端到端消息加密"><a href="#完全的端到端消息加密" class="headerlink" title="完全的端到端消息加密"></a>完全的端到端消息加密</h3><p>近年来随着网络监控、黑客入侵等信息泄露事件愈发频繁，人们对于个人隐私的保护越来越重视，各种对称/非对称加密手段越来越多地应用于互联网中。 telehash 采用不同于 HTTP 等基于<a href="http://baike.baidu.com/view/268856.htm" target="_blank" rel="noopener">C/S 架构</a>协议的传统加密方式，消息在发送端基于<a href="http://baike.baidu.com/view/444169.htm" target="_blank" rel="noopener">公钥加密算法</a>加密，而后消息只有到达接收端方可解密，确保中转传输过程中消息安全可靠，不会被任何第三者非法获取，因而利用它可以搭建出具有相当安全度的个人私有网络。</p>
-<h3 id="支持绝大多数设备终端"><a href="#支持绝大多数设备终端" class="headerlink" title="支持绝大多数设备终端"></a>支持绝大多数设备终端</h3><p>通过同时兼容 UDP、 TCP、 HTTP 等协议，现有大多数终端都可直接接入 telehash 网络。最近 IBM 已经基于此协议开发出一套物联网系统，详见<a href="http://tech.163.com/15/0123/11/AGL33NQO00094ODU.html" target="_blank" rel="noopener">《IBM联合三星：利用比特币协议打造去中心化的物联网》</a>。</p>
+<p>telehash 是由多位原 XMPP 协议作者设计的下一代 Jabber 网络通讯协议，它拥有去中心化、消息加密、多协议适配、接口简单易用等特点。<br><span id="more"></span></p>
+<h2 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h2><h3 id="完全的端到端消息加密"><a href="#完全的端到端消息加密" class="headerlink" title="完全的端到端消息加密"></a>完全的端到端消息加密</h3><p>近年来随着网络监控、黑客入侵等信息泄露事件愈发频繁，人们对于个人隐私的保护越来越重视，各种对称/非对称加密手段越来越多地应用于互联网中。 telehash 采用不同于 HTTP 等基于<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/268856.htm">C/S 架构</a>协议的传统加密方式，消息在发送端基于<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/444169.htm">公钥加密算法</a>加密，而后消息只有到达接收端方可解密，确保中转传输过程中消息安全可靠，不会被任何第三者非法获取，因而利用它可以搭建出具有相当安全度的个人私有网络。</p>
+<h3 id="支持绝大多数设备终端"><a href="#支持绝大多数设备终端" class="headerlink" title="支持绝大多数设备终端"></a>支持绝大多数设备终端</h3><p>通过同时兼容 UDP、 TCP、 HTTP 等协议，现有大多数终端都可直接接入 telehash 网络。最近 IBM 已经基于此协议开发出一套物联网系统，详见<a target="_blank" rel="noopener" href="http://tech.163.com/15/0123/11/AGL33NQO00094ODU.html">《IBM联合三星：利用比特币协议打造去中心化的物联网》</a>。</p>
 <h3 id="去中心化"><a href="#去中心化" class="headerlink" title="去中心化"></a>去中心化</h3><p>传统 C/S 架构的网络由于信息过多集中于服务器端，造成隐私泄露、信息被窃取的概率大大增加，而且随着数据量日益增大服务端的维护成本也节节攀升。 telehash 基于 P2P 网络设计，网络中每个节点地位完全对等，因而不会造成网络中某个节点不堪重负。</p>
 <h2 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h2><p>一个 telehash 网络中每个节点拥有一个 Mesh ，每个 Mesh 上会有很多 Link ， Link 代表自身节点与其他任一节点的连接。网络中的节点还可以开启路由功能，帮助其他节点转发消息和发现更多节点。</p>
 <h3 id="Mesh"><a href="#Mesh" class="headerlink" title="Mesh"></a>Mesh</h3><p>它是节点的控制中心，管理节点上所有的 Link ，处理其他节点发来的建立 Link 请求。此外它还可以为其他节点寻找更多节点提供帮助。</p>
@@ -435,622 +272,74 @@
 <h2 id="快速搭建一个-telehash-网络"><a href="#快速搭建一个-telehash-网络" class="headerlink" title="快速搭建一个 telehash 网络"></a>快速搭建一个 telehash 网络</h2><p>telehash 已有 C 、 node.js 、 python、 go 等多种语言实现，可以满足大多数应用场景的需求。下面使用 node.js 在本地网络快速搭建一个 telehash 网络。</p>
 <h3 id="下载-telehash-库"><a href="#下载-telehash-库" class="headerlink" title="下载 telehash 库"></a>下载 telehash 库</h3><p>可以使用 <code>npm install telehash</code> 下载安装，也可以使用如下命令从 GitHub 上下载最新的版本：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/telehash/telehash-js.git</span><br></pre></td></tr></table></figure></p>
 <h3 id="编码实现"><a href="#编码实现" class="headerlink" title="编码实现"></a>编码实现</h3><p>这里实现一个拥有3个节点的 telehash 网络，其中一个节点（ 路由 ）用来转发消息，然后另外两个节点通过这个节点转发消息。 node.js 库已经写好了一个实现路由功能节点的代码，可直接通过下面的命令启动：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node telehash/bin/router.js</span><br></pre></td></tr></table></figure></p>
-<p>启动后可以看到屏幕上打印出了这个节点的信息，注意与 <code>router</code> 相关的信息后面会用到，类似下面这些：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router: &#123; <span class="attr">hashname</span>: <span class="string">'325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida'</span>,</span><br><span class="line">  paths: </span><br><span class="line">   [ &#123; <span class="attr">type</span>: <span class="string">'udp4'</span>, <span class="attr">ip</span>: <span class="string">'192.168.1.24'</span>, <span class="attr">port</span>: <span class="number">42424</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">type</span>: <span class="string">'http'</span>, <span class="attr">url</span>: <span class="string">'http://192.168.1.24:62958'</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">type</span>: <span class="string">'tcp4'</span>, <span class="attr">ip</span>: <span class="string">'192.168.1.24'</span>, <span class="attr">port</span>: <span class="number">42424</span> &#125; ],</span><br><span class="line">  keys: </span><br><span class="line">   &#123; <span class="string">'1a'</span>: <span class="string">'ami5lxvrk2x57v56dgabaejqvjnyntpyzi'</span>,</span><br><span class="line">     <span class="string">'2a'</span>: <span class="string">'gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai'</span>,</span><br><span class="line">     <span class="string">'3a'</span>: <span class="string">'nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q'</span> &#125;,</span><br><span class="line">  router: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>这段信息主要包含3个字段： <code>hashname</code> 是这个节点的名字，可以被网络中的其他节点用来查找此节点； <code>paths</code> 是这个节点的一些连接信息，可以看到其他节点可通过 UDP、 TCP 或者 HTTP 与它连接； <code>keys</code> 包含这个节点的公钥信息，为了适用不同的安全级别这里提供了3个公钥，具体使用哪个公钥依节点情况而定，具体的规则可以参考<a href="https://github.com/telehash/telehash.org/tree/master/v3/e3x/cs" target="_blank" rel="noopener">这里</a>。<br>接下来实现第二个节点，它会连上第一个节点并接收其他节点的连接请求，当其他节点发来消息时会打印到屏幕上，实现如下：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> th = <span class="built_in">require</span>(<span class="string">"telehash"</span>);</span><br><span class="line"><span class="keyword">var</span> es = <span class="built_in">require</span>(<span class="string">'event-stream'</span>);</span><br><span class="line"></span><br><span class="line">th.generate(<span class="function"><span class="keyword">function</span>(<span class="params">err, endpoint</span>) </span>&#123;                                   <span class="comment">// 生成节点初始化信息</span></span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">"endpoint generation failed"</span>,err);</span><br><span class="line"></span><br><span class="line">    th.mesh(&#123;                                                           <span class="comment">// 初始化节点</span></span><br><span class="line">        id: endpoint</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, mesh</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">"mesh failed to initialize"</span>, err);</span><br><span class="line"></span><br><span class="line">        mesh.accept = <span class="function"><span class="keyword">function</span>(<span class="params">from</span>)</span>&#123;                                   <span class="comment">// 处理其他节点发来的连接请求</span></span><br><span class="line">            <span class="keyword">var</span> peer_link = mesh.link(<span class="keyword">from</span>);</span><br><span class="line"></span><br><span class="line">            peer_link.status(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'peer disconnected'</span>, err);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'peer connected'</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        mesh.stream(<span class="function"><span class="keyword">function</span>(<span class="params">link, req, accept</span>) </span>&#123;                       <span class="comment">// 处理其他节点发来的数据流</span></span><br><span class="line">            <span class="keyword">var</span> peer_stream = accept();</span><br><span class="line">            peer_stream.pipe(es.writeArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, items</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"peer messages: "</span>, items);</span><br><span class="line">            &#125;));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> router_link = mesh.link(&#123;                                   <span class="comment">// 连接路由节点，输入参数为路由节点启动后打印的那个 JSON 串</span></span><br><span class="line">            hashname: <span class="string">'325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida'</span>,</span><br><span class="line">            paths: [&#123;</span><br><span class="line">                type: <span class="string">'udp4'</span>,</span><br><span class="line">                ip: <span class="string">'192.168.1.24'</span>,</span><br><span class="line">                port: <span class="number">42424</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                type: <span class="string">'http'</span>,</span><br><span class="line">                url: <span class="string">'http://192.168.1.24:62958'</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                type: <span class="string">'tcp4'</span>,</span><br><span class="line">                ip: <span class="string">'192.168.1.24'</span>,</span><br><span class="line">                port: <span class="number">42424</span></span><br><span class="line">            &#125;],</span><br><span class="line">            keys: &#123;</span><br><span class="line">                <span class="string">'1a'</span>: <span class="string">'ami5lxvrk2x57v56dgabaejqvjnyntpyzi'</span>,</span><br><span class="line">                <span class="string">'2a'</span>: <span class="string">'gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai'</span>,</span><br><span class="line">                <span class="string">'3a'</span>: <span class="string">'nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            router: <span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        router_link.status(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'router disconnected'</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'router connected'</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>启动后可以看到屏幕上打印出了这个节点的信息，注意与 <code>router</code> 相关的信息后面会用到，类似下面这些：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">router</span>: &#123; <span class="attr">hashname</span>: <span class="string">&#x27;325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida&#x27;</span>,</span><br><span class="line">  <span class="attr">paths</span>: </span><br><span class="line">   [ &#123; <span class="attr">type</span>: <span class="string">&#x27;udp4&#x27;</span>, <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>, <span class="attr">port</span>: <span class="number">42424</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">type</span>: <span class="string">&#x27;http&#x27;</span>, <span class="attr">url</span>: <span class="string">&#x27;http://192.168.1.24:62958&#x27;</span> &#125;,</span><br><span class="line">     &#123; <span class="attr">type</span>: <span class="string">&#x27;tcp4&#x27;</span>, <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>, <span class="attr">port</span>: <span class="number">42424</span> &#125; ],</span><br><span class="line">  <span class="attr">keys</span>: </span><br><span class="line">   &#123; <span class="string">&#x27;1a&#x27;</span>: <span class="string">&#x27;ami5lxvrk2x57v56dgabaejqvjnyntpyzi&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;2a&#x27;</span>: <span class="string">&#x27;gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai&#x27;</span>,</span><br><span class="line">     <span class="string">&#x27;3a&#x27;</span>: <span class="string">&#x27;nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q&#x27;</span> &#125;,</span><br><span class="line">  <span class="attr">router</span>: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段信息主要包含3个字段： <code>hashname</code> 是这个节点的名字，可以被网络中的其他节点用来查找此节点； <code>paths</code> 是这个节点的一些连接信息，可以看到其他节点可通过 UDP、 TCP 或者 HTTP 与它连接； <code>keys</code> 包含这个节点的公钥信息，为了适用不同的安全级别这里提供了3个公钥，具体使用哪个公钥依节点情况而定，具体的规则可以参考<a target="_blank" rel="noopener" href="https://github.com/telehash/telehash.org/tree/master/v3/e3x/cs">这里</a>。<br>接下来实现第二个节点，它会连上第一个节点并接收其他节点的连接请求，当其他节点发来消息时会打印到屏幕上，实现如下：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> th = <span class="built_in">require</span>(<span class="string">&quot;telehash&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> es = <span class="built_in">require</span>(<span class="string">&#x27;event-stream&#x27;</span>);</span><br><span class="line"></span><br><span class="line">th.<span class="title function_">generate</span>(<span class="keyword">function</span>(<span class="params">err, endpoint</span>) &#123;                                   <span class="comment">// 生成节点初始化信息</span></span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;endpoint generation failed&quot;</span>,err);</span><br><span class="line"></span><br><span class="line">    th.<span class="title function_">mesh</span>(&#123;                                                           <span class="comment">// 初始化节点</span></span><br><span class="line">        <span class="attr">id</span>: endpoint</span><br><span class="line">    &#125;, <span class="keyword">function</span>(<span class="params">err, mesh</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mesh failed to initialize&quot;</span>, err);</span><br><span class="line"></span><br><span class="line">        mesh.<span class="property">accept</span> = <span class="keyword">function</span>(<span class="params"><span class="keyword">from</span></span>)&#123;                                   <span class="comment">// 处理其他节点发来的连接请求</span></span><br><span class="line">            <span class="keyword">var</span> peer_link = mesh.<span class="title function_">link</span>(<span class="keyword">from</span>);</span><br><span class="line"></span><br><span class="line">            peer_link.<span class="title function_">status</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;peer disconnected&#x27;</span>, err);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;peer connected&#x27;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        mesh.<span class="title function_">stream</span>(<span class="keyword">function</span>(<span class="params">link, req, accept</span>) &#123;                       <span class="comment">// 处理其他节点发来的数据流</span></span><br><span class="line">            <span class="keyword">var</span> peer_stream = <span class="title function_">accept</span>();</span><br><span class="line">            peer_stream.<span class="title function_">pipe</span>(es.<span class="title function_">writeArray</span>(<span class="keyword">function</span>(<span class="params">err, items</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;peer messages: &quot;</span>, items);</span><br><span class="line">            &#125;));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> router_link = mesh.<span class="title function_">link</span>(&#123;                                   <span class="comment">// 连接路由节点，输入参数为路由节点启动后打印的那个 JSON 串</span></span><br><span class="line">            <span class="attr">hashname</span>: <span class="string">&#x27;325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida&#x27;</span>,</span><br><span class="line">            <span class="attr">paths</span>: [&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;udp4&#x27;</span>,</span><br><span class="line">                <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>,</span><br><span class="line">                <span class="attr">port</span>: <span class="number">42424</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;http&#x27;</span>,</span><br><span class="line">                <span class="attr">url</span>: <span class="string">&#x27;http://192.168.1.24:62958&#x27;</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;tcp4&#x27;</span>,</span><br><span class="line">                <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>,</span><br><span class="line">                <span class="attr">port</span>: <span class="number">42424</span></span><br><span class="line">            &#125;],</span><br><span class="line">            <span class="attr">keys</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;1a&#x27;</span>: <span class="string">&#x27;ami5lxvrk2x57v56dgabaejqvjnyntpyzi&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;2a&#x27;</span>: <span class="string">&#x27;gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;3a&#x27;</span>: <span class="string">&#x27;nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">router</span>: <span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        router_link.<span class="title function_">status</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;router disconnected&#x27;</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;router connected&#x27;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>在一个新的窗口启动这个节点，稍后会看到此节点的名称（ <code>hashname</code> ），如下所示：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">generated <span class="keyword">new</span> id wassrhxpyb4tj67qgt6ih3cukky6qsqw6l6xlzsnmmyyw22a2aja <span class="comment">// 这段 hash 串即为 hashname</span></span><br></pre></td></tr></table></figure></p>
-<p>最后实现一个节点来向刚才的节点发送消息，可以将上面第二个节点的代码复制一份，然后只需要在路由节点连接成功的回调函数中加上连接第二个节点的代码即可，下面是完整代码：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> th = <span class="built_in">require</span>(<span class="string">"telehash"</span>);</span><br><span class="line"><span class="keyword">var</span> es = <span class="built_in">require</span>(<span class="string">'event-stream'</span>);</span><br><span class="line"></span><br><span class="line">th.generate(<span class="function"><span class="keyword">function</span>(<span class="params">err, endpoint</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">"endpoint generation failed"</span>,err);</span><br><span class="line"></span><br><span class="line">    th.mesh(&#123;</span><br><span class="line">        id: endpoint</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, mesh</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">"mesh failed to initialize"</span>, err);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> router_link = mesh.link(&#123;                                   <span class="comment">// 连接路由节点，输入参数为路由节点启动后打印的那个 JSON 串</span></span><br><span class="line">            hashname: <span class="string">'325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida'</span>,</span><br><span class="line">            paths: [&#123;</span><br><span class="line">                type: <span class="string">'udp4'</span>,</span><br><span class="line">                ip: <span class="string">'192.168.1.24'</span>,</span><br><span class="line">                port: <span class="number">42424</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                type: <span class="string">'http'</span>,</span><br><span class="line">                url: <span class="string">'http://192.168.1.24:62958'</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                type: <span class="string">'tcp4'</span>,</span><br><span class="line">                ip: <span class="string">'192.168.1.24'</span>,</span><br><span class="line">                port: <span class="number">42424</span></span><br><span class="line">            &#125;],</span><br><span class="line">            keys: &#123;</span><br><span class="line">                <span class="string">'1a'</span>: <span class="string">'ami5lxvrk2x57v56dgabaejqvjnyntpyzi'</span>,</span><br><span class="line">                <span class="string">'2a'</span>: <span class="string">'gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai'</span>,</span><br><span class="line">                <span class="string">'3a'</span>: <span class="string">'nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            router: <span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        router_link.status(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'router disconnected'</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'router connected'</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 连接第二个节点，输入参数为第二个节点的 hashname</span></span><br><span class="line">            <span class="keyword">var</span> peer_link = mesh.link(<span class="string">'wassrhxpyb4tj67qgt6ih3cukky6qsqw6l6xlzsnmmyyw22a2aja'</span>);</span><br><span class="line"></span><br><span class="line">            peer_link.status(<span class="function"><span class="keyword">function</span>(<span class="params">err2</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (err2) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'peer disconnected'</span>, err2);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'peer connected'</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> peer_stream = peer_link.stream();</span><br><span class="line">                es.readArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]).pipe(peer_stream);       <span class="comment">// 向第二个节点发送一个数组 [1, 2, 3]</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>同样新打开一个窗口来启动这个节点，然后查看第二个节点所在的窗口，等待片刻便能看到新启动的节点发给它的消息，如下所示：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">peer messages:  [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]</span><br></pre></td></tr></table></figure></p>
+<p>最后实现一个节点来向刚才的节点发送消息，可以将上面第二个节点的代码复制一份，然后只需要在路由节点连接成功的回调函数中加上连接第二个节点的代码即可，下面是完整代码：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> th = <span class="built_in">require</span>(<span class="string">&quot;telehash&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> es = <span class="built_in">require</span>(<span class="string">&#x27;event-stream&#x27;</span>);</span><br><span class="line"></span><br><span class="line">th.<span class="title function_">generate</span>(<span class="keyword">function</span>(<span class="params">err, endpoint</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;endpoint generation failed&quot;</span>,err);</span><br><span class="line"></span><br><span class="line">    th.<span class="title function_">mesh</span>(&#123;</span><br><span class="line">        <span class="attr">id</span>: endpoint</span><br><span class="line">    &#125;, <span class="keyword">function</span>(<span class="params">err, mesh</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mesh failed to initialize&quot;</span>, err);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> router_link = mesh.<span class="title function_">link</span>(&#123;                                   <span class="comment">// 连接路由节点，输入参数为路由节点启动后打印的那个 JSON 串</span></span><br><span class="line">            <span class="attr">hashname</span>: <span class="string">&#x27;325mkv4v34onuusttfz3aeela4wjkj3lesvfmr4loefmg4fbfida&#x27;</span>,</span><br><span class="line">            <span class="attr">paths</span>: [&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;udp4&#x27;</span>,</span><br><span class="line">                <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>,</span><br><span class="line">                <span class="attr">port</span>: <span class="number">42424</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;http&#x27;</span>,</span><br><span class="line">                <span class="attr">url</span>: <span class="string">&#x27;http://192.168.1.24:62958&#x27;</span></span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;tcp4&#x27;</span>,</span><br><span class="line">                <span class="attr">ip</span>: <span class="string">&#x27;192.168.1.24&#x27;</span>,</span><br><span class="line">                <span class="attr">port</span>: <span class="number">42424</span></span><br><span class="line">            &#125;],</span><br><span class="line">            <span class="attr">keys</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;1a&#x27;</span>: <span class="string">&#x27;ami5lxvrk2x57v56dgabaejqvjnyntpyzi&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;2a&#x27;</span>: <span class="string">&#x27;gcbacirqbudaskugjcdpodibaeaqkaadqiaq6abqqiaquaucaeaqbke3xpthucop55fpq2qtz7wq6ouaeeizanewi3notl55onhs74wsrsyq6hcw3dm53dfaltj4rs22veqbe32nrslgwluoo3gjm2jplwzchmujg3tmcyblq7avv75uskpd6bdw362e7csw4tmafel2sws5k2efyeywlytnlpl3xcmadxuliyhxezl5ad6rpzlqy75uulochkujtgqt4auknxibz5j2o6gpx5uoy4pk6xncliahh7aemz3pufoetgzj2w4u464mkpiaudsmoqbnt3rpm3iddatjg6rzu62z4jdopowuxqrigyhzmcby5pmticobdxr2y7v7suiendzmkjsiaroqz75fizlqgzo77ovqsf2kyejikk4dv2tvmetsxuuitzi3dwqeevadhgfhkqhdbnycamaqaai&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;3a&#x27;</span>: <span class="string">&#x27;nwqd2nv4trvjcoemhjrgb6nq3urh5542jt54dm5geboc4umggi2q&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">router</span>: <span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        router_link.<span class="title function_">status</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;router disconnected&#x27;</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;router connected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 连接第二个节点，输入参数为第二个节点的 hashname</span></span><br><span class="line">            <span class="keyword">var</span> peer_link = mesh.<span class="title function_">link</span>(<span class="string">&#x27;wassrhxpyb4tj67qgt6ih3cukky6qsqw6l6xlzsnmmyyw22a2aja&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            peer_link.<span class="title function_">status</span>(<span class="keyword">function</span>(<span class="params">err2</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (err2) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;peer disconnected&#x27;</span>, err2);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;peer connected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> peer_stream = peer_link.<span class="title function_">stream</span>();</span><br><span class="line">                es.<span class="title function_">readArray</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]).<span class="title function_">pipe</span>(peer_stream);       <span class="comment">// 向第二个节点发送一个数组 [1, 2, 3]</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>同样新打开一个窗口来启动这个节点，然后查看第二个节点所在的窗口，等待片刻便能看到新启动的节点发给它的消息，如下所示：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">peer <span class="attr">messages</span>:  [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]</span><br></pre></td></tr></table></figure></p>
 <p>这样便搭建好了一个拥有3个节点的 telehash 网络，网络中的所有通讯完全加密，比如最后一个节点发出的那个数组，仅有第二个节点可以接收解密出数组的内容，而转发消息的路由节点仅能看到一堆加密的乱码。</p>
-<p>可以想象将来结合最新的<a href="https://www.docker.com" target="_blank" rel="noopener">容器（ docker ）技术</a>仅需要配置几个参数就可搭建出一个 telehash 网络，相信随着人们对于隐私保护的日益重视以及物联网的发展这项技术会得到越来越广泛的使用。</p>
+<p>可以想象将来结合最新的<a target="_blank" rel="noopener" href="https://www.docker.com">容器（ docker ）技术</a>仅需要配置几个参数就可搭建出一个 telehash 网络，相信随着人们对于隐私保护的日益重视以及物联网的发展这项技术会得到越来越广泛的使用。</p>
 
-      
     </div>
 
     
-
     
-    
-    
-
-    
-
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/IoT/" rel="tag"># IoT</a>
-          
-            <a href="/tags/P2P/" rel="tag"># P2P</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/08/22/《无法避免的战争》——战争真的无法避免吗/" rel="next" title="《无法避免的战争》——战争真的无法避免吗">
-                <i class="fa fa-chevron-left"></i> 《无法避免的战争》——战争真的无法避免吗
-              </a>
-            
+          <div class="post-tags">
+              <a href="/tags/IoT/" rel="tag"># IoT</a>
+              <a href="/tags/P2P/" rel="tag"># P2P</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/09/04/《伊甸湖》——孩子是社会的一面镜子/" rel="prev" title="《伊甸湖》——孩子是社会的一面镜子">
-                《伊甸湖》——孩子是社会的一面镜子 <i class="fa fa-chevron-right"></i>
-              </a>
-            
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/08/22/%E3%80%8A%E6%97%A0%E6%B3%95%E9%81%BF%E5%85%8D%E7%9A%84%E6%88%98%E4%BA%89%E3%80%8B%E2%80%94%E2%80%94%E6%88%98%E4%BA%89%E7%9C%9F%E7%9A%84%E6%97%A0%E6%B3%95%E9%81%BF%E5%85%8D%E5%90%97/" rel="prev" title="《无法避免的战争》——战争真的无法避免吗">
+                  <i class="fa fa-chevron-left"></i> 《无法避免的战争》——战争真的无法避免吗
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2015/09/04/%E3%80%8A%E4%BC%8A%E7%94%B8%E6%B9%96%E3%80%8B%E2%80%94%E2%80%94%E5%AD%A9%E5%AD%90%E6%98%AF%E7%A4%BE%E4%BC%9A%E7%9A%84%E4%B8%80%E9%9D%A2%E9%95%9C%E5%AD%90/" rel="next" title="《伊甸湖》——孩子是社会的一面镜子">
+                  《伊甸湖》——孩子是社会的一面镜子 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </div>
-      
-
-      
-      
     </footer>
-  </div>
-  
-  
-  
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/covertness_avatar.jpg"
-                alt="无影风随" />
-            
-              <p class="site-author-name" itemprop="name">无影风随</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">64</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">分类</span>
-                  
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">100</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:wuyingfengsui@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  
-                </span>
-              
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计理念"><span class="nav-number">1.</span> <span class="nav-text">设计理念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完全的端到端消息加密"><span class="nav-number">1.1.</span> <span class="nav-text">完全的端到端消息加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持绝大多数设备终端"><span class="nav-number">1.2.</span> <span class="nav-text">支持绝大多数设备终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去中心化"><span class="nav-number">1.3.</span> <span class="nav-text">去中心化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络架构"><span class="nav-number">2.</span> <span class="nav-text">网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mesh"><span class="nav-number">2.1.</span> <span class="nav-text">Mesh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Link"><span class="nav-number">2.2.</span> <span class="nav-text">Link</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速搭建一个-telehash-网络"><span class="nav-number">3.</span> <span class="nav-text">快速搭建一个 telehash 网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-telehash-库"><span class="nav-number">3.1.</span> <span class="nav-text">下载 telehash 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码实现"><span class="nav-number">3.2.</span> <span class="nav-text">编码实现</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">无影风随</span>
-
-  
-
-  
 </div>
 
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.4.4</div>
 
 
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+</div>
+  </main>
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
-
-
-
-  <div class="footer-custom"><a id="beian" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19029329号</a><br/><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502003922">粤公网安备44030502003922号</a></div>
+  <footer class="footer">
+    <div class="footer-inner">
 
 
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+<div class="copyright">
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1060,136 +349,12 @@
 
   
 
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            
-            counter.save(null, {
-              success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            
-              var newcounter = new Counter();
-              /* Set ACL */
-              var acl = new AV.ACL();
-              acl.setPublicReadAccess(true);
-              acl.setPublicWriteAccess(true);
-              newcounter.setACL(acl);
-              /* End Set ACL */
-              newcounter.set("title", title);
-              newcounter.set("url", url);
-              newcounter.set("time", 1);
-              newcounter.save(null, {
-                success: function(newcounter) {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-                },
-                error: function(newcounter, error) {
-                  console.log('Failed to create');
-                }
-              });
-            
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz","app_key":"uPOqE5gAVtNSKWAiivVEg0CW","server_url":null,"security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+<script src="/js/third-party/comments/livere.js"></script>
 
 </body>
 </html>

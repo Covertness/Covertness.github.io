@@ -1,1059 +1,348 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.covertness.me","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=6.3.0">
-
-
-  <link rel="mask-icon" href="/favicon.ico?v=6.3.0" color="#222">
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '6.3.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
-<meta name="keywords" content="Rust,异步IO">
+    <meta name="description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust学习记录——异步IO与高并发">
-<meta property="og:url" content="https://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/index.html">
+<meta property="og:url" content="https://www.covertness.me/2016/08/28/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%BC%82%E6%AD%A5IO%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/index.html">
 <meta property="og:site_name" content="无影风随">
 <meta property="og:description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.covertness.cn/yibuioyugaobingfa_maxresdefault.jpg">
 <meta property="og:image" content="https://image.covertness.cn/yibuioyugaobingfa_thread_pool.png">
 <meta property="og:image" content="https://image.covertness.cn/yibuioyugaobingfa_msg_queue.png">
-<meta property="og:updated_time" content="2019-06-03T14:27:12.179Z">
+<meta property="article:published_time" content="2016-08-28T06:42:34.000Z">
+<meta property="article:modified_time" content="2019-06-03T14:27:12.179Z">
+<meta property="article:author" content="无影风随">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="异步IO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rust学习记录——异步IO与高并发">
-<meta name="twitter:description" content="在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。">
 <meta name="twitter:image" content="https://image.covertness.cn/yibuioyugaobingfa_maxresdefault.jpg">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="无影风随" type="application/atom+xml" />
-
+<link rel="canonical" href="https://www.covertness.me/2016/08/28/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%BC%82%E6%AD%A5IO%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/">
 
 
 
-  <link rel="canonical" href="https://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.covertness.me/2016/08/28/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%BC%82%E6%AD%A5IO%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/","path":"2016/08/28/Rust学习记录——异步IO与高并发/","title":"Rust学习记录——异步IO与高并发"}</script>
 
-
-
-<script type="text/javascript" id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>Rust学习记录——异步IO与高并发 | 无影风随</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Rust学习记录——异步IO与高并发 | 无影风随</title>
   
 
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?cbda4f399e81cfa6bc198a6b04182116"></script>
 
 
 
 
   <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
-
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
-
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">无影风随</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">无影风随</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-    <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
-    <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-    <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+  </ul>
 </nav>
 
 
 
-  
-
-
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%BC%82%E6%AD%A5-IO"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用异步 IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5-IO-%E7%9A%84%E5%BC%8A%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">异步 IO 的弊端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rust-%E7%9A%84%E5%BC%82%E6%AD%A5-IO"><span class="nav-number">3.</span> <span class="nav-text">Rust 的异步 IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5-IO-%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">4.</span> <span class="nav-text">异步 IO 中常见的设计思路</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="无影风随"
+      src="/images/covertness_avatar.jpg">
+  <p class="site-author-name" itemprop="name">无影风随</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">100</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wuyingfengsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wuyingfengsui" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wuyingfengsui@gmail.com" title="E-Mail → mailto:wuyingfengsui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div id="content" class="content">
-            
+    <div class="main-inner post posts-expand">
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
 
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+<div class="post-block">
   
   
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2016/08/28/Rust学习记录——异步IO与高并发/">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.covertness.me/2016/08/28/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%BC%82%E6%AD%A5IO%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="无影风随">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/covertness_avatar.jpg">
+      <meta itemprop="name" content="无影风随">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="无影风随">
+      <meta itemprop="description" content="">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Rust学习记录——异步IO与高并发 | 无影风随">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rust学习记录——异步IO与高并发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-08-28 14:42:34" itemprop="dateCreated datePublished" datetime="2016-08-28T14:42:34+08:00">2016-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-06-03 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">2019-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">学习记录</span></a>
+        </span>
     </span>
 
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Rust学习记录——异步IO与高并发
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：8月 28 2016 14:42:34" itemprop="dateCreated datePublished" datetime="2016-08-28T14:42:34+08:00">8月 28 2016</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：6月 3 2019 22:27:12" itemprop="dateModified" datetime="2019-06-03T22:27:12+08:00">6月 3 2019</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习记录/" itemprop="url" rel="index"><span itemprop="name">学习记录</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/08/28/Rust学习记录——异步IO与高并发/" class="leancloud_visitors" data-flag-title="Rust学习记录——异步IO与高并发">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+  
+    <span id="/2016/08/28/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%BC%82%E6%AD%A5IO%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/" class="post-meta-item leancloud_visitors" data-flag-title="Rust学习记录——异步IO与高并发" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <p><img src="https://image.covertness.cn/yibuioyugaobingfa_maxresdefault.jpg" alt=""></p>
 <p>在 IO 密集的程序中，同步 IO 往往成为程序性能提升的瓶颈，普遍的解决方法是将 IO 异步化，但异步化后的程序代码因逻辑被打散而变得凌乱，反过来降低了程序的开发效率。目前 Rust 的标准库并无对异步 IO 的支持，不过社区已经出现了一些基本完善的解决方案，结合 Rust 语言自身的优势势必可以降低异步 IO 程序的开发难度。</p>
-<a id="more"></a>
-<h2 id="为什么要使用异步-IO"><a href="#为什么要使用异步-IO" class="headerlink" title="为什么要使用异步 IO"></a>为什么要使用异步 IO</h2><p>关于使用 Rust 语言编写基本的并发程序，<a href="http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/" target="_blank" rel="noopener">之前的博客</a>已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。</p>
+<span id="more"></span>
+<h2 id="为什么要使用异步-IO"><a href="#为什么要使用异步-IO" class="headerlink" title="为什么要使用异步 IO"></a>为什么要使用异步 IO</h2><p>关于使用 Rust 语言编写基本的并发程序，<a target="_blank" rel="noopener" href="http://covertness.me/2015/05/30/Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E2%80%94%E2%80%94%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%90%8C%E6%AD%A5/">之前的博客</a>已有介绍，这种并发方式在一些简单的场景中确实能够提高程序的运行效率，但当遇到高密度的 IO 时其性能便会大打折扣，这类场景在 Web 应用中尤其常见。下图是一个简单的 HTTP 服务器模型，它的功能就是将本地文件通过 HTTP 协议发送给请求者。</p>
 <p><img src="https://image.covertness.cn/yibuioyugaobingfa_thread_pool.png" alt=""></p>
 <p>从图中可以看到服务器收到请求后会将它传递给一个工作线程，工作线程对请求进行解析后从磁盘中读取相应的文件然后返回给请求方。设想同时有1千个请求传入，此时则需要同时有1千个线程进行处理，这1千个线程将会几乎同时的请求磁盘，而磁盘在没有缓存的情况下只能依次顺序地处理请求，这就意味着大多数请求将被阻塞，此时这1千个线程将会占用掉系统的很大一部分资源而无所作为，服务器资源被严重浪费。</p>
 <p>从上面的例子可以看出是因为磁盘只能串行处理请求而导致大部分线程阻塞，其实不光磁盘 IO ，基于冯·诺依曼结构的计算机中几乎所有的 IO 都有相似的设计。试想如果线程在请求磁盘后无需等待而继续处理其它请求，数据从磁盘中取出后会主动通知线程，这样的话同样处理1千个请求就不再需要1千个线程（因为 IO 是串行的），线程数降低后服务器便有资源处理更多的请求，这样的解决方法就叫做异步 IO ，它是目前编写高并发程序普遍采用的一种方法，大家熟悉的 Nginx 、 Redis 、 Node.js 等很多高性能程序都是基于异步 IO 实现的。</p>
 <h2 id="异步-IO-的弊端"><a href="#异步-IO-的弊端" class="headerlink" title="异步 IO 的弊端"></a>异步 IO 的弊端</h2><p>异步 IO 虽然能够解决同步 IO 带来的性能下降的问题，但它同时也引入了新的问题。几乎所有的编程语言都是顺序执行的，因为这符合人类思考问题的方式，然而异步 IO 却将请求和结果完全割裂开来，甚至导致请求的逻辑与结果的逻辑完全处于不同的上下文当中，这给编写程序造成了极大的困难，尤其是一些逻辑较为复杂需要进行多次 IO 的程序，同时也不易于阅读，项目难以维护。近年来类似 Node.js 这类的新兴语言通过闭包的特性部分地缓解了异步 IO 的这一缺陷，然而依旧存在代码比较凌乱的状况，为了解决这一难题人们想出了很多解决方法，比如 <code>Promise</code> 、 <code>await</code> 、 <code>Future</code> 等。 Rust 官方虽然还未推出正式的异步 IO 方法，但社区已经实现了一套相对完整的方案。</p>
 <h2 id="Rust-的异步-IO"><a href="#Rust-的异步-IO" class="headerlink" title="Rust 的异步 IO"></a>Rust 的异步 IO</h2><p>目前 Rust 社区涉及异步 IO 的项目主要是如下三个：</p>
 <ul>
-<li><a href="https://github.com/carllerche/mio" target="_blank" rel="noopener">mio</a> 对主流 OS 异步 IO 的封装，现在已支持 Linux 、 OS X 、 Windows 、 Android 、 NetBSD</li>
-<li><a href="https://github.com/alexcrichton/futures-rs" target="_blank" rel="noopener">futures-rs</a> 对异步 IO Future 模型的支持</li>
-<li><a href="https://github.com/tokio-rs/tokio-proto" target="_blank" rel="noopener">tokio-rs</a> 基于上面两个项目的通用型网络应用框架</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/carllerche/mio">mio</a> 对主流 OS 异步 IO 的封装，现在已支持 Linux 、 OS X 、 Windows 、 Android 、 NetBSD</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/alexcrichton/futures-rs">futures-rs</a> 对异步 IO Future 模型的支持</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tokio-rs/tokio-proto">tokio-rs</a> 基于上面两个项目的通用型网络应用框架</li>
 </ul>
-<p>如果想了解 mio 的使用方法，也可以看我之前基于 mio 实现的 <a href="https://github.com/Covertness/coap-rs" target="_blank" rel="noopener">CoAP 协议库</a>。</p>
+<p>如果想了解 mio 的使用方法，也可以看我之前基于 mio 实现的 <a target="_blank" rel="noopener" href="https://github.com/Covertness/coap-rs">CoAP 协议库</a>。</p>
 <h2 id="异步-IO-中常见的设计思路"><a href="#异步-IO-中常见的设计思路" class="headerlink" title="异步 IO 中常见的设计思路"></a>异步 IO 中常见的设计思路</h2><p>由于异步 IO 将请求与响应进行了分离，需要将请求和响应在内存中进行缓存（一般通过队列实现）以等待 IO 可用时进行实质的请求或将取得的响应对应到原来的请求方，如下图所示。</p>
 <p><img src="https://image.covertness.cn/yibuioyugaobingfa_msg_queue.png" alt=""></p>
 <p>上图是一个简单的先写后读的逻辑流程图，首先是注册一次可写事件然后将请求体放入 in 队列（步骤1、2），然后当可写事件到来时便可将 in 队列中的请求体写入 IO 的端口，并同时在 out 队列中构造一个等待状态的响应体（步骤3、4），接着注册一次可读事件（步骤5），最后当可读事件到来时便可获得真实的响应体，在 out 队列中匹配到对应的信息后即获得了一个完整的响应体及其对应的请求信息（步骤6、7）。</p>
 <p>从上面的例子中可见异步 IO 的复杂性，需要将原来同步 IO 的一写一读分解为七个步骤完成。总而言之异步 IO 虽然提高了程序的效率，但却加大了开发的难度，同步与异步孰优孰劣最终还是要考虑实际场景，因地制宜。</p>
 
-      
     </div>
 
     
-
     
-    
-    
-
-    
-
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Rust/" rel="tag"># Rust</a>
-          
-            <a href="/tags/异步IO/" rel="tag"># 异步IO</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/07/让系统终端通过ShadowSocks代理上网/" rel="next" title="让系统终端通过ShadowSocks代理上网">
-                <i class="fa fa-chevron-left"></i> 让系统终端通过ShadowSocks代理上网
-              </a>
-            
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
+              <a href="/tags/%E5%BC%82%E6%AD%A5IO/" rel="tag"># 异步IO</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/03/《失控》——从生物演变的角度看未来/" rel="prev" title="《失控》——从生物演变的角度看未来">
-                《失控》——从生物演变的角度看未来 <i class="fa fa-chevron-right"></i>
-              </a>
-            
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/06/07/%E8%AE%A9%E7%B3%BB%E7%BB%9F%E7%BB%88%E7%AB%AF%E9%80%9A%E8%BF%87ShadowSocks%E4%BB%A3%E7%90%86%E4%B8%8A%E7%BD%91/" rel="prev" title="让系统终端通过ShadowSocks代理上网">
+                  <i class="fa fa-chevron-left"></i> 让系统终端通过ShadowSocks代理上网
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/09/03/%E3%80%8A%E5%A4%B1%E6%8E%A7%E3%80%8B%E2%80%94%E2%80%94%E4%BB%8E%E7%94%9F%E7%89%A9%E6%BC%94%E5%8F%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8B%E6%9C%AA%E6%9D%A5/" rel="next" title="《失控》——从生物演变的角度看未来">
+                  《失控》——从生物演变的角度看未来 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </div>
-      
-
-      
-      
     </footer>
-  </div>
-  
-  
-  
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/covertness_avatar.jpg"
-                alt="无影风随" />
-            
-              <p class="site-author-name" itemprop="name">无影风随</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">64</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">分类</span>
-                  
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">100</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  <a href="https://github.com/wuyingfengsui" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                  
-                </span>
-              
-                <span class="links-of-author-item">
-                  <a href="mailto:wuyingfengsui@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  
-                </span>
-              
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用异步-IO"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用异步 IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-IO-的弊端"><span class="nav-number">2.</span> <span class="nav-text">异步 IO 的弊端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rust-的异步-IO"><span class="nav-number">3.</span> <span class="nav-text">Rust 的异步 IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-IO-中常见的设计思路"><span class="nav-number">4.</span> <span class="nav-text">异步 IO 中常见的设计思路</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">无影风随</span>
-
-  
-
-  
 </div>
 
 
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.4.4</div>
 
 
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yODI0MC80ODEy"></div>
+</div>
+  </main>
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
-
-
-
-  <div class="footer-custom"><a id="beian" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备19029329号</a><br/><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502003922">粤公网安备44030502003922号</a></div>
+  <footer class="footer">
+    <div class="footer-inner">
 
 
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+<div class="copyright">
+  &copy; 2014 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无影风随</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+  </footer>
 
   
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
-
-
-
-  
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -1063,136 +352,12 @@
 
   
 
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz", "uPOqE5gAVtNSKWAiivVEg0CW");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            
-            counter.save(null, {
-              success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            
-              var newcounter = new Counter();
-              /* Set ACL */
-              var acl = new AV.ACL();
-              acl.setPublicReadAccess(true);
-              acl.setPublicWriteAccess(true);
-              newcounter.setACL(acl);
-              /* End Set ACL */
-              newcounter.set("title", title);
-              newcounter.set("url", url);
-              newcounter.set("time", 1);
-              newcounter.save(null, {
-                success: function(newcounter) {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-                },
-                error: function(newcounter, error) {
-                  console.log('Failed to create');
-                }
-              });
-            
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"D3lN62TaPdXgbqeFWpmmGpGD-gzGzoHsz","app_key":"uPOqE5gAVtNSKWAiivVEg0CW","server_url":null,"security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+<script src="/js/third-party/comments/livere.js"></script>
 
 </body>
 </html>
